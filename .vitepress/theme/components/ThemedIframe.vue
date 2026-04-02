@@ -97,11 +97,11 @@ watch(theme, (mode) => {
 .themed-iframe__toolbar {
   display: inline-flex;
   gap: 0.25rem;
-  padding: 0.25rem;
+  padding: 0.1rem;
   border: 1px solid var(--vp-c-divider);
   border-radius: 999px;
   background: var(--vp-c-bg-soft);
-
+  position: relative;
   anchor-name: --toolbar;
 }
 
@@ -127,7 +127,7 @@ watch(theme, (mode) => {
   z-index: 1;
   border: 0;
   border-radius: 999px;
-  padding: 0.45rem 0.8rem;
+  padding: 0.25rem 0.75rem;
   background: transparent;
   color: var(--vp-c-text-2);
   font: inherit;
@@ -137,5 +137,6 @@ watch(theme, (mode) => {
 
 .themed-iframe__toggle.is-active {
   anchor-name: --toolbar;
+  color: var(--vp-c-brand-2);
 }
 </style>

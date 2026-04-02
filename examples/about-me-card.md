@@ -18,7 +18,7 @@ You can now build this UI with plain files instead of Vue.
 - Write JS in `public/ui-view/about-me-card/script.js`
 - Show it in markdown with an iframe like `src="/ui-view/about-me-card/"`
 
-```md
+```html
 <iframe
   src="/ui-view/about-me-card/"
   title="About me card demo"

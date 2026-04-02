@@ -18,13 +18,14 @@ export default defineConfig({
           { text: 'About Me Card', link: '/examples/about-me-card' },
           { text: 'Color Picker', link: '/examples/color-picker' },
           { text: 'Fan List', link: '/examples/fan-list' },
+          { text: 'Fancy Nav', link: '/examples/fancy-nav' },
           { text: 'Markdown Examples', link: '/examples/markdown-examples' },
         ]
       },
       {
-        text: 'Other',
+        text: 'Notebook',
         items: [
-          { text: 'Runtime API Examples', link: '/api-examples' }
+          { text: 'Anchor Name', link: '/notebook/anchor-name' }
         ]
       }
     ],

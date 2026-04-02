@@ -30,6 +30,7 @@
 
   display: grid;
   place-content: center;
+  background-color: Canvas;
 }
 
 :where(.spacer) {
