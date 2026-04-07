@@ -19,7 +19,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--surface);
+  background-color: Canvas;
 }
 
 :where(h1,h2,h3,h4,h5,button,ul,ol,li,input,p) {

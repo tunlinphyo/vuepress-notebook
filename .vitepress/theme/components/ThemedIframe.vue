@@ -108,6 +108,7 @@ watch(layerEnabled, (enabled) => {
   display: grid;
   gap: 0.75rem;
   justify-items: center;
+  margin-block: 2rem;
 
   --ease-spring-3: linear(
     0, 0.009, 0.035 2.1%, 0.141 4.4%, 0.723 12.9%, 0.938 16.7%, 1.017, 1.077,

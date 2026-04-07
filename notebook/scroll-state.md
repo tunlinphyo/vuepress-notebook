@@ -1,5 +1,7 @@
 # scroll-state()
 
+----
+
 <baseline-status featureId="scroll-state()"></baseline-status>
 
 ## scroll-state(stuck: top)
@@ -11,7 +13,7 @@
   height="24rem"
 />
 
-```css{2}
+```css{5,}
 :where(.sticky-title) {
   position: sticky;
   z-index: 1;
