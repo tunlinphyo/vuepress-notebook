@@ -1,6 +1,6 @@
 import { useSSRContext, unref } from "vue";
 import { ssrRenderAttrs, ssrRenderStyle, ssrInterpolate } from "vue/server-renderer";
-import { u as useData } from "./Content.xciXAUeu.js";
+import { u as useData } from "./Content.BI877RCo.js";
 import "@vueuse/core";
 const __pageData = JSON.parse('{"title":"Runtime API Examples","description":"","frontmatter":{"outline":"deep"},"headers":[],"relativePath":"api-examples.md","filePath":"api-examples.md"}');
 const __default__ = { name: "api-examples.md" };

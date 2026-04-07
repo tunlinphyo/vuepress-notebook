@@ -4,6 +4,13 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "Coder's Notebook",
   description: "A VitePress Site",
+  vue: {
+    template: {
+      compilerOptions: {
+        isCustomElement: (tag: string) => tag === 'baseline-status',
+      },
+    },
+  },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     // nav: [
@@ -26,6 +33,7 @@ export default defineConfig({
         text: 'Notebook',
         items: [
           { text: 'Anchor Name', link: '/notebook/anchor-name' },
+          { text: 'scroll-state()', link: '/notebook/scroll-state' },
           { text: 'Wheel Select', link: '/notebook/wheel-select' },
         ]
       }

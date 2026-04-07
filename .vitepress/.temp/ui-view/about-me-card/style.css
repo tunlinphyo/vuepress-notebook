@@ -1,212 +1,335 @@
 :root {
-  color-scheme: light;
-  --card-bg: linear-gradient(135deg, #dbeafe, #f8fafc 55%, #cffafe);
-  --card-text: #0f172a;
-  --card-muted: #334155;
-  --card-primary: #2563eb;
-  --card-accent: #0891b2;
+  color-scheme: light dark;
+
+  font-family: "Google Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 100%;
 }
 
 * {
   box-sizing: border-box;
 }
 
-html,
-body {
+:where(h1,h2,h3,h4,h5,button,ul,ol,li,input,p) {
+  all: unset;
+}
+:where(button) {
+  cursor: pointer;
+}
+:where(h1,h2,h3,h4,h5,p) {
+  display: block;
+}
+
+:where(html, body) {
   margin: 0;
-  min-height: 100%;
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: transparent;
-}
+  padding: 0;
+  width: 100%;
+  height: 100%;
 
-body {
-  padding: 16px;
-}
-
-.about-card {
   display: grid;
-  place-items: center;
+  place-content: center;
+  background-color: Canvas;
 }
 
-.about-card__surface {
-  position: relative;
-  width: min(100%, 388px);
-  min-height: 398px;
-  overflow: hidden;
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  border-radius: 28px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.94)),
-    url("https://tun-online.web.app/tunlinphyo.png") bottom center / auto 82% no-repeat,
-    var(--card-bg);
-  box-shadow:
-    0 22px 55px rgba(15, 23, 42, 0.14),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
-}
-
-.about-card__content,
-.about-card__panel {
-  min-height: 398px;
-}
-
-.about-card__content {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 36px 28px 24px;
-  text-align: center;
-  transition: opacity 180ms ease;
-  background: linear-gradient(180deg, rgba(248, 250, 252, 0.1), rgba(248, 250, 252, 0.94) 58%);
-}
-
-.about-card__content.is-dimmed {
-  opacity: 0.22;
-}
-
-.about-card__content h1,
-.about-card__panel h2 {
-  margin: 0;
-  color: var(--card-text);
-  font-size: clamp(32px, 6vw, 40px);
-  line-height: 1.05;
-}
-
-.about-card__content p,
-.about-card__panel p {
-  margin: 12px 0 0;
-  color: var(--card-muted);
-  text-wrap: balance;
-}
-
-.about-card__spacer {
+:where(.spacer) {
   flex: 1;
 }
 
-.about-card__actions {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+:where(.card) {
+  width: min(90vw, 20rem);
+  height: min(90vh, 22rem);
+  background-color: color-mix(in oklab, Highlight, transparent 10%);
+  background-image: url(https://tun-online.web.app/tunlinphyo.png);
+  background-size: auto 80%;
+  background-repeat: no-repeat;
+  background-position: bottom -20% center;
+  border: 2px solid color-mix(in oklab, Highlight, transparent 50%);
+  color: HighlightText;
+
+  overflow: clip;
+  anchor-name: --about;
+
+  border-radius: 35px;
+  @supports(corner-shape: squircle) {
+    border-radius: 80px;
+    corner-shape: squircle;
+  }
 }
 
-.about-card__action {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  min-height: 88px;
-  padding: 12px 8px;
-  border: 0;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.78);
-  color: var(--card-text);
-  font: inherit;
-  cursor: pointer;
-  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
-  transition:
-    transform 180ms ease,
-    background-color 180ms ease,
-    box-shadow 180ms ease;
-}
-
-.about-card__action:hover,
-.about-card__action:focus-visible {
-  transform: translateY(-2px);
-  background: #ffffff;
-  box-shadow: 0 18px 34px rgba(15, 23, 42, 0.12);
-}
-
-.about-card__action:focus-visible,
-.about-card__close:focus-visible,
-.about-card__panel a:focus-visible {
-  outline: 2px solid var(--card-primary);
-  outline-offset: 3px;
-}
-
-.about-card__icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, var(--card-primary), var(--card-accent));
-  color: #eff6ff;
-}
-
-.about-card__panel {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 16px;
-  padding: 32px;
-  background: rgba(15, 23, 42, 0.78);
-  color: #e2e8f0;
-  backdrop-filter: blur(18px);
-  opacity: 1;
-  transform: translateY(0);
-  transition:
-    opacity 180ms ease,
-    transform 180ms ease;
-}
-
-.about-card__panel.is-hidden {
-  opacity: 0;
-  transform: translateY(12px);
-  pointer-events: none;
-}
-
-.about-card__panel p {
-  color: inherit;
-}
-
-.about-card__panel a {
-  display: inline-flex;
-  align-self: flex-start;
-  padding: 12px 16px;
-  border-radius: 999px;
-  background: #ffffff;
-  color: var(--card-text);
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.about-card__close {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 44px;
-  height: 44px;
-  border: 0;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.14);
-  cursor: pointer;
-}
-
-.about-card__close::before,
-.about-card__close::after {
-  content: "";
-  position: absolute;
-  inset: 50% auto auto 50%;
-  width: 18px;
+:where(.bottom-line) {
+  width: 3rem;
   height: 2px;
-  background: #ffffff;
-  transform-origin: center;
+  anchor-name: --contact;
 }
 
-.about-card__close::before {
-  transform: translate(-50%, -50%) rotate(45deg);
+:where(.about) {
+  position: relative;
+  z-index: 1;
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 2.5rem 2rem 2rem;
+
+  background-image: linear-gradient(
+    transparent,
+    transparent,
+    Canvas
+  );
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  & h1 {
+    font-size: clamp(2rem, 6vw, 2.5rem);
+  }
+
+  & p {
+    margin-block-start: 0.75rem;
+  }
+
+  & ul {
+    margin-block-end: 0.5rem;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: cventer;
+    align-items: stretch;
+
+    & li:has([toogletarget="github"]) {
+      anchor-name: --github;
+    }
+    & li:has([toogletarget="linkedin"]) {
+      anchor-name: --linkedin;
+    }
+    & li:has([toogletarget="email"]) {
+      anchor-name: --email;
+    }
+  }
 }
 
-.about-card__close::after {
-  transform: translate(-50%, -50%) rotate(-45deg);
+:where(.contact-opener) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0.3rem;
+  height: 100%;
+  aspect-ratio: 1;
+  color: ButtonText;
+
+  border-radius: 15px;
+  @supports(corner-shape: squircle) {
+    border-radius: 40px;
+    corner-shape: squircle;
+  }
+
+  &:is(:hover,:focus-visible) {
+    anchor-name: --contact;
+    color: ButtonText;
+  }
+
+  &:is(:focus-visible) {
+    outline: 2px solid ActiveText;
+    outline-offset: 2px;
+  }
+}
+
+:where(.about:has(.contact-opener:hover,.contact-opener:focus-visible)) {
+  .bottom-line {
+    anchor-name: none;
+  }
+}
+
+:where(.blob) {
+  position-anchor: --contact;
+  position: absolute;
+  z-index: 0;
+  top: anchor(top);
+  left: anchor(left);
+  bottom: anchor(bottom);
+  right: anchor(right);
+
+  background-color: ButtonFace;
+  border: 2px solid ButtonBorder;
+
+  transition: all .7s var(--ease-spring-3);
+
+  border-radius: 15px;
+  @supports(corner-shape: squircle) {
+    border-radius: 40px;
+    corner-shape: squircle;
+  }
+}
+
+:where(.contact-detail) {
+  position: absolute;
+  z-index: 2;
+  top: anchor(top);
+  left: anchor(left);
+  bottom: anchor(bottom);
+  right: anchor(right);
+  overflow: clip;
+  padding: 2rem;
+
+  background-color: oklch(from Highlight l c h / 0.5);
+  border: 2px solid color-mix(in oklab, Highlight, transparent 50%);
+  transition: all .3s var(--ease-sine-out);
+  backdrop-filter: blur(15px);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem;
+
+  & h2 {
+    font-size: clamp(2rem, 6vw, 2.5rem);
+  }
+
+  & p {
+    width: calc(min(90vw, 20rem) - 4rem);
+    text-wrap: pretty;
+  }
+
+  & a {
+    margin-top: 1rem;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: Canvas;
+    color: LinkText;
+    text-decoration: none;
+
+    border-radius: 10px;
+    @supports(corner-shape: squircle) {
+      border-radius: 20px;
+      corner-shape: squircle;
+    }
+
+    &:is(:hover) {
+      outline: 2px solid ButtonBorder;
+    }
+
+    &:is(:focus-visible) {
+      outline: 2px solid ActiveText;
+      outline-offset: 2px;
+    }
+  }
+
+  border-radius: 35px;
+  @supports(corner-shape: squircle) {
+    border-radius: 80px;
+    corner-shape: squircle;
+  }
+
+  &[inert] {
+    opacity: 0;
+    transition: all .3s var(--ease-sine-out), opacity 0.04s ease 0.28s;
+
+    > * {
+      opacity: 0;
+    }
+  }
+
+  &#github {
+    position-anchor: --github;
+  }
+  &#linkedin {
+    position-anchor: --linkedin;
+  }
+  &#email {
+    position-anchor: --email;
+  }
+}
+
+:where(.contact-close) {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+
+  width: 3rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-color: ButtonFace;
+  color: ButtonText;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity .2s ease;
+
+  &:is(:hover) {
+    outline: 2px solid ButtonBorder;
+  }
+
+  &:is(:focus-visible) {
+    outline: 2px solid ActiveText;
+    outline-offset: 2px;
+  }
+
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    display: block;
+    width: 1.5rem;
+    height: 2px;
+    background-color: currentColor;
+  }
+
+  &::before {
+    rotate: 45deg;
+  }
+  &::after {
+    rotate: -45deg;
+  }
+}
+
+.card:has(#github[data-toggle]) {
+  anchor-name: --github;
+
+  & li:has([toogletarget="github"]) {
+    anchor-name: none;
+  }
+}
+
+.card:has(#linkedin[data-toggle]) {
+  anchor-name: --linkedin;
+
+  & li:has([toogletarget="linkedin"]) {
+    anchor-name: none;
+  }
+}
+
+.card:has(#email[data-toggle]) {
+  anchor-name: --email;
+
+  & li:has([toogletarget="email"]) {
+    anchor-name: none;
+  }
+}
+
+:where([data-layer]) {
+  *, *::before, *::after {
+    outline: 1px dotted hotpink;
+  }
+}
+
+/* OPEN PROPS https://open-props.style/#easing */
+:where(html) {
+  --ease-spring-3: linear(
+    0, 0.009, 0.035 2.1%, 0.141 4.4%, 0.723 12.9%, 0.938 16.7%, 1.017, 1.077,
+    1.121, 1.149 24.3%, 1.159, 1.163, 1.161, 1.154 29.9%, 1.129 32.8%,
+    1.051 39.6%, 1.017 43.1%, 0.991, 0.977 51%, 0.974 53.8%, 0.975 57.1%,
+    0.997 69.8%, 1.003 76.9%, 1
+  );
+
+  --ease-sine-out: cubic-bezier(.39, .575, .565, 1);
 }
