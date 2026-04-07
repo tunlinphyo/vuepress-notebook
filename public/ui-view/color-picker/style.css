@@ -392,6 +392,11 @@
   }
 }
 
+:where([data-layer]) {
+  *, *::before, *::after {
+    outline: 1px dotted hotpink;
+  }
+}
 
 :where(html) {
   --ease-1: cubic-bezier(.25, 0, .5, 1);

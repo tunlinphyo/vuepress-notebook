@@ -316,6 +316,12 @@
   }
 }
 
+:where([data-layer]) {
+  *, *::before, *::after {
+    outline: 1px dotted hotpink;
+  }
+}
+
 /* OPEN PROPS https://open-props.style/#easing */
 :where(html) {
   --ease-spring-3: linear(

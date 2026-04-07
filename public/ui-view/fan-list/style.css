@@ -29,7 +29,193 @@
   cursor: pointer;
 }
 
+:where(main) {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-content: center;
+  padding: 1.5rem;
+  padding-inline-end: 5rem;
+  gap: 1rem;
 
+  & h1 {
+    font-size: clamp(2rem, 10vw, 5rem);
+  }
+}
+
+:where(.btn-circle) {
+  width: 3rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-color: ButtonFace;
+  border: 2px solid ButtonBorder;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &::before,&::after {
+    content: '';
+    position: absolute;
+    width: 1.5rem;
+    height: 2px;
+    background-color: ButtonText;
+    transition: transform .7s var(--ease-spring-3);
+  }
+  &::before {
+    transform: translate(0, -3px);
+  }
+  &::after {
+    transform: translate(0, 3px);
+  }
+}
+
+:where(.open-fan),
+:where(.close-fan) {
+  position: fixed;
+  z-index: 5;
+  top: 50%;
+  right: 2rem;
+  translate: 0 -50%;
+}
+
+:where(dialog) {
+  border: none;
+  outline: none;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+
+  --delay: 0.5s;
+  --bg-opacity: color-mix(in srgb, Canvas, transparent 5%);
+  background-color: transparent;
+  overflow: clip;
+
+  &::backdrop {
+    opacity: 0;
+    background-color: transparent;
+    transition: opacity var(--delay) var(--ease-1);
+    background-image:
+    radial-gradient(transparent 1px, Canvas 1px),
+    radial-gradient(
+      circle at 100%,
+      Canvas 0%,
+      var(--bg-opacity) min(50vh, 50vw),
+      transparent 75%
+    );
+    background-size: 3px 3px, auto auto;
+  }
+
+  &[open] {
+    &::backdrop, .navigation-blob {
+      opacity: 1;
+
+      @starting-style {
+        opacity: 0;
+      }
+    }
+
+    .close-fan {
+      &::before {
+        transform: translate(0, 0) rotate(-45deg);
+      }
+      &::after {
+        transform: translate(0, 0) rotate(45deg);
+      }
+      @starting-style {
+        &::before {
+          transform: translate(0, -3px);
+        }
+        &::after {
+          transform: translate(0, 3px);
+        }
+      }
+    }
+  }
+
+  &[data-closing] {
+    &::backdrop, .navigation-blob {
+      opacity: 0;
+    }
+    .close-fan {
+      &::before {
+        transform: translate(0, -3px);
+      }
+      &::after {
+        transform: translate(0, 3px);
+      }
+    }
+  }
+}
+:where(.wheel) {
+  --step: calc(75deg / var(--count));
+  --offset: calc((var(--count) - 1) / 2);
+  --degree: 0deg;
+  --move-x: max(32vw, 30vh);
+
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  counter-reset: project-list-counter;
+
+  .wheel-item {
+    counter-increment: project-list-counter;
+    position: absolute;
+    z-index: 2;
+    right: 0;
+    padding-inline-end: calc(var(--move-x) * 2);
+    transform-origin: right center;
+    white-space: nowrap;
+    transform: translate(var(--move-x), 0) rotate(var(--degree));
+    opacity: 0;
+    transition: transform 1s var(--ease-spring-3), opacity .25s var(--ease-1);
+    display: flex;
+    align-items: baseline;
+    font-size: clamp(3rem, 10vw, 5rem);
+    font-weight: 700;
+
+    &::before {
+      content: counter(project-list-counter, decimal-leading-zero);
+    }
+
+    &:first-child::before {
+      letter-spacing: 0.05em;
+    }
+  }
+}
+
+:where([data-layer]) {
+  *, *::before, *::after {
+    outline: 1px dotted hotpink;
+  }
+}
+
+:where(dialog) {
+  &[open] {
+    .wheel-item {
+      opacity: 1;
+      --degree: calc(((var(--index) - 1) - var(--offset)) * var(--step) * -1);
+
+      @starting-style {
+        transform: translate(var(--move-x), 0) rotate(0deg);
+        opacity: 0;
+      }
+    }
+  }
+
+  &[data-closing] {
+    .wheel-item {
+      opacity: 0;
+      --degree: 0deg;
+    }
+  }
+}
 
 :where(html) {
   --ease-1: cubic-bezier(.25, 0, .5, 1);

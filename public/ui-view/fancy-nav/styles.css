@@ -122,4 +122,11 @@ body {
         }
 
     }
+
+}
+
+:where([data-layer]) {
+  *, *::before, *::after {
+    outline: 1px dotted hotpink;
+  }
 }
