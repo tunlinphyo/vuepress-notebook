@@ -33,6 +33,7 @@ export default defineConfig({
         text: 'Notebook',
         items: [
           { text: 'Anchor Name', link: '/notebook/anchor-name' },
+          { text: 'animation-timeline', link: '/notebook/animation-timeline' },
           { text: 'scroll-state()', link: '/notebook/scroll-state' },
           { text: 'Wheel Select', link: '/notebook/wheel-select' },
         ]

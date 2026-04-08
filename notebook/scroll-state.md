@@ -2,7 +2,7 @@
 
 ----
 
-<baseline-status featureId="scroll-state()"></baseline-status>
+<baseline-status featureId="container-scroll-state-queries"></baseline-status>
 
 ## scroll-state(stuck: top)
 
@@ -13,7 +13,7 @@
   height="24rem"
 />
 
-```css{5,}
+```css:line-numbers{5,14}
 :where(.sticky-title) {
   position: sticky;
   z-index: 1;
@@ -34,4 +34,90 @@
     }
   }
 }
+```
+
+```
+stuck: none | top | right | bottom | left | block-start | inline-start | block-end | inline-end
+```
+
+## scroll-state(snapped: x)
+
+<ThemedIframe
+  src="/notebook-view/scroll-state/snapped.html"
+  title="Fan List demo"
+  max-width="24rem"
+  height="18rem"
+/>
+
+```css:line-numbers{8,19}
+:where(ul) {
+  display: flex;
+  overflow-y: auto;
+  scroll-snap-type: x mandatory;
+}
+:where(li) {
+  flex: 0 0 80%;
+  container-type: scroll-state;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+
+  & div {
+    opacity: 0.8;
+    scale: 0.8;
+  }
+
+  @supports (container-type: scroll-state) {
+    & div {
+      @container scroll-state(snapped: x) {
+        opacity: 1;
+        scale: 1;
+      }
+    }
+  }
+}
+```
+
+```
+snappe: none | x | y | block | inline | both
+```
+
+## scroll-state(scrollable: top)
+
+
+<ThemedIframe
+  src="/notebook-view/scroll-state/scrollable.html"
+  title="Fan List demo"
+  max-width="20rem"
+  height="20rem"
+/>
+
+```css:line-numbers{3,12,19}
+:where(ul) {
+  overflow-y: auto;
+  container-type: scroll-state size;
+
+  li.hint--top,
+  li.hint--bottom {
+    scale: 0.25;
+    opacity: 0;
+  }
+}
+
+@container scroll-state(scrollable: top) {
+  li.hint--top {
+    scale: 1;
+    opacity: 1;
+  }
+}
+
+@container scroll-state(scrollable: bottom) {
+  li.hint--bottom {
+    scale: 1;
+    opacity: 1;
+  }
+}
+```
+
+```
+scrollable: none | top | right | bottom | left | block-start | inline-start | block-end | inline-end | x | y | block | inline
 ```

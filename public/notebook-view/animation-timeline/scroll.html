@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scroll State</title>
+<style>
+:root {
+  color-scheme: light dark;
+
+  --padding-x: 0.5rem;
+  --surface: light-dark(
+    color-mix(in oklab, Canvas, CanvasText 10%),
+    color-mix(in oklab, Canvas, CanvasText 15%)
+  );
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+:where(html,body) {
+  margin: 0;
+  padding: 0;
+  background-color: light-dark(var(--surface), Canvas);
+  color: CanvasText;
+}
+
+:where(article) {
+  width: 100%;
+  height: 500vh;
+
+  opacity: 0.5;
+  background-image:  linear-gradient(LinkText 1px, transparent 1px), linear-gradient(to right, LinkText 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+:where(ul) {
+  position: fixed;
+  inset: 0;
+  margin: 0;
+  padding: 0.5rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+:where(li) {
+  height: 10vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: clamp(1.2rem, 6vw, 3rem);
+  background-color: light-dark(Canvas, var(--surface));
+
+  border-radius: 15px;
+  @supports(corner-shape: squircle) {
+    border-radius: 30px;
+    corner-shape: squircle;
+  }
+
+  &.nearest-block {
+    position: relative;
+    overflow: clip;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-color: ActiveText;
+      transform-origin: left center;
+
+      animation: scale-x auto linear;
+      animation-timeline: scroll(nearest block);
+    }
+    &::after {
+      content: 'scroll(nearest block)';
+      position: absolute;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+:where([data-layer]) {
+  *, *::before, *::after {
+    outline: 1px dotted hotpink;
+  }
+}
+
+@keyframes scale-x {
+  0% { scale: 0 1; }
+  100% { scale: 1 1; }
+}
+</style>
+</head>
+<body>
+<article></article>
+<ul>
+  <li class="nearest-block"></li>
+  <li>Three</li>
+</ul>
+</body>
+</html>

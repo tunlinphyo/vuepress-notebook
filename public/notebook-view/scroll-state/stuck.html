@@ -8,32 +8,42 @@
 :root {
   color-scheme: light dark;
 
-  --padding-x: 2rem;
+  --padding-x: 0.5rem;
+  --surface: light-dark(
+    color-mix(in oklab, Canvas, CanvasText 10%),
+    color-mix(in oklab, Canvas, CanvasText 15%)
+  );
 }
 
 
 :where(html,body) {
   margin: 0;
   padding: 0;
-  background-color: color-mix(in oklab, Canvas, CanvasText 10%);
+  background-color: light-dark(var(--surface), Canvas);
   color: CanvasText;
 }
 
 :where(ul) {
   list-style: none;
   margin: 0;
-  padding: 2rem var(--padding-x);
+  padding: var(--padding-x);
 
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 0.5rem;
 }
 
 :where(li) {
   display: grid;
   padding: 5rem 3rem;
   font-size: 2rem;
-  background-color: Canvas;
+  background-color: light-dark(Canvas, var(--surface));
+
+  border-radius: 15px;
+  @supports(corner-shape: squircle) {
+    border-radius: 30px;
+    corner-shape: squircle;
+  }
 }
 
 :where(li.sticky-title) {
@@ -50,12 +60,18 @@
   display: flex;
   padding: 1rem 3rem;
   transition: all .3s ease;
-  background-color: Canvas;
+  background-color: light-dark(Canvas, var(--surface));
   border-block: 2px solid transparent;
   position: relative;
   z-index: 1;
   white-space: nowrap;
   overflow: clip;
+
+  border-radius: 15px;
+  @supports(corner-shape: squircle) {
+    border-radius: 30px;
+    corner-shape: squircle;
+  }
 
   & em {
     display: none;

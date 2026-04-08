@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
-
-type ThemeMode = 'system' | 'light' | 'dark'
-const STORAGE_KEY = 'themed-iframe-mode'
-const LAYER_STORAGE_KEY = 'themed-iframe-layer'
+import {
+  hasInitializedSharedState,
+  LAYER_STORAGE_KEY,
+  markSharedStateInitialized,
+  sharedSettings,
+  STORAGE_KEY,
+  type ThemeMode,
+} from './themedIframeState'
 
 const props = withDefaults(
   defineProps<{
@@ -19,18 +23,16 @@ const props = withDefaults(
 )
 
 const iframeRef = ref<HTMLIFrameElement | null>(null)
-const theme = ref<ThemeMode>('system')
-const layerEnabled = ref(false)
 
 function applyFrameSettings() {
   const iframe = iframeRef.value
   const doc = iframe?.contentDocument
   if (!doc) return
 
-  const mode = theme.value === 'system' ? 'light dark' : theme.value
+  const mode = sharedSettings.theme === 'system' ? 'light dark' : sharedSettings.theme
   doc.documentElement.style.colorScheme = mode
 
-  if (layerEnabled.value) {
+  if (sharedSettings.layerEnabled) {
     doc.documentElement.setAttribute('data-layer', '')
   } else {
     doc.documentElement.removeAttribute('data-layer')
@@ -38,20 +40,25 @@ function applyFrameSettings() {
 }
 
 onMounted(() => {
-  const savedTheme = localStorage.getItem(STORAGE_KEY)
-  if (savedTheme === 'system' || savedTheme === 'light' || savedTheme === 'dark') {
-    theme.value = savedTheme
+  if (!hasInitializedSharedState) {
+    const savedTheme = localStorage.getItem(STORAGE_KEY)
+    if (savedTheme === 'system' || savedTheme === 'light' || savedTheme === 'dark') {
+      sharedSettings.theme = savedTheme
+    }
+
+    sharedSettings.layerEnabled = localStorage.getItem(LAYER_STORAGE_KEY) === 'true'
+    markSharedStateInitialized()
   }
 
-  layerEnabled.value = localStorage.getItem(LAYER_STORAGE_KEY) === 'true'
+  applyFrameSettings()
 })
 
-watch(theme, (mode) => {
+watch(() => sharedSettings.theme, (mode) => {
   localStorage.setItem(STORAGE_KEY, mode)
   applyFrameSettings()
 })
 
-watch(layerEnabled, (enabled) => {
+watch(() => sharedSettings.layerEnabled, (enabled) => {
   localStorage.setItem(LAYER_STORAGE_KEY, String(enabled))
   applyFrameSettings()
 })
@@ -65,8 +72,8 @@ watch(layerEnabled, (enabled) => {
         :key="mode"
         type="button"
         class="themed-iframe__toggle"
-        :class="{ 'is-active': theme === mode }"
-        @click="theme = mode as ThemeMode"
+        :class="{ 'is-active': sharedSettings.theme === mode }"
+        @click="sharedSettings.theme = mode as ThemeMode"
       >
         {{ mode }}
       </button>
@@ -82,12 +89,9 @@ watch(layerEnabled, (enabled) => {
         width: '100%',
         maxWidth: props.maxWidth,
         height: props.height,
-        border: '0',
-        borderRadius: '24px',
         display: 'block',
         margin: '0 auto',
         overflow: 'hidden',
-        boxShadow: '0 20px 50px rgba(15,23,42,.12)'
       }"
       @load="applyFrameSettings"
     />
@@ -95,7 +99,7 @@ watch(layerEnabled, (enabled) => {
     <footer class="themed-iframe__footer">
       <label class="themed-iframe__switch">
         <span class="themed-iframe__switch-label">Layout Borders</span>
-        <input v-model="layerEnabled" type="checkbox" class="themed-iframe__switch-input">
+        <input v-model="sharedSettings.layerEnabled" type="checkbox" class="themed-iframe__switch-input">
         <span class="themed-iframe__action-toggle" aria-hidden="true"></span>
       </label>
     </footer>
@@ -116,6 +120,18 @@ watch(layerEnabled, (enabled) => {
     1.051 39.6%, 1.017 43.1%, 0.991, 0.977 51%, 0.974 53.8%, 0.975 57.1%,
     0.997 69.8%, 1.003 76.9%, 1
   );
+}
+
+iframe {
+  border: 0;
+  border: 1px solid var(--vp-c-brand-2);
+  box-shadow: 0 20px 50px rgba(15,23,42,.12);
+
+  border-radius: 24px;
+  @supports(corner-shape: squircle) {
+    border-radius: 48px;
+    corner-shape: squircle;
+  }
 }
 
 .themed-iframe__toolbar {
