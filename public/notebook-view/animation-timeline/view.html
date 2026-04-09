@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scroll State</title>
+<style>
+:root {
+  color-scheme: light dark;
+
+  --padding-x: 0.5rem;
+  --surface: light-dark(
+    color-mix(in oklab, Canvas, CanvasText 10%),
+    color-mix(in oklab, Canvas, CanvasText 25%)
+  );
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+:where(html,body) {
+  margin: 0;
+  padding: 0;
+  background-color: light-dark(var(--surface), Canvas);
+  color: CanvasText;
+}
+
+:where(article) {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+
+  &::after {
+    display: block;
+    content: "\279F";
+    rotate: 90deg;
+  }
+
+  &.bottom {
+    flex-direction: column-reverse;
+
+    &::after {
+      rotate: -90deg;
+    }
+  }
+}
+
+:where(ul) {
+  margin: 0;
+  list-style: none;
+  padding: 1rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50vh;
+}
+
+:where(li) {
+  width: min(16rem, 90%);
+  aspect-ratio: 3/2;
+  background-color: light-dark(Canvas, var(--surface));
+  position: relative;
+  overflow: clip;
+
+  border-radius: 20px;
+  @supports(corner-shape: squircle) {
+    border-radius: 40px;
+    corner-shape: squircle;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: Highlight;
+    transform-origin: left center;
+    scale: 0 1;
+
+    animation: scale-x auto linear forwards;
+    animation-timeline: view();
+  }
+  &::after {
+    content: '';
+    font-size: 1rem;
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-content: center;
+    text-align: center;
+  }
+
+  &.default{
+    &::after {
+      content: 'view()';
+    }
+  }
+  &.range-cover {
+    &::before {
+      animation-range: cover;
+    }
+    &::after {
+      content: 'animation-range: cover';
+    }
+  }
+  &.range-contain {
+    &::before {
+      animation-range: contain;
+    }
+    &::after {
+      content: 'animation-range: contain';
+    }
+  }
+  &.range-cover-contain {
+    &::before {
+      animation-timeline: view();
+      animation-range: cover contain;
+    }
+    &::after {
+      content: 'animation-range: cover contain';
+    }
+  }
+  &.range-contain-cover {
+    &::before {
+      animation-timeline: view();
+      animation-range: contain cover;
+    }
+    &::after {
+      content: 'animation-range: contain cover';
+    }
+  }
+  &.range-entry-exit {
+    &::before {
+      animation-timeline: view();
+      animation-range: entry 50% exit 50%;
+    }
+    &::after {
+      content: 'animation-range: entry 50% exit 50%';
+    }
+  }
+  &.range-cover-exit {
+    &::before {
+      animation-timeline: view();
+      animation-range: cover 50% exit 50%;
+    }
+    &::after {
+      content: 'animation-range: cover 50% exit 50%';
+    }
+  }
+}
+
+:where([data-layer]) {
+  *, *::before, *::after {
+    outline: 1px dotted hotpink;
+  }
+}
+
+@keyframes scale-x {
+  0% { scale: 0 1; }
+  100% { scale: 1 1; }
+}
+</style>
+</head>
+<body>
+<article>Scroll</article>
+<ul>
+  <li class="default"></li>
+  <li class="range-cover"></li>
+  <li class="range-contain"></li>
+  <li class="range-cover-contain"></li>
+  <li class="range-contain-cover"></li>
+  <li class="range-entry-exit"></li>
+  <li class="range-cover-exit"></li>
+</ul>
+<article class="bottom">Scroll</article>
+</body>
+</html>

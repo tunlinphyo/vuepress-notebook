@@ -13,6 +13,12 @@
   height="24rem"
 />
 
+References: [Chrome Developer](https://developer.chrome.com/blog/css-scroll-state-queries)
+
+::: tip NOTE
+Set `container-type: scroll-state` on the sticky element, then use `scroll-state` from its children.
+:::
+
 ```css:line-numbers{5,14}
 :where(.sticky-title) {
   position: sticky;
