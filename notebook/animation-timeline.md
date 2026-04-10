@@ -79,6 +79,26 @@ ENTRY-CROSSING 100% = ENTRY 100% = CONTAIN 0%
 ENTRY-CROSSING 0% = ENTRY 0% = COVER 0%
 :::
 
+```css
+:where(.contain) {
+  animation: scale-x auto linear forwards;
+  animation-timeline: view();
+  animation-range: contain;
+}
+:where(.card) {
+  animation-timeline: view(50vh 0); /* view(EXIT_INSET 50vh ENTRY_INSET 0) */
+  animation-range: cover;
+}
+:where(.card) {
+  animation-timeline: view(block 20vh); /* view(EXIT_INSET 20vh ENTRY_INSET 20vh) */
+  animation-range: cover;
+}
+:where(.card) {
+  animation-timeline: view(block 20vh 0); /* view(EXIT_INSET 20vh ENTRY_INSET 0) */
+  animation-range: cover;
+}
+```
+
 ## scroll-timeline-name
 
 <ThemedIframe

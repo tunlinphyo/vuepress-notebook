@@ -4,9 +4,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Scroll State</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap"
+  rel="stylesheet"
+  fetchpriority="high">
 <style>
 :root {
   color-scheme: light dark;
+
+  font-family: "Google Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 100%;
 
   --padding-x: 0.5rem;
   --surface: light-dark(
@@ -42,7 +55,6 @@
   width: 50vw;
   aspect-ratio: 1;
   border: 2px solid LinkText;
-  background-color: oklch(from Canvas l c h / 0.2);
 
   container-type: scroll-state size;
   overflow-y: auto;
@@ -62,6 +74,9 @@
     align-items: center;
     gap: 0.5rem;
     font-size: 1.5rem;
+    --line: oklch(from LinkText l c h / 0.2);
+    background-image:  linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(to right, var(--line) 1px, transparent 1px);
+    background-size: 20px 20px;
 
     &::before,
     &::after {

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scroll State</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap"
+  rel="stylesheet"
+  fetchpriority="high">
+<style>
+:root {
+  color-scheme: light dark;
+
+  font-family: "Google Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 100%;
+
+  --padding-x: 0.5rem;
+  --surface: light-dark(
+    color-mix(in oklab, Canvas, CanvasText 10%),
+    color-mix(in oklab, Canvas, CanvasText 25%)
+  );
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+:where(html,body) {
+  margin: 0;
+  padding: 0;
+  background-color: light-dark(var(--surface), Canvas);
+  color: CanvasText;
+}
+
+:where(ul) {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+  grid-gap: 0.5rem;
+
+  & li {
+    & button {
+      all: unset;
+
+      width: 100%;
+      aspect-ratio: 1;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: light-dark(Canvas, var(--surface));
+
+      border-radius: 15px;
+      @supports(corner-shape: squircle) {
+        border-radius: 30px;
+        corner-shape: squircle;
+      }
+    }
+  }
+}
+
+:where(article) {
+  background-color: light-dark(Canvas, var(--surface));
+  z-index: 9;
+  outline: 1px solid CanvasText;
+
+  border-radius: 15px;
+  @supports(corner-shape: squircle) {
+    border-radius: 30px;
+    corner-shape: squircle;
+  }
+
+  & button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+
+    width: 3rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 2px solid ButtonBorder;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    &::before, &::after {
+      content: '';
+      position: absolute;
+      width: 1.5rem;
+      height: 0;
+      border-top: 2px solid ButtonText;
+    }
+    &::before { rotate: 45deg; }
+    &::after { rotate: -45deg; }
+  }
+
+  .scroll-y {
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    overflow-y: auto;
+    opacity: 0;
+
+
+  }
+  &.show-view {
+    .scroll-y {
+      opacity: 1;
+    }
+  }
+}
+
+:where([anchorput]) {
+  position: fixed;
+  z-index: -999;
+  width: 0;
+  height: 0;
+  top: -9999999px;
+  left: -9999999px;
+}
+
+:where([anchoritem]) {
+  &.anchor-item {
+    anchor-name: --anchor-card;
+  }
+}
+
+:where([anchorblob]) {
+  position-anchor: --anchor-card;
+  position: fixed;
+  top: anchor(top);
+  left: anchor(left);
+  bottom: anchor(bottom);
+  right: anchor(right);
+  overflow: clip;
+
+  transition: all .3s var(--ease-sine-out);
+}
+
+:where([anchortarget]) {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  width: min(90vw, 20rem);
+  height: min(90vh, 20rem);
+  pointer-events: none;
+
+  &.anchor-target {
+    anchor-name: --anchor-card;
+  }
+}
+
+:where([data-layer]) {
+  *, *::before, *::after {
+    outline: 1px dotted hotpink;
+  }
+}
+
+:where(html) {
+  --ease-sine-in: cubic-bezier(.47,0,.745,.715);
+  --ease-sine-in-out: cubic-bezier(.445,.05,.55,.95);
+  --ease-sine-out: cubic-bezier(.39,.575,.565,1);
+}
+</style>
+</head>
+<body>
+<div anchorput></div>
+<ul>
+  <li><button anchoritem>Card One</button></li>
+  <li><button anchoritem>Card Two</button></li>
+  <li><button anchoritem>Card Three</button></li>
+  <li><button anchoritem>Card Four</button></li>
+  <li><button anchoritem>Card Five</button></li>
+  <li><button anchoritem>Card Six</button></li>
+  <li><button anchoritem>Card Seven</button></li>
+  <li><button anchoritem>Card Eight</button></li>
+  <li><button anchoritem>Card Nine</button></li>
+  <li><button anchoritem>Card Ten</button></li>
+</ul>
+
+<section anchortarget>
+
+</section>
+
+<article anchorblob>
+  <button anchorclose></button>
+  <div class="scroll-y">
+    <h1 id="title"></h1>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore maiores minus
+      laudantium recusandae suscipit, enim repellat magni optio asperiores mollitia
+      officia assumenda, obcaecati ullam exercitationem facere quisquam molestias vitae eum!
+    </p>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore maiores minus
+      laudantium recusandae suscipit, enim repellat magni optio asperiores mollitia
+      officia assumenda, obcaecati ullam exercitationem facere quisquam molestias vitae eum!
+    </p>
+  </div>
+</article>
+
+<script>
+function anchorCardPolyfill() {
+  const items = document.querySelectorAll('[anchoritem]')
+  const target = document.querySelector('[anchortarget]')
+  const targetClose = document.querySelector('[anchorclose]')
+  const blob = document.querySelector('[anchorblob]')
+
+  if (!(target && targetClose && blob)) return
+
+  let currentItem = null
+
+  for (let item of items) {
+    item.addEventListener('click', () => handleItemClick(item))
+  }
+
+  targetClose.addEventListener('click', handleItemClose)
+
+  function handleItemClick(item) {
+    currentItem = item
+    currentItem.classList.add('anchor-item')
+    setTimeout(() => {
+      target.classList.add('anchor-target')
+      blob.addEventListener('transitionend', () => {
+        blob.classList.add('show-view')
+    }, { once: true })
+    }, 0)
+  }
+
+  function handleItemClose() {
+    if (!currentItem) return
+    target.classList.remove('anchor-target')
+    blob.classList.remove('show-view')
+    blob.addEventListener('transitionend', () => {
+      currentItem.classList.remove('anchor-item')
+      currentItem = null
+    }, { once: true })
+  }
+}
+
+document.addEventListener('DOMContentLoaded', anchorCardPolyfill);
+</script>
+</body>
+</html>

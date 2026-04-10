@@ -4,9 +4,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Scroll State</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap"
+  rel="stylesheet"
+  fetchpriority="high">
 <style>
 :root {
   color-scheme: light dark;
+
+  font-family: "Google Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 100%;
 
   --padding-x: 0.5rem;
   --surface: light-dark(
@@ -120,9 +133,14 @@
       align-items: center;
     }
 
+    .intro {
+      opacity: 1;
+      animation: page-intro auto linear forwards;
+      animation-range: 0% 10%;
+    }
     .one {
       animation: page-start auto linear forwards;
-      animation-range: 0% 25%;
+      animation-range: 5% 25%;
     }
     .two {
       animation: page-middle auto linear forwards;
@@ -137,7 +155,7 @@
       animation-range: 75% 100%;
     }
 
-    .one,.two,.three,.four {
+    .intro,.one,.two,.three,.four {
       animation-timeline: scroll(nearest block);
     }
   }
@@ -155,6 +173,10 @@
 }
 @keyframes rotate-cube {
   to { rotate: 360deg; }
+}
+@keyframes page-intro {
+  0% { scale: 1; }
+  100% { opacity: 0; scale: 0; }
 }
 @keyframes page-start {
   0% { opacity: 1; scale: 0; }
@@ -191,6 +213,7 @@
   <li class="nearest-block"></li>
   <li class="nearest-block with-range"></li>
   <li class="pages">
+    <h1 class="intro">Scroll()</h1>
     <h1 class="one">Hello World!</h1>
     <h1 class="two">Welcome!</h1>
     <h1 class="three">to</h1>

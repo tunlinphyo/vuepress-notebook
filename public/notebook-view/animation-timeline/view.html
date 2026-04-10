@@ -4,10 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Scroll State</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap"
+  rel="stylesheet"
+  fetchpriority="high">
 <style>
 :root {
   color-scheme: light dark;
 
+  font-family: "Google Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 100%;
+
+  --card-height: 20vh;
   --padding-x: 0.5rem;
   --surface: light-dark(
     color-mix(in oklab, Canvas, CanvasText 10%),
@@ -24,6 +38,31 @@
   padding: 0;
   background-color: light-dark(var(--surface), Canvas);
   color: CanvasText;
+}
+
+:where(body) {
+  &::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(var(--card-height) - 1px),
+      LinkText calc(var(--card-height) - 1px),
+      LinkText calc(var(--card-height) + 1px),
+      transparent calc(var(--card-height) + 1px),
+      transparent calc(50vh - 1px),
+      LinkText calc(50vh - 1px),
+      LinkText calc(50vh + 1px),
+      transparent calc(50vh + 1px),
+      transparent calc(100vh - var(--card-height) - 1px),
+      LinkText calc(100vh - var(--card-height) - 1px),
+      LinkText calc(100vh - var(--card-height) + 1px),
+      transparent calc(100vh - var(--card-height) + 1px),
+      transparent 100%
+    );
+  }
 }
 
 :where(article) {
@@ -64,7 +103,7 @@
 
 :where(li) {
   width: min(16rem, 90%);
-  aspect-ratio: 3/2;
+  height: var(--card-height);
   background-color: light-dark(Canvas, var(--surface));
   position: relative;
   overflow: clip;
@@ -103,10 +142,11 @@
   }
   &.range-cover {
     &::before {
+      animation-timeline: view(50vh 0);
       animation-range: cover;
     }
     &::after {
-      content: 'animation-range: cover';
+      content: 'animation-timeline: view(50vh 0)';
     }
   }
   &.range-contain {
@@ -119,7 +159,6 @@
   }
   &.range-cover-contain {
     &::before {
-      animation-timeline: view();
       animation-range: cover contain;
     }
     &::after {
@@ -128,7 +167,6 @@
   }
   &.range-contain-cover {
     &::before {
-      animation-timeline: view();
       animation-range: contain cover;
     }
     &::after {
@@ -137,7 +175,6 @@
   }
   &.range-entry-exit {
     &::before {
-      animation-timeline: view();
       animation-range: entry 50% exit 50%;
     }
     &::after {
@@ -146,11 +183,10 @@
   }
   &.range-cover-exit {
     &::before {
-      animation-timeline: view();
-      animation-range: cover 50% exit 50%;
+      animation-range: cover 50% exit 100%;
     }
     &::after {
-      content: 'animation-range: cover 50% exit 50%';
+      content: 'animation-range: cover 50% exit 100%';
     }
   }
 }
