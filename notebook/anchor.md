@@ -67,6 +67,39 @@
 }
 ```
 
+## anchor-hover
+
+<ThemedIframe
+  src="/notebook-view/anchor/anchor-hover.html"
+  title="Fan List demo"
+  max-width="24rem"
+  height="20rem"
+/>
+
+```css:line-numbers{2,9,15}
+:where(ul) {
+  anchor-name: --anchorhover;
+
+  & a {
+    width: 4rem;
+    aspect-ratio: 3/2;
+
+    &:is(:hover,:focus-visible) {
+      anchor-name: --anchorhover;
+    }
+  }
+}
+
+:where(.blob) {
+  position-anchor: --anchorhover;
+  position: fixed;
+  top: anchor(top);
+  left: anchor(left);
+  bottom: anchor(bottom);
+  right: anchor(right);
+}
+```
+
 ## anchor-card
 
 <ThemedIframe
@@ -107,12 +140,3 @@ main.addEventListener('anchorcard:open', ({ detail }) => {
   title.textContent = content
 })
 ```
-
-<!-- ## anchor-card 2
-
-<ThemedIframe
-  src="/notebook-view/anchor/anchor.html"
-  title="Fan List demo"
-  max-width="32rem"
-  height="20rem"
-/> -->

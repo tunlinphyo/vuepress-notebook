@@ -1,7 +1,11 @@
 BRANCH ?=
 
 dev:
-	npm run docs:dev
+	@npm run docs:dev & \
+	pid=$$!; \
+	until curl -s http://localhost:1234/ >/dev/null; do sleep 1; done; \
+	open -a "Google Chrome" http://localhost:1234/; \
+	wait $$pid
 
 deploy:
 	npm run docs:build && firebase deploy

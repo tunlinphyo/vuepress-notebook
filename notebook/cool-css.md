@@ -35,3 +35,12 @@
   grid-gap: 1rem;
 }
 ```
+
+### Corner Shape
+```css
+border-radius: 20px;
+@supports(corner-shape: squircle) {
+  border-radius: 40px;
+  corner-shape: squircle;
+}
+```
