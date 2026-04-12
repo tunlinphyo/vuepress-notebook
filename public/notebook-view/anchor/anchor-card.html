@@ -53,7 +53,7 @@
       all: unset;
 
       width: 100%;
-      aspect-ratio: 1;
+      aspect-ratio: 3/2;
       cursor: pointer;
       display: flex;
       flex-direction: column;
@@ -71,13 +71,12 @@
 }
 
 :where(article) {
-  background-color: light-dark(Canvas, var(--surface));
+  background-color: transparent;
   z-index: 9;
-  outline: 1px solid CanvasText;
 
-  border-radius: 15px;
+  border-radius: 20px;
   @supports(corner-shape: squircle) {
-    border-radius: 30px;
+    border-radius: 40px;
     corner-shape: squircle;
   }
 
@@ -112,55 +111,67 @@
     height: 100%;
     padding: 1rem;
     overflow-y: auto;
-    opacity: 0;
-
-
   }
-  &.show-view {
-    .scroll-y {
-      opacity: 1;
-    }
-  }
-}
-
-:where([anchorput]) {
-  position: fixed;
-  z-index: -999;
-  width: 0;
-  height: 0;
-  top: -9999999px;
-  left: -9999999px;
 }
 
 :where([anchoritem]) {
-  &.anchor-item {
+  &[anchoritem=open] {
+    opacity: 0;
     anchor-name: --anchor-card;
   }
 }
 
-:where([anchorblob]) {
+:where([anchordialog]) {
+  position: fixed;
+  z-index: 9;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  width: min(95vw, 20rem);
+  height: min(95vh, 20rem);
+
+  display: none;
+  opacity: 0;
+
+  &[anchordialog=open] {
+    opacity: 1;
+  }
+}
+
+:where([anchorgroup=open]) {
+  [anchordialog] {
+    display: block;
+    anchor-name: --anchor-card;
+  }
+}
+
+:where([anchorgroup])::after {
+  content: '';
   position-anchor: --anchor-card;
   position: fixed;
+  z-index: 8;
   top: anchor(top);
   left: anchor(left);
   bottom: anchor(bottom);
   right: anchor(right);
-  overflow: clip;
+  pointer-events: none;
+
+  background-color: oklch(from Canvas l c h / 0.98);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+  border-radius: 20px;
+  @supports(corner-shape: squircle) {
+    border-radius: 40px;
+    corner-shape: squircle;
+  }
 
   transition: all .3s var(--ease-sine-out);
 }
 
-:where([anchortarget]) {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  translate: -50% -50%;
-  width: min(90vw, 20rem);
-  height: min(90vh, 20rem);
-  pointer-events: none;
-
-  &.anchor-target {
-    anchor-name: --anchor-card;
+:where([anchoritem],[anchorclose]) {
+  &:is(:focus-visible) {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
   }
 }
 
@@ -178,81 +189,126 @@
 </style>
 </head>
 <body>
-<div anchorput></div>
-<ul>
-  <li><button anchoritem>Card One</button></li>
-  <li><button anchoritem>Card Two</button></li>
-  <li><button anchoritem>Card Three</button></li>
-  <li><button anchoritem>Card Four</button></li>
-  <li><button anchoritem>Card Five</button></li>
-  <li><button anchoritem>Card Six</button></li>
-  <li><button anchoritem>Card Seven</button></li>
-  <li><button anchoritem>Card Eight</button></li>
-  <li><button anchoritem>Card Nine</button></li>
-  <li><button anchoritem>Card Ten</button></li>
-</ul>
-
-<section anchortarget>
-
-</section>
-
-<article anchorblob>
-  <button anchorclose></button>
-  <div class="scroll-y">
-    <h1 id="title"></h1>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore maiores minus
-      laudantium recusandae suscipit, enim repellat magni optio asperiores mollitia
-      officia assumenda, obcaecati ullam exercitationem facere quisquam molestias vitae eum!
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore maiores minus
-      laudantium recusandae suscipit, enim repellat magni optio asperiores mollitia
-      officia assumenda, obcaecati ullam exercitationem facere quisquam molestias vitae eum!
-    </p>
-  </div>
-</article>
+<main anchorgroup>
+  <ul anchorlist>
+    <li><button anchoritem>Card One</button></li>
+    <li><button anchoritem>Card Two</button></li>
+    <li><button anchoritem>Card Three</button></li>
+    <li><button anchoritem>Card Four</button></li>
+    <li><button anchoritem>Card Five</button></li>
+    <li><button anchoritem>Card Six</button></li>
+    <li><button anchoritem>Card Seven</button></li>
+    <li><button anchoritem>Card Eight</button></li>
+    <li><button anchoritem>Card Nine</button></li>
+    <li><button anchoritem>Card Ten</button></li>
+    <li><button anchoritem>Card Eleven</button></li>
+  </ul>
+  
+  <article anchordialog>
+    <button anchorclose></button>
+    <div class="scroll-y">
+      <h1 id="title"></h1>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore maiores minus
+        laudantium recusandae suscipit, enim repellat magni optio asperiores mollitia
+        officia assumenda, obcaecati ullam exercitationem facere quisquam molestias vitae eum!
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore maiores minus
+        laudantium recusandae suscipit, enim repellat magni optio asperiores mollitia
+        officia assumenda, obcaecati ullam exercitationem facere quisquam molestias vitae eum!
+      </p>
+    </div>
+  </article>
+</main>
 
 <script>
 function anchorCardPolyfill() {
-  const items = document.querySelectorAll('[anchoritem]')
-  const target = document.querySelector('[anchortarget]')
-  const targetClose = document.querySelector('[anchorclose]')
-  const blob = document.querySelector('[anchorblob]')
+  const groups = document.querySelectorAll('[anchorgroup]')
 
-  if (!(target && targetClose && blob)) return
+  for (let group of groups) {
+    const items = group.querySelectorAll('[anchoritem]')
+    const list = group.querySelector('[anchorlist]')
+    const target = group.querySelector('[anchordialog]')
+    const targetClose = group.querySelector('[anchorclose]')
 
-  let currentItem = null
+    if (!(list && target && targetClose)) continue
 
-  for (let item of items) {
-    item.addEventListener('click', () => handleItemClick(item))
-  }
+    let currentItem = null
+    target.setAttribute('inert', '')
 
-  targetClose.addEventListener('click', handleItemClose)
+    for (let item of items) {
+      item.addEventListener('click', () => handleItemClick(item))
+    }
 
-  function handleItemClick(item) {
-    currentItem = item
-    currentItem.classList.add('anchor-item')
-    setTimeout(() => {
-      target.classList.add('anchor-target')
-      blob.addEventListener('transitionend', () => {
-        blob.classList.add('show-view')
-    }, { once: true })
-    }, 0)
-  }
+    targetClose.addEventListener('click', handleItemClose)
 
-  function handleItemClose() {
-    if (!currentItem) return
-    target.classList.remove('anchor-target')
-    blob.classList.remove('show-view')
-    blob.addEventListener('transitionend', () => {
-      currentItem.classList.remove('anchor-item')
-      currentItem = null
-    }, { once: true })
+    function handleItemClick(item) {
+      currentItem = item
+      currentItem.setAttribute('anchoritem', 'open')
+      group.dispatchEvent(new CustomEvent('anchorcard:open', {
+        detail: { item, target }
+      }))
+      list.setAttribute('inert', '')
+      setTimeout(() => {
+        group.setAttribute('anchorgroup', 'open')
+        group.addEventListener('transitionend', () => {
+          target.removeAttribute('inert')
+          target.setAttribute('anchordialog', 'open')
+          group.dispatchEvent(new CustomEvent('anchorcard:opened', {
+            detail: { item, target }
+          }))
+          targetClose.focus()
+        }, { once: true })
+      }, 0)
+    }
+
+    function handleItemClose() {
+      if (!currentItem) return
+      group.setAttribute('anchorgroup', '')
+      target.setAttribute('anchordialog', '')
+      group.dispatchEvent(new CustomEvent('anchorcard:close', {
+        detail: { item: currentItem, target }
+      }))
+      target.setAttribute('inert', '')
+      group.addEventListener('transitionend', () => {
+        list.removeAttribute('inert')
+        currentItem.setAttribute('anchoritem', '')
+        group.dispatchEvent(new CustomEvent('anchorcard:closed', {
+          detail: { item: currentItem, target }
+        }))
+        currentItem.focus()
+        currentItem = null
+      }, { once: true })
+    }
   }
 }
 
-document.addEventListener('DOMContentLoaded', anchorCardPolyfill);
+document.addEventListener('DOMContentLoaded', anchorCardPolyfill)
+
+
+// document.addEventListener('anchorcard:open', ({ detail }) => {
+//   console.log("OPEN", detail)
+// })
+// document.addEventListener('anchorcard:opened', ({ detail }) => {
+//   console.log("OPENED", detail)
+// })
+// document.addEventListener('anchorcard:close', ({ detail }) => {
+//   console.log("CLOSE", detail)
+// })
+// document.addEventListener('anchorcard:closed', ({ detail }) => {
+//   console.log("CLOSED", detail)
+// })
+
+const main = document.querySelector('main')
+main.addEventListener('anchorcard:open', ({ detail }) => {
+  const item = detail.item
+  const target = detail.target
+  const content = item.textContent.trim()
+  const title = target.querySelector('#title')
+
+  title.textContent = content
+})
 </script>
 </body>
 </html>

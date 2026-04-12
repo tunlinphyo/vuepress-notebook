@@ -86,11 +86,13 @@
   border: none;
   background-color: transparent;
   max-width: calc(100vw - 2rem);
+  overflow: visible;
 
   .popover-content {
     padding: 1.5rem;
     background-color: oklch(from Canvas l c h / 0.98);
     border: 2px solid oklch(from CanvasText l c h / 0.1);
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     scale: 0;
     transition: scale 0.25s ease-out;
 

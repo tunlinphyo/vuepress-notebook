@@ -67,11 +67,52 @@
 }
 ```
 
-## position-try-fallbacks
+## anchor-card
 
 <ThemedIframe
   src="/notebook-view/anchor/anchor-card.html"
   title="Fan List demo"
-  max-width="30rem"
-  height="24rem"
+  max-width="32rem"
+  height="20rem"
 />
+
+This code uses the [Polyfill](../polyfills/anchor-card.md).
+
+```html:line-numbers
+<main anchorgroup>
+  <ul anchorlist>
+    <li><button anchoritem>Card One</button></li>
+    <li><button anchoritem>Card Two</button></li>
+    <li><button anchoritem>Card Three</button></li>
+    <li><button anchoritem>Card Four</button></li>
+  </ul>
+
+  <article anchordialog>
+    <button anchorclose></button>
+    <div class="scroll-y">
+      <h1 id="title"></h1>
+    </div>
+  </article>
+</main>
+```
+
+```js:line-numbers
+const main = document.querySelector('main')
+main.addEventListener('anchorcard:open', ({ detail }) => {
+  const item = detail.currentItem
+  const target = detail.target 
+  const content = item.textContent.trim()
+  const title = target.querySelector('#title')
+
+  title.textContent = content
+})
+```
+
+<!-- ## anchor-card 2
+
+<ThemedIframe
+  src="/notebook-view/anchor/anchor.html"
+  title="Fan List demo"
+  max-width="32rem"
+  height="20rem"
+/> -->

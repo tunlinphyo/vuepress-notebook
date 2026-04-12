@@ -23,6 +23,7 @@ export default defineConfig({
         text: 'Examples',
         items: [
           { text: 'About Me Card', link: '/examples/about-me-card' },
+          { text: 'Anchor Flip', link: '/examples/anchor-flip' },
           { text: 'Color Picker', link: '/examples/color-picker' },
           { text: 'Fan List', link: '/examples/fan-list' },
           { text: 'Fancy Nav', link: '/examples/fancy-nav' },
@@ -37,6 +38,12 @@ export default defineConfig({
           { text: 'motion-path', link: '/notebook/motion-path' },
           { text: 'scroll-state()', link: '/notebook/scroll-state' },
           { text: 'Wheel Select', link: '/notebook/wheel-select' },
+        ]
+      },
+      {
+        text: 'Polyfills',
+        items: [
+          { text: 'anchor-card', link: '/polyfills/anchor-card' },
         ]
       }
     ],

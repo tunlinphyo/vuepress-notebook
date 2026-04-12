@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anchor Dialog Card Modal</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap"
+  rel="stylesheet"
+  fetchpriority="high">
+
+<style>
+:root {
+  color-scheme: light dark;
+
+  font-family: "Google Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 100%;
+
+  --surface: light-dark(
+    color-mix(in oklab, Canvas, CanvasText 10%),
+    color-mix(in oklab, Canvas, CanvasText 25%)
+  );
+
+  --ease-sine-in: cubic-bezier(.47,0,.745,.715);
+  --ease-sine-in-out: cubic-bezier(.445,.05,.55,.95);
+  --ease-sine-out: cubic-bezier(.39,.575,.565,1);
+
+  --card-radius: 20px;
+  --card-radius-large: 40px;
+  --anim-ms: 320ms;
+  --backdrop-ms: 220ms;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+:where(html, body) {
+  margin: 0;
+  padding: 0;
+  background-color: light-dark(var(--surface), Canvas);
+  color: CanvasText;
+}
+
+:where(body) {
+  min-height: 100dvh;
+}
+
+:where(ul) {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+  gap: 0.5rem;
+}
+
+:where(ul li button) {
+  all: unset;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: light-dark(Canvas, var(--surface));
+  border-radius: 15px;
+}
+
+@supports (corner-shape: squircle) {
+  :where(ul li button) {
+    border-radius: 30px;
+    corner-shape: squircle;
+  }
+}
+
+:where([anchoritem]) {
+  transition: opacity var(--anim-ms) var(--ease-sine-out);
+}
+
+:where([anchoritem="open"]) {
+  opacity: 0;
+  anchor-name: --anchor-card;
+}
+
+/* modal dialog */
+:where(dialog[anchordialog]) {
+  position: fixed;
+  z-index: 9;
+
+  /* top: 50%;
+  left: 50%;
+  translate: -50% -50%; */
+
+  width: min(95vw, 20rem);
+  height: min(95vh, 20rem);
+
+  border: 0;
+  outline: 0;
+  padding: 0;
+  margin: 0;
+  inset: auto;
+  max-width: none;
+  max-height: none;
+  overflow: visible;
+  background: transparent;
+  color: inherit;
+
+  opacity: 0;
+  pointer-events: none;
+  border-radius: var(--card-radius);
+
+  transition: opacity var(--anim-ms) var(--ease-sine-out);
+}
+
+@supports (corner-shape: squircle) {
+  :where(dialog[anchordialog]) {
+    border-radius: var(--card-radius-large);
+    corner-shape: squircle;
+  }
+}
+
+:where(dialog[anchordialog][open]) {
+  anchor-name: --anchor-card;
+}
+
+:where(dialog[anchordialog][data-state="open"]) {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@starting-style {
+  :where(dialog[anchordialog][data-state="open"]) {
+    opacity: 0;
+  }
+}
+
+:where(dialog[anchordialog])::backdrop {
+  background-color: oklch(from Canvas l c h / 0);
+}
+
+:where(dialog[anchordialog][data-state="open"])::backdrop {
+  background-color: oklch(from Canvas l c h / 0.55);
+}
+
+@supports (transition: display 1s allow-discrete) {
+  :where(dialog[anchordialog]) {
+    transition:
+      opacity var(--anim-ms) var(--ease-sine-out),
+      display 0s allow-discrete,
+      overlay 0s allow-discrete;
+    transition-behavior: allow-discrete;
+  }
+
+  :where(dialog[anchordialog])::backdrop {
+    transition:
+      background-color var(--backdrop-ms) var(--ease-sine-out),
+      display 0s allow-discrete,
+      overlay 0s allow-discrete;
+    transition-behavior: allow-discrete;
+  }
+
+  @starting-style {
+    :where(dialog[anchordialog][data-state="open"])::backdrop {
+      background-color: oklch(from Canvas l c h / 0);
+    }
+  }
+}
+
+:where(dialog[anchordialog] > button[anchorclose]) {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 2;
+
+  width: 3rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 2px solid ButtonBorder;
+  background: color-mix(in oklab, Canvas, transparent 20%);
+  color: ButtonText;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+:where(dialog[anchordialog] > button[anchorclose])::before,
+:where(dialog[anchordialog] > button[anchorclose])::after {
+  content: '';
+  position: absolute;
+  width: 1.5rem;
+  height: 0;
+  border-top: 2px solid ButtonText;
+}
+
+:where(dialog[anchordialog] > button[anchorclose])::before {
+  rotate: 45deg;
+}
+
+:where(dialog[anchordialog] > button[anchorclose])::after {
+  rotate: -45deg;
+}
+
+:where(dialog[anchordialog] .scroll-y) {
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  overflow-y: auto;
+  background-color: light-dark(Canvas, var(--surface));
+  border-radius: inherit;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+/* the animated morph layer */
+:where([anchorgroup])::after {
+  content: '';
+  position: fixed;
+  position-anchor: --anchor-card;
+  z-index: 8;
+  pointer-events: none;
+
+  top: anchor(top);
+  left: anchor(left);
+  right: anchor(right);
+  bottom: anchor(bottom);
+
+  background-color: oklch(from Canvas l c h / 0.98);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+  border-radius: var(--card-radius);
+
+  transition:
+    top var(--anim-ms) var(--ease-sine-out),
+    left var(--anim-ms) var(--ease-sine-out),
+    right var(--anim-ms) var(--ease-sine-out),
+    bottom var(--anim-ms) var(--ease-sine-out),
+    border-radius var(--anim-ms) var(--ease-sine-out),
+    box-shadow var(--anim-ms) var(--ease-sine-out);
+}
+
+@supports (corner-shape: squircle) {
+  :where([anchorgroup])::after {
+    border-radius: var(--card-radius-large);
+    corner-shape: squircle;
+  }
+}
+
+:where([anchoritem], [anchorclose]):is(:focus-visible) {
+  outline: 2px solid Highlight;
+  outline-offset: 2px;
+}
+</style>
+</head>
+<body>
+
+<main anchorgroup>
+  <ul anchorlist>
+    <li><button anchoritem>Card One</button></li>
+    <li><button anchoritem>Card Two</button></li>
+    <li><button anchoritem>Card Three</button></li>
+    <li><button anchoritem>Card Four</button></li>
+    <li><button anchoritem>Card Five</button></li>
+    <li><button anchoritem>Card Six</button></li>
+    <li><button anchoritem>Card Seven</button></li>
+    <li><button anchoritem>Card Eight</button></li>
+    <li><button anchoritem>Card Nine</button></li>
+    <li><button anchoritem>Card Ten</button></li>
+    <li><button anchoritem>Card Eleven</button></li>
+  </ul>
+
+  <dialog anchordialog aria-labelledby="title">
+    <button type="button" anchorclose aria-label="Close dialog"></button>
+    <div class="scroll-y">
+      <h1 id="title"></h1>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore maiores minus
+        laudantium recusandae suscipit, enim repellat magni optio asperiores mollitia
+        officia assumenda, obcaecati ullam exercitationem facere quisquam molestias vitae eum!
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore maiores minus
+        laudantium recusandae suscipit, enim repellat magni optio asperiores mollitia
+        officia assumenda, obcaecati ullam exercitationem facere quisquam molestias vitae eum!
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore maiores minus
+        laudantium recusandae suscipit, enim repellat magni optio asperiores mollitia
+        officia assumenda, obcaecati ullam exercitationem facere quisquam molestias vitae eum!
+      </p>
+    </div>
+  </dialog>
+</main>
+
+<script>
+function anchorCardPolyfill() {
+  const groups = document.querySelectorAll('[anchorgroup]')
+  const SUPPORTS_DISCRETE = CSS.supports('transition', 'display 1s allow-discrete')
+  const ANIM_MS = 320
+
+  for (const group of groups) {
+    const items = group.querySelectorAll('[anchoritem]')
+    const list = group.querySelector('[anchorlist]')
+    const target = group.querySelector('[anchordialog]')
+    const targetClose = group.querySelector('[anchorclose]')
+    const title = target?.querySelector('#title')
+
+    if (!(list && target && targetClose)) continue
+
+    let currentItem = null
+    let isClosing = false
+    let pendingOpen = false
+
+    target.setAttribute('inert', '')
+
+    for (const item of items) {
+      item.addEventListener('click', () => {
+        handleItemClick(item)
+      })
+    }
+
+    targetClose.addEventListener('click', handleItemClose)
+
+    target.addEventListener('cancel', (event) => {
+      event.preventDefault()
+      handleItemClose()
+    })
+
+    target.addEventListener('click', (event) => {
+      const rect = target.getBoundingClientRect()
+      const clickedBackdrop =
+        event.target === target &&
+        (
+          event.clientX < rect.left ||
+          event.clientX > rect.right ||
+          event.clientY < rect.top ||
+          event.clientY > rect.bottom
+        )
+
+      if (clickedBackdrop) {
+        handleItemClose()
+      }
+    })
+
+    function nextFrame() {
+      return new Promise((resolve) => requestAnimationFrame(() => resolve()))
+    }
+
+    function wait(ms) {
+      return new Promise((resolve) => setTimeout(resolve, ms))
+    }
+
+    function waitForAnchorTransitionEnd() {
+      return new Promise((resolve) => {
+        let done = false
+
+        const finish = () => {
+          if (done) return
+          done = true
+          group.removeEventListener('transitionend', onEnd)
+          clearTimeout(timeoutId)
+          resolve()
+        }
+
+        const onEnd = (event) => {
+          if (event.target !== group) return
+          if (event.pseudoElement !== '::after') return
+          if (!['top', 'left', 'right', 'bottom'].includes(event.propertyName)) return
+          finish()
+        }
+
+        const timeoutId = setTimeout(finish, ANIM_MS + 120)
+        group.addEventListener('transitionend', onEnd)
+      })
+    }
+
+    async function openDialogVisuals(item) {
+      currentItem = item
+      pendingOpen = true
+
+      if (title) {
+        title.textContent = item.textContent.trim()
+      }
+
+      currentItem.setAttribute('anchoritem', 'open')
+      list.setAttribute('inert', '')
+      target.setAttribute('inert', '')
+
+      if (!target.open) {
+        target.showModal()
+      }
+
+      group.dispatchEvent(new CustomEvent('anchorcard:open', {
+        detail: { item, target }
+      }))
+
+      await nextFrame()
+      target.setAttribute('data-state', 'open')
+
+      await waitForAnchorTransitionEnd()
+
+      if (!pendingOpen) return
+
+      target.removeAttribute('inert')
+      group.dispatchEvent(new CustomEvent('anchorcard:opened', {
+        detail: { item, target }
+      }))
+
+      targetClose.focus()
+      pendingOpen = false
+    }
+
+    async function closeDialogVisuals() {
+      if (!currentItem || isClosing) return
+      isClosing = true
+      pendingOpen = false
+
+      group.dispatchEvent(new CustomEvent('anchorcard:close', {
+        detail: { item: currentItem, target }
+      }))
+
+      target.setAttribute('inert', '')
+      target.removeAttribute('data-state')
+
+      await waitForAnchorTransitionEnd()
+
+      if (!SUPPORTS_DISCRETE) {
+        await wait(20)
+      }
+
+      if (target.open) {
+        target.close()
+      }
+
+      list.removeAttribute('inert')
+      currentItem.setAttribute('anchoritem', '')
+      currentItem.focus()
+
+      group.dispatchEvent(new CustomEvent('anchorcard:closed', {
+        detail: { item: currentItem, target }
+      }))
+
+      currentItem = null
+      isClosing = false
+    }
+
+    function handleItemClick(item) {
+      if (currentItem || isClosing) return
+      openDialogVisuals(item)
+    }
+
+    function handleItemClose() {
+      closeDialogVisuals()
+    }
+  }
+}
+
+document.addEventListener('DOMContentLoaded', anchorCardPolyfill)
+</script>
+
+</body>
+</html>
