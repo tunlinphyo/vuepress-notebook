@@ -1,5 +1,11 @@
 BRANCH ?=
 
+dev:
+	npm run docs:dev
+
+deploy:
+	npm run docs:build && firebase deploy
+
 check-branch:
 	@if [ -z "$(BRANCH)" ]; then \
 	  echo "❌ BRANCH is required. Usage: make gitpull BRANCH=<branch-name>"; \

@@ -2,8 +2,8 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "Coder's Notebook",
-  description: "A VitePress Site",
+  title: 'Cody Draft',
+  description: "Tun's Code Drafts",
   vue: {
     template: {
       compilerOptions: {
@@ -23,21 +23,24 @@ export default defineConfig({
         text: 'Examples',
         items: [
           { text: 'About Me Card', link: '/examples/about-me-card' },
-          { text: 'Anchor Flip', link: '/examples/anchor-flip' },
+          // { text: 'Anchor Flip', link: '/examples/anchor-flip' },
           { text: 'Color Picker', link: '/examples/color-picker' },
           { text: 'Fan List', link: '/examples/fan-list' },
           { text: 'Fancy Nav', link: '/examples/fancy-nav' },
-          { text: 'Markdown Examples', link: '/examples/markdown-examples' },
+          // { text: 'Markdown Examples', link: '/examples/markdown-examples' },
         ]
       },
       {
         text: 'Notebook',
         items: [
+          { text: 'Cool CSS', link: '/notebook/cool-css' },
           { text: 'anchor()', link: '/notebook/anchor' },
           { text: 'animation-timeline', link: '/notebook/animation-timeline' },
+          { text: '@counter-style', link: '/notebook/counter-style' },
           { text: 'motion-path', link: '/notebook/motion-path' },
+          { text: '@property', link: '/notebook/property' },
           { text: 'scroll-state()', link: '/notebook/scroll-state' },
-          { text: 'Wheel Select', link: '/notebook/wheel-select' },
+          // { text: 'Wheel Select', link: '/notebook/wheel-select' },
         ]
       },
       {
