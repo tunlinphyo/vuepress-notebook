@@ -11,8 +11,8 @@ hero:
       text: Examples
       link: /examples/about-me-card
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: Notebook
+      link: /notebook/anchor
 
 # features:
 #   - title: Feature A

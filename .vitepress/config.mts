@@ -33,9 +33,9 @@ export default defineConfig({
       {
         text: 'Notebook',
         items: [
-          { text: 'Cool CSS', link: '/notebook/cool-css' },
           { text: 'anchor()', link: '/notebook/anchor' },
           { text: 'animation-timeline', link: '/notebook/animation-timeline' },
+          { text: 'Cool CSS', link: '/notebook/cool-css' },
           { text: '@counter-style', link: '/notebook/counter-style' },
           { text: 'motion-path', link: '/notebook/motion-path' },
           { text: '@property', link: '/notebook/property' },
