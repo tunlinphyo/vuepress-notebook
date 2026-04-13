@@ -57,8 +57,6 @@
   container-type: scroll-state;
   scroll-snap-align: center;
   scroll-snap-stop: always;
-
-  clip-path: polygon(0 0, 100% 0, 100% 54%, 0 55%);
 }
 
 :where(li > div) {
@@ -79,6 +77,12 @@
     border-radius: 30px;
     corner-shape: squircle;
   }
+
+  & h2 {
+    font-size: 3.5rem;
+    font-weight: 400;
+    clip-path: polygon(0 0, 100% 0, 100% 54%, 0 54%);
+  }
 }
 
 @container scroll-state(snapped: x) {
@@ -97,11 +101,11 @@
 </head>
 <body>
 <ul>
-  <li><h2>About</h2></li>
-  <li><h2>Contact</h2></li>
-  <li><h2>Product</h2></li>
-  <li><h2>Studio</h2></li>
-  <li><h2>Agent</h2></li>
+  <li><div class="card"><h2>Home</h2></div></li>
+  <li><div class="card"><h2>Product</h2></div></li>
+  <li><div class="card"><h2>Studio</h2></div></li>
+  <li><div class="card"><h2>About</h2></div></li>
+  <li><div class="card"><h2>Contact</h2></div></li>
 </ul>
 </body>
 </html>
