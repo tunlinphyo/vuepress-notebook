@@ -1,5 +1,12 @@
 import { defineConfig } from 'vitepress'
 
+const customElements = new Set([
+  'baseline-status',
+  'circle-select',
+  'circle-option',
+  'circle-selected',
+])
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: 'Cody Draft',
@@ -7,7 +14,7 @@ export default defineConfig({
   vue: {
     template: {
       compilerOptions: {
-        isCustomElement: (tag: string) => tag === 'baseline-status',
+        isCustomElement: (tag: string) => customElements.has(tag),
       },
     },
   },
@@ -35,6 +42,7 @@ export default defineConfig({
         items: [
           { text: 'anchor()', link: '/notebook/anchor' },
           { text: 'animation-timeline', link: '/notebook/animation-timeline' },
+          { text: 'clip-path', link: '/notebook/clip-path' },
           { text: 'Cool CSS', link: '/notebook/cool-css' },
           { text: '@counter-style', link: '/notebook/counter-style' },
           { text: 'motion-path', link: '/notebook/motion-path' },
@@ -44,9 +52,10 @@ export default defineConfig({
         ]
       },
       {
-        text: 'Polyfills',
+        text: 'Modules',
         items: [
           { text: 'anchor-card', link: '/polyfills/anchor-card' },
+          { text: 'circle-select', link: '/polyfills/circle-select' },
         ]
       }
     ],

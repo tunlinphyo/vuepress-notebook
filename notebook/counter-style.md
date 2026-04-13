@@ -1,5 +1,16 @@
 # @counter-style
 
+----
+
+<baseline-status featureId="counter-style"></baseline-status>
+
+<ThemedIframe
+  src="/notebook-view/counter-style.html"
+  title="Fan List demo"
+  max-width="20rem"
+  height="24rem"
+/>
+
 ```css
 @counter-style reading-list {
   system: cyclic;
@@ -9,7 +20,7 @@
 
 @counter-style tool-list {
   system: cyclic;
-  symbols: "⛏️" "🪓" "🧰" "🔩" "⚙️" "⚖️" "🔬" "⚗️" "🔭" "✏️" "✒️" "🔨" "🛠️" "⚒️" "🔧" "🪛" "🪚" "🗜️";
+  symbols: "⛏️" "🪓" "🧰" "🔩" "⚙️" "⚖️" "🔬" "⚗️" "🔭" "✏️" "✒️" "⚒️" "🔧" "🪛" "🪚" "🗜️";
   suffix: "  ";
 }
 ul[data-reading-list] {
