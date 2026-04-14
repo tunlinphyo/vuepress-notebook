@@ -88,7 +88,7 @@
   offset-anchor: auto;
   scale: 0;
 
-  transition: all .3s var(--ease-sine-out);
+  transition: all .35s var(--ease-sine-out);
 
   &:is(:hover,:focus-visible) {
     scale: 1.1;
@@ -141,7 +141,8 @@
   background-color: light-dark(Canvas, var(--surface));
   color: CanvasText;
   font-size: 1.8rem;
-  box-shadow: oklch(from CanvasText l c h / 0.2) 0px 5px 18px 0px;
+  /* box-shadow: oklch(from CanvasText l c h / 0.2) 0px 5px 18px 0px; */
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 :where(circle-select[open]) {

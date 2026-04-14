@@ -15,3 +15,19 @@
 
 [clip-path Maker](https://bennettfeely.com/clippy/)
 
+```css:line-numbers{4}
+:where(h2) {
+  font-size: calmp(2rem, 8vw, 4rem);
+  font-weight: 400;
+  clip-path: polygon(0 0, 100% 0, 100% 55%, 0 55%);
+}
+```
+
+## Theme Changer
+
+<ThemedIframe
+  src="/notebook-view/clip-path/theme.html"
+  title="Fan List demo"
+  max-width="32rem"
+  height="20rem"
+/>
