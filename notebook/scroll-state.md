@@ -80,6 +80,17 @@ stuck: none | top | right | bottom | left | block-start | inline-start | block-e
       }
     }
   }
+
+}
+@supports not (container-type: scroll-state) {
+  ul {
+    gap: 1rem;
+
+    li > div {
+      scale: 1;
+      opacity: 1;
+    }
+  }
 }
 ```
 

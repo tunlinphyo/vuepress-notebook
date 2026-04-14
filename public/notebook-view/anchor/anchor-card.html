@@ -124,11 +124,8 @@
 :where([anchordialog]) {
   position: fixed;
   z-index: 9;
-  top: 50%;
-  left: 50%;
-  translate: -50% -50%;
-  width: min(95vw, 20rem);
-  height: min(95vh, 20rem);
+  margin: 0;
+  inset: 0.5rem 10vw;
 
   display: none;
   opacity: 0;
@@ -203,7 +200,7 @@
     <li><button anchoritem>Card Ten</button></li>
     <li><button anchoritem>Card Eleven</button></li>
   </ul>
-  
+
   <article anchordialog>
     <button anchorclose></button>
     <div class="scroll-y">

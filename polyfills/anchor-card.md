@@ -1,5 +1,9 @@
 # Anchor Card Polyfills
 
+----
+
+<baseline-status featureId="container-anchor-position-queries"></baseline-status>
+
 ## Demo
 [anchor()](../notebook/anchor.md#anchor-card-polyfill)
 
@@ -125,11 +129,8 @@ document.addEventListener('DOMContentLoaded', anchorCardPolyfill)
 :where([anchordialog]) {
   position: fixed;
   z-index: 9;
-  top: 50%;
-  left: 50%;
-  translate: -50% -50%;
-  width: min(95vw, 20rem);
-  height: min(95vh, 20rem);
+  margin: 0;
+  inset: 0;
 
   display: none;
   opacity: 0;

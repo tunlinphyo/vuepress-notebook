@@ -1,6 +1,5 @@
 # circle-select (Custom Element)
 
-
 ## Demo
 [offset-path](../notebook/motion-path.html#offset-path)
 
@@ -167,6 +166,28 @@ class CircleSelect extends HTMLElement {
   }
 
   handleKeydown(event) {
+    if (event.key === 'Tab' && this.isOpen) {
+      const selected = this.selectedElement
+      const options = this.options
+      const lastOption = options[options.length - 1]
+      const selectedTarget = event.target.closest('circle-selected')
+      const optionTarget = event.target.closest('circle-option')
+
+      if (selected && lastOption) {
+        if (!event.shiftKey && optionTarget === lastOption) {
+          event.preventDefault()
+          selected.focus()
+          return
+        }
+
+        if (event.shiftKey && selectedTarget === selected) {
+          event.preventDefault()
+          lastOption.focus()
+          return
+        }
+      }
+    }
+
     if (event.key !== 'Enter' && event.key !== ' ') return
 
     const selected = event.target.closest('circle-selected')

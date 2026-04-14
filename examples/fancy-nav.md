@@ -8,5 +8,3 @@
   max-width="40rem"
   height="24rem"
 />
-
-## Code Explain

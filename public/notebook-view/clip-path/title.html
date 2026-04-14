@@ -81,11 +81,22 @@
   & h2 {
     font-size: 3.75rem;
     font-weight: 400;
-    clip-path: polygon(0 0, 100% 0, 100% 55%, 0 55%);
+    clip-path: polygon(0 0, 100% 0, 100% 52%, 0 52%);
   }
 }
 
-@container scroll-state(snapped: x) {
+@supports (container-type: scroll-state) {
+  @container scroll-state(snapped: x) {
+    li > div {
+      scale: 1;
+      opacity: 1;
+    }
+  }
+}
+@supports not (container-type: scroll-state) {
+  ul {
+    gap: 1rem;
+  }
   li > div {
     scale: 1;
     opacity: 1;

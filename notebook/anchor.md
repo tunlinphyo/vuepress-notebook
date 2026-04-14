@@ -67,7 +67,86 @@
 }
 ```
 
-## anchor-hover
+## anchor-scope
+
+<ThemedIframe
+  src="/notebook-view/motion-path/people.html"
+  title="Fan List demo"
+  max-width="24rem"
+  height="24rem"
+/>
+
+This demo used [toggle-polyfill](../polyfills/toggle-polyfill.md).
+
+```css:line-numbers{3,6,12,13}
+:where(ul) {
+  & li {
+    anchor-scope: --popover;
+
+    & button {
+      anchor-name: --popover;
+    }
+  }
+}
+
+:where([popover]) {
+  container-type: anchored;
+  position-anchor: --popover;
+  overflow: visible;
+
+  top: auto;
+  bottom: calc(anchor(top) - 15px);
+  left: calc(anchor(right) - 15px);
+  position-try-fallbacks: --try-right;
+
+  .popover {
+    transform-origin: left bottom;
+    scale: 0;
+    transition: scale 0.25s ease-out;
+
+    border-radius: 20px;
+    @supports(corner-shape: squircle) {
+      border-radius: 40px;
+      corner-shape: squircle;
+    }
+    border-bottom-left-radius: 0;
+  }
+
+  &:popover-open .popover {
+    scale: 1;
+    transition: all .6s var(--ease-spring-2);
+
+    @starting-style {
+      scale: 0;
+    }
+  }
+
+  @supports (animation-name: test-starting-style) {
+    transition:
+      display 0.25s allow-discrete,
+      overlay 0.25s allow-discrete;
+  }
+}
+
+@position-try --try-right {
+  left: auto;
+  right: calc(anchor(left) - 15px);
+}
+
+@container anchored(fallback: --try-right) {
+  [popover] .popover {
+    transform-origin: right bottom;
+    border-bottom-right-radius: 0;
+
+    border-bottom-left-radius: 20px;
+    @supports(corner-shape: squircle) {
+      border-bottom-left-radius: 40px;
+    }
+  }
+}
+```
+
+## transition between anchor-name
 
 <ThemedIframe
   src="/notebook-view/anchor/anchor-hover.html"
@@ -133,10 +212,11 @@ This code uses the [Polyfill](../polyfills/anchor-card.md).
 const main = document.querySelector('main')
 main.addEventListener('anchorcard:open', ({ detail }) => {
   const item = detail.currentItem
-  const target = detail.target 
+  const target = detail.target
   const content = item.textContent.trim()
   const title = target.querySelector('#title')
 
   title.textContent = content
 })
 ```
+

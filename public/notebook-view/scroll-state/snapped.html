@@ -79,7 +79,18 @@
   }
 }
 
-@container scroll-state(snapped: x) {
+@supports (container-type: scroll-state) {
+  @container scroll-state(snapped: x) {
+    li > div {
+      scale: 1;
+      opacity: 1;
+    }
+  }
+}
+@supports not (container-type: scroll-state) {
+  ul {
+    gap: 1rem;
+  }
   li > div {
     scale: 1;
     opacity: 1;

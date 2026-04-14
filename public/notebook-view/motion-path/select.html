@@ -24,8 +24,8 @@
 
   --padding-x: 0.5rem;
   --surface: light-dark(
-    color-mix(in oklab, Canvas, CanvasText 10%),
-    color-mix(in oklab, Canvas, CanvasText 25%)
+    Canvas,
+    color-mix(in oklab, Canvas, CanvasText 30%)
   );
 }
 
@@ -38,7 +38,7 @@
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: light-dark(var(--surface), Canvas);
+  background-color: Canvas;
   color: CanvasText;
 }
 
@@ -55,7 +55,10 @@
 :where(p em) {
   display: inline-block;
   padding-inline: 0.5rem;
-  background-color: oklch(from ActiveText 0.95 calc(c - 0.2) h);
+  background-color: light-dark(
+    oklch(from ActiveText 0.95 calc(c - 0.2) h),
+    oklch(from ActiveText 0.15 c h)
+  );
   color: ActiveText;
   font-style: normal;
 
@@ -85,13 +88,18 @@
   offset-path: circle(0 at 50% 50%);
   offset-rotate: 0deg;
   offset-distance: 0;
+  offset-distance: calc(-25% + (var(--index) - 1) * 100% / var(--count));
   offset-anchor: auto;
   scale: 0;
 
-  transition: all .35s var(--ease-sine-out);
+  transition: offset .35s var(--ease-sine-out), scale .35s var(--ease-sine-out);
 
   &:is(:hover,:focus-visible) {
     scale: 1.1;
+  }
+
+  &:is([selected]) {
+    z-index: 1;
   }
 }
 
@@ -123,6 +131,12 @@
   &::after { rotate: -45deg; }
 }
 
+:where(circle-select:not([open]):has(circle-selected:focus-visible)) {
+  :is(circle-option[selected]) {
+    outline: 2px solid LinkText;
+    outline-offset: 2px;
+  }
+}
 :where(circle-selected, circle-option) {
   &:is(:focus-visible) {
     outline: 2px solid LinkText;
@@ -138,11 +152,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: light-dark(Canvas, var(--surface));
+  background-color: var(--surface);
   color: CanvasText;
   font-size: 1.8rem;
   /* box-shadow: oklch(from CanvasText l c h / 0.2) 0px 5px 18px 0px; */
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  box-shadow: rgba(0,0,0,0.2) 0px 2px 8px 0px;
 }
 
 :where(circle-select[open]) {
@@ -150,8 +164,7 @@
   :is(circle-option) {
     scale: 1;
     offset-path: circle(clamp(40px, 35vw, 80px) at 50% 50%);
-    /* offset-distance: calc(25% + (var(--index) - 1) * 100% / var(--count)); */
-    offset-distance: calc((sibling-index() - 1) * 100% / calc(sibling-count() - 2));
+    offset-distance: calc(25% + (var(--index) - 1) * 100% / var(--count));
   }
 
   :where(circle-option[selected]) > * {
@@ -163,6 +176,13 @@
   :where(circle-option[selected]) {
     scale: 1.3;
     offset-distance: 0;
+    offset-distance: calc(-25% + (var(--index) - 1) * 100% / var(--count));
+  }
+}
+
+:where([data-layer]) {
+  *, *::before, *::after {
+    outline: 1px dotted hotpink;
   }
 }
 
