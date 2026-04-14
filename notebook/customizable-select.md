@@ -1,4 +1,4 @@
-# Customizable <select>
+# Customizable select
 
 ----
 
