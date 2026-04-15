@@ -50,7 +50,7 @@
 
   :is(h1) {
     font-weight: 400;
-    font-size: clamp(1.2rem, 14vw, 2.8rem);
+    font-size: clamp(1.2rem, 12vw, 2.8rem);
   }
 }
 
@@ -144,14 +144,26 @@
       font-size: 2rem;
 
       anchor-name: --popover;
+
     }
   }
 
   &[data-toggle] {
     & li {
       offset-distance: var(--distance);
-      transition: offset 1s var(--ease-spring-3);
+      transition: offset 1s var(--ease-spring-3), scale .3s ease;
     }
+  }
+
+  & li:has(button:is(:hover,:focus-visible)) {
+    scale: 1.05;
+  }
+
+  & li:has(button:is(:hover,:focus-visible)) + li {
+    --move: 0.5%;
+  }
+  & li:has(+ li > button:is(:hover,:focus-visible)) {
+    --move: -0.5%;
   }
 }
 
@@ -179,15 +191,15 @@
 
   position-anchor: --popover;
   top: auto;
-  bottom: calc(anchor(top) - 15px);
-  left: calc(anchor(right) - 15px);
-  position-try-fallbacks: --try-right;
+  bottom: anchor(top);
+  left: calc(anchor(left) - 0.5rem);
+  position-try-fallbacks: --try-right, --try-center;
 
   .popover {
-    transform-origin: left bottom;
+    transform-origin: 2rem bottom;
 
+    min-width: 15rem;
     padding: 1.5rem;
-    white-space: nowrap;
     background-color: oklch(from Canvas l c h / 0.98);
     border: 2px solid oklch(from CanvasText l c h / 0.1);
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -199,13 +211,28 @@
       border-radius: 40px;
       corner-shape: squircle;
     }
-    border-bottom-left-radius: 0;
 
     & span {
       display: inline-block;
       translate: 0.5rem 0;
-      scale: 2;
+      scale: 1.5;
       margin-inline-end: 0.75rem;
+    }
+
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 0.75rem;
+      aspect-ratio: 1;
+      rotate: 45deg;
+      left: 1.5rem;
+      translate: 0 0;
+      bottom: -0.45rem;
+      background-color: oklch(from Canvas l c h / 0.98);
+      border: 2px solid oklch(from CanvasText l c h / 0.1);
+      border-left: none;
+      border-top: none;
     }
   }
 
@@ -227,17 +254,32 @@
 
 @position-try --try-right {
   left: auto;
-  right: calc(anchor(left) - 15px);
+  right: calc(anchor(right) - 0.5rem);
+}
+
+@position-try --try-center {
+  left: unset;
+  justify-self: anchor-center;
 }
 
 @container anchored(fallback: --try-right) {
   [popover] .popover {
-    transform-origin: right bottom;
-    border-bottom-right-radius: 0;
+    transform-origin: calc(100% - 2rem) bottom;
 
-    border-bottom-left-radius: 20px;
-    @supports(corner-shape: squircle) {
-      border-bottom-left-radius: 40px;
+    &::before {
+      left: unset;
+      right: 1.5rem;
+    }
+  }
+}
+
+@container anchored(fallback: --try-center) {
+  [popover] .popover {
+    transform-origin: center bottom;
+
+    &::before {
+      left: 50%;
+      translate: -50% 0;
     }
   }
 }
@@ -272,41 +314,47 @@
 <main>
   <h1>People in Mode</h1>
   <button class="toggle" toogletarget="people"></button>
-  <ul id="people" style="--count: 6">
+  <ul id="people" style="--count: 7">
     <li style="--index: 1">
       <button popovertarget="one">😀</button>
       <div id="one" popover>
-        <div class="popover">Person one is <span>😀</span></div>
+        <div class="popover">Person one has a big grin on their face <span>😀</span></div>
       </div>
     </li>
     <li style="--index: 2">
       <button popovertarget="two">😭</button>
       <div id="two" popover>
-        <div class="popover">Person two is <span>😭</span></div>
+        <div class="popover">Person two is crying their eyes out <span>😭</span></div>
       </div>
     </li>
     <li style="--index: 3">
       <button popovertarget="three">🥹</button>
       <div id="three" popover>
-        <div class="popover">Person three is <span>🥹</span></div>
+        <div class="popover">Person three looks like they are holding back tears <span>🥹</span></div>
       </div>
     </li>
     <li style="--index: 4">
       <button popovertarget="four">😊</button>
       <div id="four" popover>
-        <div class="popover">Person four is <span>😊</span></div>
+        <div class="popover">Person four is smiling warmly <span>😊</span></div>
       </div>
     </li>
     <li style="--index: 5">
       <button popovertarget="five">😤</button>
       <div id="five" popover>
-        <div class="popover">Person five is <span>😤</span></div>
+        <div class="popover">Person five looks fed up and is blowing off steam <span>😤</span></div>
       </div>
     </li>
     <li style="--index: 6">
       <button popovertarget="six">😡</button>
       <div id="six" popover>
-        <div class="popover">Person six is <span>😡</span></div>
+        <div class="popover">Person six looks absolutely furious <span>😡</span></div>
+      </div>
+    </li>
+    <li style="--index: 7">
+      <button popovertarget="seven">🤪</button>
+      <div id="seven" popover>
+        <div class="popover">Person seven is feeling goofy and wild <span>🤪</span></div>
       </div>
     </li>
   </ul>

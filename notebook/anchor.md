@@ -30,8 +30,8 @@
   position-anchor: --popover;
   top: auto;
   bottom: anchor(top);
-  left: anchor(right);
-  position-try-fallbacks: --try-bottom;
+  left: calc(anchor(left) - 0.5rem);
+  position-try-fallbacks: --try-right, --try-center;
 
   .popover-content {
     scale: 0;
@@ -54,15 +54,25 @@
   }
 }
 
-@position-try --try-bottom {
-  top: anchor(bottom);
-  bottom: auto;
-  left: anchor(right);
+@position-try --try-right {
+  left: auto;
+  right: calc(anchor(right) - 0.5rem);
 }
 
-@container anchored(fallback: --try-bottom) {
-  [popover] .popover-content {
-    transform-origin: left top;
+@position-try --try-center {
+  left: unset;
+  justify-self: anchor-center;
+}
+
+@container anchored(fallback: --try-right) {
+  [popover] .popover {
+    transform-origin: calc(100% - 2rem) bottom;
+  }
+}
+
+@container anchored(fallback: --try-center) {
+  [popover] .popover {
+    transform-origin: center bottom;
   }
 }
 ```
@@ -72,11 +82,18 @@
 <ThemedIframe
   src="/notebook-view/motion-path/people.html"
   title="Fan List demo"
-  max-width="24rem"
+  max-width="20rem"
   height="24rem"
 />
 
 This demo used [toggle-polyfill](../polyfills/toggle-polyfill.md).
+
+::: warning
+Centering is handled in `@container anchored(fallback: --try-center)` rather than in the base `[popover]` rule.
+When `justify-self: anchor-center` is used as the default placement, `position-try-fallbacks` never run, so it only works reliably as a
+fallback, which keeps the transition origin and bubble arrow aligned with the anchor.
+Tested in Chrome 146.0.7680.178.
+:::
 
 ```css:line-numbers{3,6,12,13}
 :where(ul) {
@@ -97,7 +114,7 @@ This demo used [toggle-polyfill](../polyfills/toggle-polyfill.md).
   top: auto;
   bottom: calc(anchor(top) - 15px);
   left: calc(anchor(right) - 15px);
-  position-try-fallbacks: --try-right;
+  position-try-fallbacks: --try-center, --try-right;
 
   .popover {
     transform-origin: left bottom;
@@ -133,6 +150,12 @@ This demo used [toggle-polyfill](../polyfills/toggle-polyfill.md).
   right: calc(anchor(left) - 15px);
 }
 
+@position-try --try-center {
+  left: unset;
+  bottom: calc(anchor(top) - 5px);
+  justify-self: anchor-center;
+}
+
 @container anchored(fallback: --try-right) {
   [popover] .popover {
     transform-origin: right bottom;
@@ -141,6 +164,33 @@ This demo used [toggle-polyfill](../polyfills/toggle-polyfill.md).
     border-bottom-left-radius: 20px;
     @supports(corner-shape: squircle) {
       border-bottom-left-radius: 40px;
+    }
+  }
+}
+
+@container anchored(fallback: --try-center) {
+  [popover] .popover {
+    transform-origin: center bottom;
+
+    border-radius: 20px;
+    @supports(corner-shape: squircle) {
+      border-radius: 40px;
+    }
+
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 0.75rem;
+      aspect-ratio: 1;
+      rotate: 45deg;
+      left: 50%;
+      translate: -50% 0;
+      bottom: -0.5rem;
+      background-color: oklch(from Canvas l c h / 0.98);
+      border: 2px solid oklch(from CanvasText l c h / 0.1);
+      border-left: none;
+      border-top: none;
     }
   }
 }
@@ -219,4 +269,3 @@ main.addEventListener('anchorcard:open', ({ detail }) => {
   title.textContent = content
 })
 ```
-

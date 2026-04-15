@@ -75,7 +75,7 @@ This demo uses a [custom element](../polyfills/circle-select.md) inspired by thi
 <ThemedIframe
   src="/notebook-view/motion-path/people.html"
   title="Fan List demo"
-  max-width="24rem"
+  max-width="20rem"
   height="24rem"
 />
 

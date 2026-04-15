@@ -100,3 +100,37 @@ new MutationObserver(syncSunMoonTheme).observe(root, {
   attributeFilter: ['style'],
 })
 ```
+
+## Browser
+
+<ThemedIframe
+  src="/notebook-view/clip-path/browser.html"
+  title="Fan List demo"
+  max-width="32rem"
+  height="20rem"
+/>
+
+```css:line-numbers
+
+:where(.browser) {
+  clip-path: polygon(0 0, 40% 0, 2% 100%, 8% 100%, 46% 0, 100% 0, 100% 100%, 0 100%);
+  border: 2px solid ActiveText;
+
+  &::before,
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: 5;
+    inset: 0;
+    background-color: ActiveText;
+  }
+
+  &::before {
+    clip-path: polygon(calc(40% - 4px) 0, 40% 0, 2% 100%, calc(2% - 3px) 100%);
+  }
+  &::after {
+    clip-path: polygon(calc(46% - 2px) 0, calc(46% + 1px) 0, calc(8% + 2px) 100%, calc(8% - 2px) 100%);
+  }
+}
+```
