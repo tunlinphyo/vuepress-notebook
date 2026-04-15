@@ -103,6 +103,10 @@ watch(() => sharedSettings.layerEnabled, (enabled) => {
         <span class="themed-iframe__action-toggle" aria-hidden="true"></span>
       </label>
     </footer>
+
+    <div class="source-code-link">
+      <a :href="`https://github.com/tunlinphyo/vuepress-notebook/blob/main/public${$props.src}`" target="_blank" rel="noopener noreferrer">Open Source Code</a>
+    </div>
   </div>
 </template>
 
@@ -247,5 +251,9 @@ iframe {
 .themed-iframe__switch-input:focus-visible + .themed-iframe__action-toggle {
   outline: 2px solid var(--vp-c-brand-1);
   outline-offset: 2px;
+}
+
+.source-code-link {
+  text-align: center;
 }
 </style>
