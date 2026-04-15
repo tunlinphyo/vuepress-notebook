@@ -13,6 +13,9 @@ export default {
     })
   },
   enhanceApp({ app, router, siteData }) {
+    if (typeof window !== 'undefined' && !window.customElements.get('baseline-status')) {
+      void import('baseline-status')
+    }
     app.component('ThemedIframe', ThemedIframe)
   }
 } satisfies Theme

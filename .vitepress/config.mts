@@ -1,9 +1,24 @@
 import { defineConfig } from 'vitepress'
 
+const customElements = new Set([
+  'baseline-status',
+  'circle-select',
+  'circle-option',
+  'circle-selected',
+  'sun-moon',
+])
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "Coder's Notebook",
-  description: "A VitePress Site",
+  title: 'Cody Draft',
+  description: "Tun's Code Drafts",
+  vue: {
+    template: {
+      compilerOptions: {
+        isCustomElement: (tag: string) => customElements.has(tag),
+      },
+    },
+  },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     // nav: [
@@ -16,21 +31,47 @@ export default defineConfig({
         text: 'Examples',
         items: [
           { text: 'About Me Card', link: '/examples/about-me-card' },
+          // { text: 'Anchor Flip', link: '/examples/anchor-flip' },
           { text: 'Color Picker', link: '/examples/color-picker' },
           { text: 'Fan List', link: '/examples/fan-list' },
-          { text: 'Markdown Examples', link: '/examples/markdown-examples' },
+          { text: 'Fancy Nav', link: '/examples/fancy-nav' },
+          // { text: 'Markdown Examples', link: '/examples/markdown-examples' },
         ]
       },
       {
-        text: 'Other',
+        text: 'Notebook',
         items: [
-          { text: 'Runtime API Examples', link: '/api-examples' }
+          { text: 'anchor()', link: '/notebook/anchor' },
+          { text: 'animation-timeline', link: '/notebook/animation-timeline' },
+          { text: 'clip-path', link: '/notebook/clip-path' },
+          { text: 'Cool CSS', link: '/notebook/cool-css' },
+          { text: '@counter-style', link: '/notebook/counter-style' },
+          { text: 'motion-path', link: '/notebook/motion-path' },
+          { text: '@property', link: '/notebook/property' },
+          { text: 'scroll-state()', link: '/notebook/scroll-state' },
+          // { text: 'Wheel Select', link: '/notebook/wheel-select' },
+        ]
+      },
+      {
+        text: 'Modules',
+        items: [
+          { text: 'anchor-card', link: '/polyfills/anchor-card' },
+          { text: 'circle-select', link: '/polyfills/circle-select' },
+          { text: 'dialog-polyfill', link: '/polyfills/dialog-polyfill' },
+          { text: 'sun-moon', link: '/polyfills/sun-moon' },
+          { text: 'toggle-polyfill', link: '/polyfills/toggle-polyfill' },
         ]
       }
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/tunlinphyo' }
+      { icon: 'github', link: 'https://github.com/tunlinphyo' },
+      {
+        icon: {
+          svg: `<svg viewBox="0 0 64 64"><g><path fill="currentCOlor" fill-rule="evenodd" d="M18 2C9.163 2 2 9.163 2 18v28c0 8.837 7.163 16 16 16h28c8.837 0 16-7.163 16-16V18c0-8.837-7.163-16-16-16zm10 30a2 2 0 0 1-.662 1.487l-10 9a2 2 0 1 1-2.676-2.974L23.01 32l-8.348-7.513a2 2 0 0 1 2.676-2.974l10 9A2 2 0 0 1 28 32zm20 11a2 2 0 1 0 0-4H32a2 2 0 1 0 0 4z"></path></g></svg>`,
+        },
+        link: 'https://github.com/tunlinphyo'
+      }
     ]
   }
 })

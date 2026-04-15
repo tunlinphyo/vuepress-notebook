@@ -30,6 +30,7 @@
 
   display: grid;
   place-content: center;
+  background-color: Canvas;
 }
 
 :where(.spacer) {
@@ -312,6 +313,12 @@
 
   & li:has([toogletarget="email"]) {
     anchor-name: none;
+  }
+}
+
+:where([data-layer]) {
+  *, *::before, *::after {
+    outline: 1px dotted hotpink;
   }
 }
 

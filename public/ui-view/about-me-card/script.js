@@ -1,4 +1,4 @@
-      function togglePolyfill() {
+function togglePolyfill() {
   const triggers = document.querySelectorAll('[toogletarget]');
   const lastFocusedTrigger = new WeakMap();
 

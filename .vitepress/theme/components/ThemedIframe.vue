@@ -1,8 +1,13 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
-
-type ThemeMode = 'system' | 'light' | 'dark'
-const STORAGE_KEY = 'themed-iframe-mode'
+import {
+  hasInitializedSharedState,
+  LAYER_STORAGE_KEY,
+  markSharedStateInitialized,
+  sharedSettings,
+  STORAGE_KEY,
+  type ThemeMode,
+} from './themedIframeState'
 
 const props = withDefaults(
   defineProps<{
@@ -18,27 +23,44 @@ const props = withDefaults(
 )
 
 const iframeRef = ref<HTMLIFrameElement | null>(null)
-const theme = ref<ThemeMode>('system')
 
-function applyTheme() {
+function applyFrameSettings() {
   const iframe = iframeRef.value
   const doc = iframe?.contentDocument
   if (!doc) return
 
-  const mode = theme.value === 'system' ? 'light dark' : theme.value
+  const mode = sharedSettings.theme === 'system' ? 'light dark' : sharedSettings.theme
   doc.documentElement.style.colorScheme = mode
+
+  if (sharedSettings.layerEnabled) {
+    doc.documentElement.setAttribute('data-layer', '')
+  } else {
+    doc.documentElement.removeAttribute('data-layer')
+  }
 }
 
 onMounted(() => {
-  const savedTheme = localStorage.getItem(STORAGE_KEY)
-  if (savedTheme === 'system' || savedTheme === 'light' || savedTheme === 'dark') {
-    theme.value = savedTheme
+  if (!hasInitializedSharedState) {
+    const savedTheme = localStorage.getItem(STORAGE_KEY)
+    if (savedTheme === 'system' || savedTheme === 'light' || savedTheme === 'dark') {
+      sharedSettings.theme = savedTheme
+    }
+
+    sharedSettings.layerEnabled = localStorage.getItem(LAYER_STORAGE_KEY) === 'true'
+    markSharedStateInitialized()
   }
+
+  applyFrameSettings()
 })
 
-watch(theme, (mode) => {
+watch(() => sharedSettings.theme, (mode) => {
   localStorage.setItem(STORAGE_KEY, mode)
-  applyTheme()
+  applyFrameSettings()
+})
+
+watch(() => sharedSettings.layerEnabled, (enabled) => {
+  localStorage.setItem(LAYER_STORAGE_KEY, String(enabled))
+  applyFrameSettings()
 })
 </script>
 
@@ -50,8 +72,8 @@ watch(theme, (mode) => {
         :key="mode"
         type="button"
         class="themed-iframe__toggle"
-        :class="{ 'is-active': theme === mode }"
-        @click="theme = mode as ThemeMode"
+        :class="{ 'is-active': sharedSettings.theme === mode }"
+        @click="sharedSettings.theme = mode as ThemeMode"
       >
         {{ mode }}
       </button>
@@ -67,15 +89,20 @@ watch(theme, (mode) => {
         width: '100%',
         maxWidth: props.maxWidth,
         height: props.height,
-        border: '0',
-        borderRadius: '24px',
         display: 'block',
         margin: '0 auto',
         overflow: 'hidden',
-        boxShadow: '0 20px 50px rgba(15,23,42,.12)'
       }"
-      @load="applyTheme"
+      @load="applyFrameSettings"
     />
+
+    <footer class="themed-iframe__footer">
+      <label class="themed-iframe__switch">
+        <span class="themed-iframe__switch-label">Layout Borders</span>
+        <input v-model="sharedSettings.layerEnabled" type="checkbox" class="themed-iframe__switch-input">
+        <span class="themed-iframe__action-toggle" aria-hidden="true"></span>
+      </label>
+    </footer>
   </div>
 </template>
 
@@ -85,6 +112,7 @@ watch(theme, (mode) => {
   display: grid;
   gap: 0.75rem;
   justify-items: center;
+  margin-block: 2rem;
 
   --ease-spring-3: linear(
     0, 0.009, 0.035 2.1%, 0.141 4.4%, 0.723 12.9%, 0.938 16.7%, 1.017, 1.077,
@@ -94,14 +122,26 @@ watch(theme, (mode) => {
   );
 }
 
+iframe {
+  border: 0;
+  border: 1px solid var(--vp-c-brand-2);
+  box-shadow: 0 20px 50px rgba(15,23,42,.12);
+
+  border-radius: 24px;
+  @supports(corner-shape: squircle) {
+    border-radius: 48px;
+    corner-shape: squircle;
+  }
+}
+
 .themed-iframe__toolbar {
   display: inline-flex;
   gap: 0.25rem;
-  padding: 0.25rem;
+  padding: 0.1rem;
   border: 1px solid var(--vp-c-divider);
   border-radius: 999px;
   background: var(--vp-c-bg-soft);
-
+  position: relative;
   anchor-name: --toolbar;
 }
 
@@ -127,7 +167,7 @@ watch(theme, (mode) => {
   z-index: 1;
   border: 0;
   border-radius: 999px;
-  padding: 0.45rem 0.8rem;
+  padding: 0.25rem 0.75rem;
   background: transparent;
   color: var(--vp-c-text-2);
   font: inherit;
@@ -137,5 +177,75 @@ watch(theme, (mode) => {
 
 .themed-iframe__toggle.is-active {
   anchor-name: --toolbar;
+  color: var(--vp-c-brand-2);
+}
+
+.themed-iframe__footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.themed-iframe__switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  color: var(--vp-c-text-1);
+  cursor: pointer;
+  user-select: none;
+}
+
+.themed-iframe__switch-label {
+  font-size: 0.95rem;
+}
+
+.themed-iframe__switch-input {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.themed-iframe__action-toggle {
+  width: 2.5rem;
+  height: 1.5rem;
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  border-radius: 100vh;
+  background-color: color-mix(in srgb, var(--vp-c-text-3) 32%, transparent);
+  box-shadow: inset 0 0 0 1px var(--vp-c-divider);
+  transition: background-color 0.2s ease;
+}
+
+.themed-iframe__action-toggle::after {
+  content: '';
+  position: absolute;
+  top: 0.125rem;
+  left: 0.125rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 100vh;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.25);
+  transition: transform 0.2s ease;
+}
+
+.themed-iframe__switch-input:checked + .themed-iframe__action-toggle {
+  background-color: var(--vp-c-brand-1);
+}
+
+.themed-iframe__switch-input:checked + .themed-iframe__action-toggle::after {
+  transform: translateX(1rem);
+}
+
+.themed-iframe__switch-input:focus-visible + .themed-iframe__action-toggle {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 2px;
 }
 </style>

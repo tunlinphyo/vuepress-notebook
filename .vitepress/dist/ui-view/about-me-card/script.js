@@ -1,52 +1,54 @@
-const contacts = {
-  github: {
-    title: "GitHub",
-    description:
-      "Check out my modern Web APIs experiments: clean UI, smooth interactions.",
-    url: "https://github.com/tunlinphyo",
-    cta: "Visit GitHub Profile"
-  },
-  linkedin: {
-    title: "LinkedIn",
-    description:
-      "Connect with me if you'd like to discuss opportunities or exchange ideas.",
-    url: "https://www.linkedin.com/in/tunlinphyo",
-    cta: "Connect on LinkedIn"
-  },
-  email: {
-    title: "Email",
-    description:
-      "For collaborations or product questions, email is the fastest way to reach me.",
-    url: "mailto:tunlinphyo.it@gmail.com",
-    cta: "Send Me an Email"
+      function togglePolyfill() {
+  const triggers = document.querySelectorAll('[toogletarget]');
+  const lastFocusedTrigger = new WeakMap();
+
+  for (const trigger of triggers) {
+    trigger.addEventListener('click', handleClick);
+  }
+
+  function handleClick(event) {
+    const elem = event.target;
+    const trigger = elem.closest('[toogletarget]');
+    if (!trigger) return;
+
+    const id = trigger.getAttribute('toogletarget');
+    const target = id ? document.getElementById(id) : null;
+    if (!target) return;
+
+    const isOpening = !target.hasAttribute('data-toggle');
+
+    target.toggleAttribute('data-toggle');
+    syncInert(target);
+
+    if (isOpening) {
+      lastFocusedTrigger.set(target, trigger);
+
+      const nestedTrigger = target.querySelector(
+        `[toogletarget="${CSS.escape(id)}"]`
+      );
+      nestedTrigger?.focus();
+      return;
+    }
+
+    const lastTrigger = lastFocusedTrigger.get(target);
+    lastTrigger?.focus();
+  }
+
+  function syncInert(elem) {
+    const isActive = elem.hasAttribute('data-toggle');
+    elem.toggleAttribute('inert', !isActive);
+
+    const id = elem.id;
+    if (!id) return;
+
+    const linkedElements = document.querySelectorAll(
+      `[data-inert-${CSS.escape(id)}`
+    );
+
+    for (const linkedElement of linkedElements) {
+      linkedElement.toggleAttribute('inert', isActive);
+    }
   }
 }
 
-const content = document.getElementById("cardContent")
-const panel = document.getElementById("detailPanel")
-const closeButton = document.getElementById("closePanel")
-const title = document.getElementById("detailTitle")
-const description = document.getElementById("detailDescription")
-const link = document.getElementById("detailLink")
-
-document.querySelectorAll("[data-contact]").forEach((button) => {
-  button.addEventListener("click", () => {
-    const key = button.getAttribute("data-contact")
-    const detail = key ? contacts[key] : null
-
-    if (!detail) return
-
-    title.textContent = detail.title
-    description.textContent = detail.description
-    link.textContent = detail.cta
-    link.href = detail.url
-
-    content.classList.add("is-dimmed")
-    panel.classList.remove("is-hidden")
-  })
-})
-
-closeButton.addEventListener("click", () => {
-  panel.classList.add("is-hidden")
-  content.classList.remove("is-dimmed")
-})
+document.addEventListener('DOMContentLoaded', togglePolyfill);
