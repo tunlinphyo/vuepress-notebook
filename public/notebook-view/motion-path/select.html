@@ -88,7 +88,7 @@
   offset-path: circle(0 at 50% 50%);
   offset-rotate: 0deg;
   offset-distance: 0;
-  offset-distance: calc(-25% + (var(--index) - 1) * 100% / var(--count));
+  offset-distance: calc(-75% + (var(--index) - 1) * 100% / var(--count));
   offset-anchor: auto;
   scale: 0;
 
@@ -164,7 +164,7 @@
   :is(circle-option) {
     scale: 1;
     offset-path: circle(clamp(40px, 35vw, 80px) at 50% 50%);
-    offset-distance: calc(25% + (var(--index) - 1) * 100% / var(--count));
+    offset-distance: calc(-25% + (var(--index) - 1) * 100% / var(--count));
   }
 
   :where(circle-option[selected]) > * {
@@ -176,7 +176,7 @@
   :where(circle-option[selected]) {
     scale: 1.3;
     offset-distance: 0;
-    offset-distance: calc(-25% + (var(--index) - 1) * 100% / var(--count));
+    offset-distance: calc(-75% + (var(--index) - 1) * 100% / var(--count));
   }
 }
 

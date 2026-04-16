@@ -9,7 +9,7 @@
 <ThemedIframe
   src="/notebook-view/animation-timeline/scroll.html"
   title="Fan List demo"
-  max-width="20rem"
+  max-width="24rem"
   height="20rem"
 />
 

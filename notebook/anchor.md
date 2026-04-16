@@ -2,11 +2,11 @@
 
 ----
 
-<baseline-status featureId="container-anchor-position-queries"></baseline-status>
+<baseline-status featureId="anchor-positioning"></baseline-status>
 
 ----
 
-<baseline-status featureId="anchor-positioning"></baseline-status>
+<baseline-status featureId="container-anchor-position-queries"></baseline-status>
 
 
 [Anchor Tool](https://chrome.dev/anchor-tool/)

@@ -46,7 +46,7 @@ This demo uses a [custom element](../polyfills/circle-select.md) inspired by thi
 
   offset-path: circle(0 at 50% 50%);
   offset-rotate: 0deg;
-  offset-distance: calc(-25% + (sibling-index() - 1) * 100% / calc(sibling-count() - 2));
+  offset-distance: calc(-75% + (sibling-index() - 1) * 100% / calc(sibling-count() - 2));
   offset-anchor: auto;
   scale: 0;
   transition: offset .35s var(--ease-sine-out), scale .35s var(--ease-sine-out);
@@ -65,7 +65,7 @@ This demo uses a [custom element](../polyfills/circle-select.md) inspired by thi
   :is(circle-option) {
     scale: 1;
     offset-path: circle(clamp(40px, 30vw, 80px) at 50% 50%);
-    offset-distance: calc((sibling-index() - 1) * 100% / calc(sibling-count() - 2));
+    offset-distance: calc(-25% + (sibling-index() - 1) * 100% / calc(sibling-count() - 2));
   }
 }
 ```
