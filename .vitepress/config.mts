@@ -33,8 +33,8 @@ export default defineConfig({
           { text: 'About Me Card', link: '/examples/about-me-card' },
           // { text: 'Anchor Flip', link: '/examples/anchor-flip' },
           { text: 'Color Picker', link: '/examples/color-picker' },
-          { text: 'Fan List', link: '/examples/fan-list' },
-          { text: 'Fancy Nav', link: '/examples/fancy-nav' },
+          // { text: 'Fan List', link: '/examples/fan-list' },
+          // { text: 'Fancy Nav', link: '/examples/fancy-nav' },
           // { text: 'Markdown Examples', link: '/examples/markdown-examples' },
         ]
       },
@@ -46,6 +46,7 @@ export default defineConfig({
           { text: 'clip-path', link: '/notebook/clip-path' },
           { text: 'Cool CSS', link: '/notebook/cool-css' },
           { text: '@counter-style', link: '/notebook/counter-style' },
+          { text: 'Invoker Commands', link: '/notebook/invoker-commands' },
           { text: 'motion-path', link: '/notebook/motion-path' },
           { text: '@property', link: '/notebook/property' },
           { text: 'scroll-state()', link: '/notebook/scroll-state' },
