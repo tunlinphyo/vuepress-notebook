@@ -17,7 +17,12 @@
   height="24rem"
 />
 
+::: warning
+Safari does not behave properly when `offset-path` is set to `circle(0 at 50% 50%)`. Using `offset-path: circle(1px at 50% 50%)` fixes the issue.
+:::
+
 This demo uses a [custom element](../polyfills/circle-select.md) inspired by this [CodePen](https://codepen.io/dylanbeattie/pen/dPGKZvg), which explores the new CSS `customizable-select`.
+I also built a related version at [Custom Select](./customizable-select.md#select).
 
 ```html:line-numbers
 <circle-select name="person" value="1">
@@ -44,7 +49,7 @@ This demo uses a [custom element](../polyfills/circle-select.md) inspired by thi
   z-index: 0;
   inset: 0;
 
-  offset-path: circle(0 at 50% 50%);
+  offset-path: circle(1px at 50% 50%);
   offset-rotate: 0deg;
   offset-distance: calc(-75% + (sibling-index() - 1) * 100% / calc(sibling-count() - 2));
   offset-anchor: auto;
