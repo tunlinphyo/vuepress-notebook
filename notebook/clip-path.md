@@ -36,12 +36,8 @@ This demo uses the custom [`<sun-moon>`](../polyfills/sun-moon) element.
 
 ```css:line-numbers{16,23}
 :where(body) {
-  &[theme=light] {
-    background-color: white;
-  }
-  &[theme=dark] {
-    background-color: black;
-  }
+  background-color: Canvas;
+  transition: background-color 0s linear 0.5s;
 }
 
 :where(body[togelling]) {

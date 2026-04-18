@@ -11,12 +11,6 @@
   href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap"
   rel="stylesheet"
   fetchpriority="high">
-
-<script
-  type="module"
-  async
-  src="https://unpkg.com/invokers-polyfill@latest/invoker.min.js"
-></script>
 <style>
 :root {
   color-scheme: light dark;
@@ -56,7 +50,7 @@
 
 :where(main) {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 1rem;
@@ -64,9 +58,7 @@
 }
 
 :where(p) {
-  margin: 0;
-  text-align: center;
-  padding-inline: 1rem;
+  margin: 0.5rem 0;
 }
 
 :where(button) {
@@ -99,7 +91,7 @@
 
   background-color: light-dark(Canvas, var(--surface));
 
-  translate: 0 -75%;
+  translate: 0 0;
   opacity: 0;
   scale: 0.5;
   transition: all 0.6s var(--ease-spring-2);
@@ -113,7 +105,7 @@
   h2 {
     font-size: 1.2rem;
     font-weight: 400;
-    margin: 1rem 0;
+    margin: 0.5rem 0;
   }
 
   footer {
@@ -121,6 +113,7 @@
     justify-content: flex-end;
     align-items: center;
     gap: 0.5rem;
+    padding: 0.5rem;
   }
 
   &::backdrop {
@@ -185,41 +178,39 @@
 </head>
 <body>
 <main>
-  <button commandfor="alert" command="show-modal">Open Alert</button>
-  <button commandfor="confirm" command="show-modal" data-message="Give me your money?">Open Confirm</button>
-  <button commandfor="confirm" command="show-modal" data-message="Are you sure you want to do?">Open Confirm</button>
-  <button commandfor="confirm" command="show-modal" data-message="This action cannot be undone. Continue?">Open Confirm</button>
+  <button commandfor="bynone" command="show-modal">none</button>
+  <button commandfor="bycloser" command="show-modal">closerequest</button>
+  <button commandfor="byany" command="show-modal">any</button>
 </main>
-<p id="message">--</p>
 
-<dialog id="alert">
-  <h2>This is alert message!</h2>
+<dialog id="bynone" closedby="none">
+  <h2>Dialog (closedby=none)</h2>
+  <p>
+    No user-triggered closing of dialogs at all. This is the default behavior.
+  </p>
   <footer>
-    <button commandfor="alert" command="close">Close</button>
+    <button id="confirmok" commandfor="bynone" command="close">Close</button>
   </footer>
 </dialog>
 
-<dialog id="confirm">
-  <h2>This is confirm message!</h2>
+<dialog id="bycloser" closedby="closerequest">
+  <h2>Dialog (closedby=closerequest)</h2>
+  <p>
+    Pressing ESC (or other close trigger) closes the dialog
+  </p>
   <footer>
-    <button commandfor="confirm" command="close">No</button>
-    <button id="confirmok" commandfor="confirm" command="--on-confirm">Yes</button>
+    <button commandfor="bycloser" command="close">Close</button>
   </footer>
 </dialog>
 
-<script>
-const dialog = document.getElementById('confirm')
-const messageEl = document.getElementById('message')
-dialog.addEventListener('command', (e) => {
-  const message = e.source.dataset.message || ''
-  const titleEl = e.target.querySelector('h2')
-  if (titleEl && message) titleEl.innerText = message
-
-  if (e.command === "--on-confirm") {
-    messageEl.innerText = 'Confirm:: '.concat(titleEl.innerText)
-    dialog.close()
-  }
-});
-</script>
+<dialog id="byany" closedby="any">
+  <h2>Dialog (closedby=any)</h2>
+  <p>
+    Clicking outside the dialog, or pressing ESC, closes the dialog. Similar to popover="auto" behavior.
+  </p>
+  <footer>
+    <button commandfor="byany" command="close">Close</button>
+  </footer>
+</dialog>
 </body>
 </html>

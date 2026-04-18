@@ -1,23 +1,56 @@
-# customizable-select
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scroll State</title>
 
-----
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap"
+  rel="stylesheet"
+  fetchpriority="high">
+<style>
+:root {
+  color-scheme: light dark;
 
-<baseline-status featureId="customizable-select"></baseline-status>
+  font-family: "Google Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 100%;
 
-## Circle Select
+  --padding-x: 0.5rem;
+  --surface: light-dark(
+    Canvas,
+    color-mix(in oklab, Canvas, CanvasText 30%)
+  );
+}
 
-<ThemedIframe
-  src="/notebook-view/customizable-select/circle-select.html"
-  title="Fan List demo"
-  max-width="24rem"
-  height="20rem"
-/>
+*, *::before, *::after {
+  box-sizing: border-box;
+}
 
-[Customizable select](https://chrome.dev/css-wrapped-2025/#customizable-select)
+:where(html,body) {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: Canvas;
+  color: CanvasText;
+}
 
-This demo is inspired by this [CodePen](https://codepen.io/dylanbeattie/pen/dPGKZvg), and a custom element version is available at [offset-path](./motion-path.md#offset-path).
+:where(main) {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
 
-```css:line-numbers{4}
 @supports (appearance: base-select) {
   select,
   ::picker(select) {
@@ -43,7 +76,7 @@ This demo is inspired by this [CodePen](https://codepen.io/dylanbeattie/pen/dPGK
       place-content: center;
       font-size: 2rem;
       border-radius: 50%;
-      background-color: var(--surface);
+      background-color: color-mix(in oklab, Canvas, CanvasText 8%);
 
       .person {
         display: none;
@@ -124,13 +157,51 @@ This demo is inspired by this [CodePen](https://codepen.io/dylanbeattie/pen/dPGK
     bottom: anchor(bottom);
   }
 }
-```
 
-## Custom Select
+:where([data-layer]) {
+  *, *::before, *::after {
+    outline: 1px dotted hotpink;
+  }
+}
 
-<ThemedIframe
-  src="/notebook-view/customizable-select/custom-select.html"
-  title="Fan List demo"
-  max-width="24rem"
-  height="24rem"
-/>
+:where(html) {
+  --ease-sine-in: cubic-bezier(.47,0,.745,.715);
+  --ease-sine-in-out: cubic-bezier(.445,.05,.55,.95);
+  --ease-sine-out: cubic-bezier(.39,.575,.565,1);
+}
+</style>
+</head>
+<body>
+<main>
+  <select>
+    <button>
+      <selectedcontent></selectedcontent>
+    </button>
+    <option value="1">
+      <div class="person">😀</div>
+    </option>
+    <option value="2">
+      <div class="person">😎</div>
+    </option>
+    <option value="3">
+      <div class="person">🤠</div>
+    </option>
+    <option value="4">
+      <div class="person">🤓</div>
+    </option>
+    <option value="5">
+      <div class="person">🥳</div>
+    </option>
+    <option value="6">
+      <div class="person">😍</div>
+    </option>
+    <option value="7">
+      <div class="person">❤️</div>
+    </option>
+    <option value="8">
+      <div class="person">👍</div>
+    </option>
+  </select>
+</main>
+</body>
+</html>
