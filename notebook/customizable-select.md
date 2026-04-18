@@ -125,3 +125,12 @@ This demo is inspired by this [CodePen](https://codepen.io/dylanbeattie/pen/dPGK
   }
 }
 ```
+
+## Custom Select
+
+<ThemedIframe
+  src="/notebook-view/customizable-select/custom-select.html"
+  title="Fan List demo"
+  max-width="24rem"
+  height="24rem"
+/>
