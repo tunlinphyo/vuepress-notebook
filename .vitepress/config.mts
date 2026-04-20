@@ -52,7 +52,9 @@ export default defineConfig({
           { text: 'motion-path', link: '/notebook/motion-path' },
           { text: 'popover-hint', link: '/notebook/popover-hint' },
           { text: '@property', link: '/notebook/property' },
+          { text: 'scroll-markers', link: '/notebook/scroll-markers' },
           { text: 'scroll-state()', link: '/notebook/scroll-state' },
+          { text: 'scroll-target-group', link: '/notebook/scroll-target-group' },
         ]
       },
       {
