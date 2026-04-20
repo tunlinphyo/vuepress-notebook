@@ -46,12 +46,13 @@
   all: unset;
 }
 
-:where(html, body) {
+:where(main) {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+
   scroll-behavior: smooth;
   scroll-padding-top: 1.5rem;
-}
-
-:where(main) {
   padding: 1rem;
   padding-inline-start: 4rem;
 
@@ -62,50 +63,35 @@
     z-index: 5;
     top: 3rem;
     left: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 0.5rem;
   }
 }
 
 :where(section) {
   width: 100%;
-}
 
-:where(nav) {
-  position: fixed;
-  z-index: 5;
-  top: 3rem;
-  left: 1rem;
+  &::scroll-marker {
+    --bg-color: oklch(from CanvasText l c h / 0.8);
+    content: '';
+    display: block;
+    width: 2rem;
+    height: 6px;
+    cursor: pointer;
+    scale: 0.3 1;
+    transition: scale 0.3s var(--ease-sine-out);
+    transform-origin: left center;
+    background-color: transparent;
+    background-image: linear-gradient(to bottom, transparent, 2px, var(--bg-color) 2px, 4px, transparent 0);
+  }
 
-  scroll-target-group: auto;
-
-  & ul {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 1rem;
-
-    & li {
-      & a {
-        display: block;
-        width: 2rem;
-        height: 2px;
-        background-color: oklch(from CanvasText l c h / 0.8);
-        position: relative;
-        transform-origin: left center;
-        scale: 0.3 1;
-        transition: scale 0.3s var(--ease-sine-out);
-
-        &::before {
-          content: '';
-          position: absolute;
-          inset: -0.25rem;
-        }
-
-        &:target-current {
-          scale: 1;
-        }
-      }
-    }
+  &::scroll-marker:target-current {
+    --bg-color: ActiveText;
+    scale: 1;
   }
 }
 

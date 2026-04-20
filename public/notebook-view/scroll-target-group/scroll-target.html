@@ -63,8 +63,8 @@
 :where(nav) {
   position: fixed;
   z-index: 5;
-  top: 3rem;
-  left: 1rem;
+  top: 1rem;
+  left: 0;
 
   scroll-target-group: auto;
 
@@ -73,18 +73,21 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-end;
-    gap: 1rem;
+    gap: 0.75rem;
+    padding: 1rem;
+    backdrop-filter: blur(2px);
+
+    border-radius: 15px;
+    @supports(corner-shape: squircle) {
+      border-radius: 30px;
+      corner-shape: squircle;
+    }
 
     & li {
       & a {
-        display: block;
-        width: 2rem;
-        height: 2px;
-        background-color: oklch(from CanvasText l c h / 0.8);
         position: relative;
-        transform-origin: left center;
-        scale: 0.3 1;
-        transition: scale 0.3s var(--ease-sine-out);
+        display: block;
+        text-decoration: none;
 
         &::before {
           content: '';
@@ -92,11 +95,81 @@
           inset: -0.25rem;
         }
 
+        &::after {
+          content: '';
+          display: block;
+          width: 2rem;
+          height: 2px;
+          background-color: oklch(from CanvasText l c h / 0.8);
+          position: relative;
+          transform-origin: left center;
+          scale: 0.3 1;
+          transition: scale 0.3s var(--ease-sine-out);
+        }
+
+        & span {
+          display: none;
+          font-size: 0.9rem;
+          color: oklch(from CanvasText l c h / 0.7);
+        }
+
         &:target-current {
-          scale: 1;
+          &::after {
+            scale: 1;
+            background-color: ActiveText;
+          }
+
+          & span {
+            color: CanvasText;
+          }
         }
       }
     }
+
+    &:is(:hover) {
+      gap: 0.25rem;
+      background-color: oklch(from Canvas l c h / 0.75);
+
+      & li a {
+        &:target-current {
+          anchor-name: --current;
+        }
+
+        & span {
+          display: block;
+        }
+        &::before,
+        &::after {
+          display: none;
+        }
+
+        &:hover span {
+          color: CanvasText;
+        }
+      }
+    }
+  }
+}
+
+:where(.blob) {
+  position: absolute;
+  width: 0.4rem;
+  height: 0.7rem;
+  clip-path: polygon(0 0, 0% 100%, 100% 50%);
+  background-color: ActiveText;
+  position-anchor: --current;
+  right: calc(anchor(left) + 0.2rem);
+  top: calc(anchor(center) - 0.35rem);
+  transition: all 0.3s var(--ease-sine-out);
+
+  display: none;
+}
+
+:where(nav:has(:hover)) {
+  top: 0.5rem;
+
+  .blob {
+    display: block;
   }
 }
 
@@ -116,13 +189,27 @@
 <body>
 <nav>
   <ul>
-    <li><a href="#section-1"></a></li>
-    <li><a href="#section-2"></a></li>
-    <li><a href="#section-3"></a></li>
-    <li><a href="#section-4"></a></li>
-    <li><a href="#section-5"></a></li>
-    <li><a href="#section-6"></a></li>
+    <li><a href="#section-1">
+      <span>Section 1</span>
+    </a></li>
+    <li><a href="#section-2">
+      <span>Section 2</span>
+    </a></li>
+    <li><a href="#section-3">
+      <span>Section 3</span>
+    </a></li>
+    <li><a href="#section-4">
+      <span>Section 4</span>
+    </a></li>
+    <li><a href="#section-5">
+      <span>Section 5</span>
+    </a></li>
+    <li><a href="#section-6">
+      <span>Section 6</span>
+    </a></li>
   </ul>
+
+  <div class="blob"></div>
 </nav>
 <main>
   <section id="section-1">
