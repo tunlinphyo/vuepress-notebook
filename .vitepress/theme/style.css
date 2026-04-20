@@ -134,3 +134,6 @@
   --vp-custom-block-tip-code-bg: var(--vp-c-brand-soft);
 }
 
+:root {
+  scroll-padding-top: 10rem;
+}

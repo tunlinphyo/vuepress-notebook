@@ -134,3 +134,30 @@ This demo is inspired by this [CodePen](https://codepen.io/dylanbeattie/pen/dPGK
   max-width="24rem"
   height="24rem"
 />
+
+```css:line-numbers
+@supports (appearance: base-select) {
+  select,
+  ::picker(select) {
+    appearance: base-select;
+  }
+
+  :where(select) {
+    & selectedcontent {
+      & span {
+        display: none;
+      }
+    }
+
+    & option {
+      & span {
+        display: block;
+      }
+
+      &::checkmark {
+        display: none;
+      }
+    }
+  }
+}
+```

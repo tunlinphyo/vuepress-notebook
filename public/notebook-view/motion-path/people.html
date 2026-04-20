@@ -12,6 +12,10 @@
   rel="stylesheet"
   fetchpriority="high">
 <script src="../../elements/circle-select.js"></script>
+<script type="module" async>
+  import {isSupported, apply} from "https://unpkg.com/invokers-polyfill@latest/invoker.js"
+  if (!isSupported()) apply();
+</script>
 <style>
 :root {
   color-scheme: light dark;
@@ -313,8 +317,8 @@
 <body>
 <main>
   <h1>People in Mode</h1>
-  <button class="toggle" toogletarget="people"></button>
-  <ul id="people" style="--count: 7">
+  <button class="toggle" commandfor="people" command="--toggle"></button>
+  <ul id="people" toggle inert style="--count: 7">
     <li style="--index: 1">
       <button popovertarget="one">😀</button>
       <div id="one" popover>
@@ -360,60 +364,100 @@
   </ul>
 </main>
 <script>
+const lastFocusedTrigger = new WeakMap()
+const processedEvents = new WeakSet()
+const FIRST_FOCUSABLE_SELECTOR = [
+  'a[href]',
+  'area[href]',
+  'button:not([disabled])',
+  'input:not([type="hidden"]):not([disabled])',
+  'select:not([disabled])',
+  'textarea:not([disabled])',
+  'iframe',
+  'audio[controls]',
+  'video[controls]',
+  '[contenteditable]:not([contenteditable="false"])',
+  '[tabindex]:not([tabindex="-1"])',
+].join(',')
+
 function togglePolyfill() {
-  const triggers = document.querySelectorAll('[toogletarget]');
-  const lastFocusedTrigger = new WeakMap();
+  setupToggleListeners(document)
+}
 
-  for (const trigger of triggers) {
-    trigger.addEventListener('click', handleClick);
+function handleToggleActivation(event) {
+  if (processedEvents.has(event)) return
+  if (event.defaultPrevented) return
+  if (event.type !== 'command') return
+
+  processedEvents.add(event)
+
+  if (event.command !== '--toggle') return
+
+  const trigger = getToggleTrigger(event)
+  if (!trigger) return
+
+  const target = getToggleTarget(event)
+  if (!target) return
+
+  const isOpening = target.hasAttribute('inert')
+
+  target.toggleAttribute('data-toggle', isOpening)
+  target.toggleAttribute('inert', !isOpening)
+  syncInert(target)
+
+  if (isOpening) {
+    lastFocusedTrigger.set(target, trigger)
+    focusFirstFocusableElement(target)
+    return
   }
 
-  function handleClick(event) {
-    const elem = event.target;
-    const trigger = elem.closest('[toogletarget]');
-    if (!trigger) return;
+  lastFocusedTrigger.get(target)?.focus()
+}
 
-    const id = trigger.getAttribute('toogletarget');
-    const target = id ? document.getElementById(id) : null;
-    if (!target) return;
+function getToggleTrigger(event) {
+  return event.source instanceof HTMLElement ? event.source : null
+}
 
-    const isOpening = !target.hasAttribute('data-toggle');
+function getToggleTarget(event) {
+  return event.target instanceof HTMLElement ? event.target : null
+}
 
-    target.toggleAttribute('data-toggle');
-    syncInert(target);
+function focusFirstFocusableElement(target) {
+  target.querySelector(FIRST_FOCUSABLE_SELECTOR)?.focus()
+}
 
-    if (isOpening) {
-      lastFocusedTrigger.set(target, trigger);
+function getLinkedElements(id) {
+  return document.querySelectorAll(`[data-inert-${CSS.escape(id)}]`)
+}
 
-      const nestedTrigger = target.querySelector(
-        `[toogletarget="${CSS.escape(id)}"]`
-      );
-      nestedTrigger?.focus();
-      return;
-    }
+function syncInert(target) {
+  const isOpen = target.hasAttribute('data-toggle')
 
-    const lastTrigger = lastFocusedTrigger.get(target);
-    lastTrigger?.focus();
-  }
+  if (!target.id) return
 
-  function syncInert(elem) {
-    const isActive = elem.hasAttribute('data-toggle');
-    elem.toggleAttribute('inert', !isActive);
-
-    const id = elem.id;
-    if (!id) return;
-
-    const linkedElements = document.querySelectorAll(
-      `[data-inert-${CSS.escape(id)}`
-    );
-
-    for (const linkedElement of linkedElements) {
-      linkedElement.toggleAttribute('inert', isActive);
-    }
+  for (const linkedElement of getLinkedElements(target.id)) {
+    linkedElement.toggleAttribute('inert', isOpen)
   }
 }
 
-document.addEventListener('DOMContentLoaded', togglePolyfill);
+function setupToggleListeners(target) {
+  target.addEventListener('command', handleToggleActivation, true)
+}
+
+window.resetToggleInert = (id) => {
+  const target = id ? document.getElementById(id) : null
+  if (!target) return
+  if (!target.hasAttribute('data-toggle')) return
+
+  target.removeAttribute('data-toggle')
+  target.setAttribute('inert', '')
+
+  for (const linkedElement of getLinkedElements(id)) {
+    linkedElement.removeAttribute('inert')
+  }
+}
+
+document.addEventListener('DOMContentLoaded', togglePolyfill)
 </script>
 </body>
 </html>
