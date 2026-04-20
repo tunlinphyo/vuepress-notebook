@@ -14,9 +14,7 @@
 />
 
 ```css
-:where(main) {
-  overflow-y: auto;
-
+:where(html) {
   scroll-behavior: smooth;
   scroll-padding-top: 1.5rem;
   scroll-marker-group: after;
