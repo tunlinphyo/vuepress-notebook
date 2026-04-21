@@ -161,3 +161,12 @@ This demo is inspired by this [CodePen](https://codepen.io/dylanbeattie/pen/dPGK
   }
 }
 ```
+
+<!-- ## Date Select
+
+<ThemedIframe
+  src="/notebook-view/customizable-select/date-select.html"
+  title="Date Select"
+  max-width="28rem"
+  height="20rem"
+/> -->
