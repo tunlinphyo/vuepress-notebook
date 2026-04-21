@@ -92,157 +92,55 @@
     animation-timeline: scroll();
     animation-range: 0% 10%;
   }
+
+  &::after {
+    content: "\279F";
+    font-size: 1.5rem;
+    position: absolute;
+    left: 50%;
+    bottom: 1rem;
+    translate: -50% 0;
+    rotate: 90deg;
+    animation: scrollHider auto linear forwards;
+    animation-timeline: scroll();
+    animation-range: 0% 5%;
+  }
+}
+
+:where(.about) {
+  position: fixed;
+  inset: 0;
+
+  display: grid;
+  grid-template-columns: 1rem auto 1fr 1rem;
+  grid-template-rows: 1rem auto 1fr 1rem;
+  gap: 1rem;
+
+  & h2 {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    font-size: 1.5rem;
+    opacity: 0;
+    animation: aboutTitle auto linear forwards;
+    animation-timeline: scroll();
+    animation-range: 8% 28%;
+  }
+
+  & p {
+    grid-column: 3 / 4;
+    grid-row: 3 / 4;
+
+    opacity: 0;
+    padding-block-start: 1rem;
+    animation: aboutMessage auto linear forwards;
+    animation-timeline: scroll();
+    animation-range: 10% 24%;
+  }
 }
 
 :where([data-layer]) {
   *, *::before, *::after {
     outline: 1px dotted hotpink;
-  }
-}
-
-@keyframes forContainer {
-  0% {
-    translate: 0 -25%;
-  }
-  6% {
-    translate: 0 -25%;
-  }
-  8%,24%,36% {
-    translate: 0 0;
-  }
-  10% {
-    translate: 0 25%;
-  }
-  14% {
-    translate: 0 25%;
-  }
-  16% {
-    translate: 45% 25%;
-  }
-  18%,22%,38% {
-    translate: 45% 0;
-  }
-
-  50% {
-    translate: 45% 0;
-  }
-  100% {
-    translate: 0 0;
-  }
-}
-
-@keyframes lineOne {
-  0% {
-    scale: 0 1;
-  }
-  2% {
-    scale: 1 1;
-  }
-  4% {
-    scale: 0.5 1;
-  }
-  6% {
-    scale: 0.1 1;
-  }
-  8% {
-    scale: 1 1;
-  }
-  10% {
-    scale: 0.02 1;
-    translate: 0 0;
-  }
-  12% {
-    scale: 1 1;
-    translate: -50% 0;
-  }
-  14% {
-    scale: 1 1;
-    translate: 50% 0;
-  }
-  16%,18%,26%,34% {
-    scale: 0 1;
-    translate: 0 0;
-  }
-  20%,24%,36% {
-    scale: 1 1;
-  }
-  100% {
-    scale: 0 1;
-    rotate: 0deg;
-  }
-}
-@keyframes lineTwo {
-  0% {
-    scale: 0 1;
-    rotate: 90deg;
-  }
-  4%,6% {
-    scale: 0.1 1;
-  }
-  8% {
-    scale: 1 1;
-  }
-  10%,16%,22%,26%,30%,34% {
-    scale: 0 1;
-  }
-  18%,20%,28%,32% {
-    scale: 0.5 1;
-  }
-  100% {
-    rotate: 90deg;
-  }
-}
-@keyframes lineThree {
-  0% {
-    scale: 0 1;
-    rotate: 45deg;
-  }
-  6% {
-    scale: 0 1;
-  }
-  8% {
-    scale: 1 1;
-  }
-  10%,18%,22%,34% {
-    scale: 0 1;
-  }
-  20% {
-    scale: 1 1;
-  }
-  100% {
-    rotate: 45deg;
-  }
-}
-@keyframes lineFour {
-  0% {
-    scale: 0 1;
-    rotate: -45deg;
-  }
-  6% {
-    scale: 0 1;
-  }
-  8% {
-    scale: 1 1;
-  }
-  10%,18%,22%,34% {
-    scale: 0 1;
-  }
-  20% {
-    scale: 1 1;
-  }
-  100% {
-    rotate: -45deg;
-  }
-}
-
-@keyframes introTitle {
-  0%,60% {
-    scale: 1;
-    opacity: 1;
-  }
-  80%,100% {
-    scale: 0;
-    opacity: 0;
   }
 }
 
