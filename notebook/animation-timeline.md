@@ -4,6 +4,15 @@
 
 <baseline-status featureId="scroll-driven-animations"></baseline-status>
 
+## Timeline Example
+
+<ThemedIframe
+  src="/ui-view/animation-timeline/index.html"
+  title="Animation Timeline"
+  max-width="32rem"
+  height="20rem"
+/>
+
 ## scroll()
 
 <ThemedIframe

@@ -162,11 +162,11 @@ This demo is inspired by this [CodePen](https://codepen.io/dylanbeattie/pen/dPGK
 }
 ```
 
-<!-- ## Date Select
+## Time Select
 
 <ThemedIframe
-  src="/notebook-view/customizable-select/date-select.html"
-  title="Date Select"
+  src="/notebook-view/customizable-select/time-select.html"
+  title="Time Select"
   max-width="28rem"
   height="20rem"
-/> -->
+/>
