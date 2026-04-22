@@ -438,7 +438,7 @@
       justify-content: center;
       align-items: center;
       gap: 1rem;
-      padding-block-start: 1.5rem;
+      padding-block-start: 2rem;
 
       & li {
         translate: 0 -50vh;
