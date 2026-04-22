@@ -93,10 +93,10 @@
       height: 75rem;
     }
     &.scroll-work {
-      height: 76rem;
+      height: 69rem;
     }
     &.scroll-contact {
-      height: 26rem;
+      height: 33rem;
     }
   }
 }
@@ -288,11 +288,11 @@
           animation-range: 34% 45%;
         }
         &.pos-3 {
-          translate: -0.92rem 1.16rem;
+          translate: 0.02rem 1.88rem;
           animation-range: 36% 47%;
         }
         &.pos-4 {
-          translate: 0.24rem 1.88rem;
+          translate: 0.24rem 1.16rem;
           animation-range: 38% 49%;
         }
         &.pos-5 {

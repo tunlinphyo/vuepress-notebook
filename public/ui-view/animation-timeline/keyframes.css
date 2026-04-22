@@ -253,13 +253,16 @@
   0% {
     opacity: 0;
     scale: 5;
+    translate: -50% 25vh;
   }
   50% {
     opacity: 1;
+    scale: 1;
+    translate: -50% 0;
   }
   100% {
-    opacity: 0;
-    scale: 0.5;
+    scale: 1;
+    translate: -50% -50vh;
   }
 }
 
