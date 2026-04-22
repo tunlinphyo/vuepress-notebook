@@ -174,3 +174,18 @@
     opacity: 1;
   }
 }
+
+@keyframes techPopup {
+  0% {
+    opacity: 0;
+    scale: 0;
+  }
+  50%,80% {
+    opacity: 1;
+    scale: 1;
+  }
+  100% {
+    opacity: 0;
+    scale: 3;
+  }
+}
