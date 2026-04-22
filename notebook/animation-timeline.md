@@ -4,7 +4,7 @@
 
 <baseline-status featureId="scroll-driven-animations"></baseline-status>
 
-## Timeline Expirement
+## Timeline Demo
 
 <ThemedIframe
   src="/ui-view/animation-timeline/index.html"

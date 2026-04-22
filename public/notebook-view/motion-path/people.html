@@ -12,10 +12,11 @@
   rel="stylesheet"
   fetchpriority="high">
 <script src="../../elements/circle-select.js"></script>
-<script type="module" async>
-  import {isSupported, apply} from "https://unpkg.com/invokers-polyfill@latest/invoker.js"
-  if (!isSupported()) apply();
-</script>
+<script
+  type="module"
+  async
+  src="https://unpkg.com/invokers-polyfill@latest/invoker.min.js"
+></script>
 <style>
 :root {
   color-scheme: light dark;

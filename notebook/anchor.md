@@ -8,6 +8,14 @@
 
 <baseline-status featureId="container-anchor-position-queries"></baseline-status>
 
+## Anchor Demo
+
+<ThemedIframe
+  src="/ui-view/about-me-card/index.html"
+  title="About me card demo"
+  max-width="21rem"
+  height="23rem"
+/>
 
 [Anchor Tool](https://chrome.dev/anchor-tool/)
 

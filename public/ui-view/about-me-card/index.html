@@ -12,6 +12,11 @@
       href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap"
       rel="stylesheet"
       fetchpriority="high">
+    <script
+      type="module"
+      async
+      src="https://unpkg.com/invokers-polyfill@latest/invoker.min.js"
+    ></script>
   </head>
   <body>
     <section class="card">
@@ -21,7 +26,7 @@
         <div class="spacer"></div>
         <ul>
           <li>
-            <button class="contact-opener" toogletarget="github">
+            <button class="contact-opener" commandfor="github" command="--toggle">
               <div class="icon" aria-hidden="true" role="presentation">
                 <svg width="24" height="24" viewBox="0 0 152 152">
                   <g transform="matrix(1.13,0,0,1.13,-11.38,-11.38)">
@@ -33,7 +38,7 @@
             </button>
           </li>
           <li>
-            <button class="contact-opener" toogletarget="linkedin">
+            <button class="contact-opener" commandfor="linkedin" command="--toggle">
               <div class="icon" aria-hidden="true" role="presentation">
                 <svg width="24" height="24" viewBox="0 0 24 24" style="scale: 1.05;translate: 0 -1px;">
                   <g>
@@ -45,7 +50,7 @@
             </button>
           </li>
           <li>
-            <button class="contact-opener" toogletarget="email">
+            <button class="contact-opener" commandfor="email" command="--toggle">
               <div class="icon" aria-hidden="true" role="presentation">
                 <svg width="24" height="24" viewBox="0 0 433.664 433.664">
                   <g>
@@ -65,7 +70,7 @@
       </div>
 
       <div class="contact-detail" id="github" toggle inert>
-        <button class="contact-close" toogletarget="github" aria-label="Close GitHub detail"></button>
+        <button class="contact-close" commandfor="github" command="--toggle" aria-label="Close GitHub detail"></button>
         <h2>GitHub</h2>
         <p>
           Check out my modern Web APIs experiments: clean UI, smooth interactions.
@@ -75,7 +80,7 @@
       </div>
 
       <div class="contact-detail" id="linkedin" toggle inert>
-        <button class="contact-close" toogletarget="linkedin"></button>
+        <button class="contact-close" commandfor="linkedin" command="--toggle"></button>
         <h2>LinkedIn</h2>
         <p>
           Connect with me if you'd like to discuss opportunities or exchange ideas.
@@ -85,7 +90,7 @@
       </div>
 
       <div class="contact-detail" id="email" toggle inert>
-        <button class="contact-close" toogletarget="email"></button>
+        <button class="contact-close" commandfor="email" command="--toggle"></button>
         <h2>Email</h2>
         <p>
           For collaborations or product questions, email is the fastest way to reach me.

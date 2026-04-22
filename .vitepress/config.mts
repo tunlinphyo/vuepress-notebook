@@ -28,18 +28,6 @@ export default defineConfig({
 
     sidebar: [
       {
-        text: 'Examples',
-        items: [
-          { text: 'About Me Card', link: '/examples/about-me-card' },
-          // { text: 'Anchor Flip', link: '/examples/anchor-flip' },
-          { text: 'Color Picker', link: '/examples/color-picker' },
-          { text: 'Cool CSS', link: '/examples/cool-css' },
-          // { text: 'Fan List', link: '/examples/fan-list' },
-          // { text: 'Fancy Nav', link: '/examples/fancy-nav' },
-          // { text: 'Markdown Examples', link: '/examples/markdown-examples' },
-        ]
-      },
-      {
         text: 'Notebook',
         items: [
           { text: 'anchor()', link: '/notebook/anchor' },
