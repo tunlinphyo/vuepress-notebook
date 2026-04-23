@@ -43,16 +43,20 @@ class CircleOption extends HTMLElement {
 }
 
 class CircleSelect extends HTMLElement {
+  static formAssociated = true
+
   static get observedAttributes() {
-    return ['name', 'open', 'value']
+    return ['disabled', 'name', 'open', 'value']
   }
 
   constructor() {
     super()
+    this.internals = this.attachInternals()
     this.handleClick = this.handleClick.bind(this)
     this.handleKeydown = this.handleKeydown.bind(this)
-    this.hiddenInput = document.createElement('input')
-    this.hiddenInput.type = 'hidden'
+    this.defaultValue = ''
+    this.formDisabled = false
+    this.hasDefaultValue = false
     this.isSyncingValue = false
     this.observer = new MutationObserver(() => this.syncSelection())
   }
@@ -61,8 +65,11 @@ class CircleSelect extends HTMLElement {
     this.addEventListener('click', this.handleClick)
     this.addEventListener('keydown', this.handleKeydown)
     this.observer.observe(this, { childList: true, subtree: true })
-    this.syncFormInput()
     this.syncSelection()
+    if (!this.hasDefaultValue) {
+      this.defaultValue = this.value
+      this.hasDefaultValue = true
+    }
     requestAnimationFrame(() => {
       if (this.isConnected) this.syncSelection()
     })
@@ -81,7 +88,10 @@ class CircleSelect extends HTMLElement {
       this.syncInteractivity()
       this.syncFocus()
     }
-    if (name === 'name') this.syncFormInput()
+    if (name === 'disabled' || name === 'name') {
+      this.syncFormValue()
+      this.syncInteractivity()
+    }
     if ((name === 'name' || name === 'value') && !this.isSyncingValue) this.syncSelection()
   }
 
@@ -97,6 +107,10 @@ class CircleSelect extends HTMLElement {
     return this.hasAttribute('open')
   }
 
+  get isDisabled() {
+    return this.formDisabled || this.hasAttribute('disabled')
+  }
+
   get name() {
     return this.getAttribute('name') || ''
   }
@@ -108,6 +122,14 @@ class CircleSelect extends HTMLElement {
     }
 
     this.setAttribute('name', name)
+  }
+
+  get disabled() {
+    return this.hasAttribute('disabled')
+  }
+
+  set disabled(disabled) {
+    this.toggleAttribute('disabled', !!disabled)
   }
 
   get value() {
@@ -123,7 +145,41 @@ class CircleSelect extends HTMLElement {
     this.setAttribute('value', value)
   }
 
+  get form() {
+    return this.internals.form
+  }
+
+  get labels() {
+    return this.internals.labels
+  }
+
+  get type() {
+    return 'select-one'
+  }
+
+  get validity() {
+    return this.internals.validity
+  }
+
+  get validationMessage() {
+    return this.internals.validationMessage
+  }
+
+  get willValidate() {
+    return this.internals.willValidate
+  }
+
+  checkValidity() {
+    return this.internals.checkValidity()
+  }
+
+  reportValidity() {
+    return this.internals.reportValidity()
+  }
+
   handleClick(event) {
+    if (this.isDisabled) return
+
     const selected = event.target.closest('circle-selected')
     if (selected && this.contains(selected)) {
       this.toggleAttribute('open')
@@ -136,6 +192,8 @@ class CircleSelect extends HTMLElement {
   }
 
   handleKeydown(event) {
+    if (this.isDisabled) return
+
     if (event.key === 'Tab' && this.isOpen) {
       const selected = this.selectedElement
       const options = this.options
@@ -175,6 +233,8 @@ class CircleSelect extends HTMLElement {
   }
 
   selectOption(option) {
+    if (this.isDisabled) return
+
     const previousValue = this.value
     this.value = option.value
     this.removeAttribute('open')
@@ -219,35 +279,49 @@ class CircleSelect extends HTMLElement {
       option.setAttribute('aria-selected', isSelected ? 'true' : 'false')
     }
 
-    this.syncFormInput()
+    this.syncFormValue()
     this.syncInteractivity()
   }
 
-  syncFormInput() {
-    if (!this.name) {
-      this.hiddenInput.remove()
-      return
-    }
+  formDisabledCallback(disabled) {
+    this.formDisabled = disabled
+    this.syncFormValue()
+    this.syncInteractivity()
+  }
 
-    this.hiddenInput.name = this.name
-    this.hiddenInput.value = this.value
+  formResetCallback() {
+    this.isSyncingValue = true
+    this.value = this.defaultValue
+    this.isSyncingValue = false
+    this.syncSelection()
+  }
 
-    if (this.hiddenInput.parentNode !== this) {
-      this.append(this.hiddenInput)
-    }
+  formStateRestoreCallback(state) {
+    this.isSyncingValue = true
+    this.value = typeof state === 'string' ? state : ''
+    this.isSyncingValue = false
+    this.syncSelection()
+  }
+
+  syncFormValue() {
+    const value = this.isDisabled ? null : this.value
+    this.internals.setFormValue(value, value)
   }
 
   syncInteractivity() {
     const selected = this.selectedElement
     const isOpen = this.isOpen
+    const isDisabled = this.isDisabled
+
+    this.setAttribute('aria-disabled', isDisabled ? 'true' : 'false')
 
     if (selected) {
-      selected.inert = false
+      selected.inert = isDisabled
       selected.setAttribute('aria-expanded', isOpen ? 'true' : 'false')
     }
 
     for (const option of this.options) {
-      option.inert = !isOpen
+      option.inert = isDisabled || !isOpen
     }
   }
 

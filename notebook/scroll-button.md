@@ -8,6 +8,15 @@
 
 <baseline-status featureId="scroll-markers"></baseline-status>
 
+## Scroll Button Demo
+
+<ThemedIframe
+  src="/ui-view/scroll-button/index.html"
+  title="Fan List demo"
+  max-width="28rem"
+  height="22rem"
+/>
+
 ## Scroll Button
 
 <ThemedIframe
@@ -35,7 +44,7 @@
 
   scrollbar-width: none;
   scroll-behavior: smooth;
-  overscroll-behavior: none;
+  overscroll-behavior-x: none;
   anchor-name: --carousel-control;
 
   &::scroll-button(inline-start) {
@@ -67,7 +76,7 @@
 }
 ```
 
-## Scroll Button (Shadow)
+## Scroll Marker Group
 
 <ThemedIframe
   src="/notebook-view/scroll-markers/scroll-marker.html"
@@ -114,7 +123,7 @@
 }
 ```
 
-## Scroll Button (Multiple)
+<!-- ## Scroll Button (Multiple)
 
 <ThemedIframe
   src="/notebook-view/scroll-markers/products.html"
@@ -155,5 +164,5 @@
   container-type: scroll-state;
   scroll-snap-align: start;
 }
-```
+``` -->
 
