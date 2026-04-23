@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scroll State</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap"
+  rel="stylesheet"
+  fetchpriority="high">
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&icon_names=arrow_back_ios_new,arrow_forward_ios&display=block">
+<link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+<main>
+  <section>
+    <ul class="full-carousel">
+      <li class="full-carousel-item">
+        <div class="full-card">
+          <h1>Morning Notes</h1>
+          <p>Start with the shortlist, clear the obvious work, and leave the noisy tasks for later.</p>
+        </div>
+      </li>
+      <li class="full-carousel-item">
+        <div class="full-card">
+          <h1>Design Review</h1>
+          <p>Check spacing, motion, and typography before adding another layer of visual detail.</p>
+        </div>
+      </li>
+      <li class="full-carousel-item">
+        <div class="full-card">
+          <h1>Component Audit</h1>
+          <p>Confirm the states are readable, keyboard friendly, and resilient across narrow layouts.</p>
+        </div>
+      </li>
+      <li class="full-carousel-item">
+        <div class="full-card">
+          <h1>Prototype Pass</h1>
+          <p>Keep the interaction simple first, then tighten the transitions once the behavior feels solid.</p>
+        </div>
+      </li>
+      <li class="full-carousel-item">
+        <div class="full-card">
+          <h1>Content Queue</h1>
+          <p>Write real labels early so the interface is shaped by meaning instead of placeholder text.</p>
+        </div>
+      </li>
+      <li class="full-carousel-item">
+        <div class="full-card">
+          <h1>Browser Check</h1>
+          <p>Test the edge cases, note the gaps, and avoid shipping a demo that only works on one machine.</p>
+        </div>
+      </li>
+      <li class="full-carousel-item">
+        <div class="full-card">
+          <h1>Ship Notes</h1>
+          <p>Document the intent, the tradeoffs, and the next improvement while the context is still fresh.</p>
+        </div>
+      </li>
+    </ul>
+  </section>
+  <fieldset>
+    <label>
+      <input type="radio" name="carousel" value="1" checked>
+      <img class="nature-image" src="https://loremflickr.com/240/240/nature?lock=10" alt="Forest Trail photo">
+    </label>
+    <label>
+      <input type="radio" name="carousel" value="2">
+      <img class="nature-image" src="https://loremflickr.com/240/240/nature?lock=11" alt="Mountain Lake photo">
+    </label>
+    <label>
+      <input type="radio" name="carousel" value="3">
+      <img class="nature-image" src="https://loremflickr.com/240/240/nature?lock=12" alt="Waterfall Mist photo">
+    </label>
+    <label>
+      <input type="radio" name="carousel" value="4">
+      <img class="nature-image" src="https://loremflickr.com/240/240/nature?lock=13" alt="Desert Dunes photo">
+    </label>
+    <label>
+      <input type="radio" name="carousel" value="5">
+      <img class="nature-image" src="https://loremflickr.com/240/240/nature?lock=14" alt="Desert Dunes photo">
+    </label>
+  </fieldset>
+  <section>
+    <h1>Popular</h1>
+    <ul class="carousel" data-type="popular">
+      <li class="carousel-item">
+        <div class="card">
+          <img class="product-image" src="https://loremflickr.com/480/480/space?lock=1" alt="Forest Trail photo">
+          <div class="about">
+            <h2>Forest Trail</h2>
+            <p>Misty evergreen trail</p>
+          </div>
+        </div>
+      </li>
+      <li class="carousel-item">
+        <div class="card">
+          <img class="product-image" src="https://loremflickr.com/480/480/space?lock=2" alt="Mountain Lake photo">
+          <div class="about">
+            <h2>Mountain Lake</h2>
+            <p>Still alpine lake</p>
+          </div>
+        </div>
+      </li>
+      <li class="carousel-item">
+        <div class="card">
+          <img class="product-image" src="https://loremflickr.com/480/480/space?lock=3" alt="Waterfall Mist photo">
+          <div class="about">
+            <h2>Waterfall Mist</h2>
+            <p>Rushing canyon falls</p>
+          </div>
+        </div>
+      </li>
+      <li class="carousel-item">
+        <div class="card">
+          <img class="product-image" src="https://loremflickr.com/480/480/space?lock=4" alt="Desert Dunes photo">
+          <div class="about">
+            <h2>Desert Dunes</h2>
+            <p>Sunlit desert dunes</p>
+          </div>
+        </div>
+      </li>
+      <li class="carousel-item">
+        <div class="card">
+          <img class="product-image" src="https://loremflickr.com/480/480/space?lock=5" alt="Wild Meadow photo">
+          <div class="about">
+            <h2>Wild Meadow</h2>
+            <p>Open meadow bloom</p>
+          </div>
+        </div>
+      </li>
+      <li class="carousel-item">
+        <div class="card">
+          <img class="product-image" src="https://loremflickr.com/480/480/space?lock=6" alt="River Bend photo">
+          <div class="about">
+            <h2>River Bend</h2>
+            <p>Mossy river bend</p>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h1>News</h1>
+    <ul class="carousel">
+      <li class="carousel-item">
+        <div class="card">
+          <img class="product-image" src="https://loremflickr.com/240/240/nature?lock=1" alt="Forest Trail photo">
+          <div class="about">
+            <h2>Forest Trail</h2>
+            <p>Misty evergreen trail</p>
+          </div>
+        </div>
+      </li>
+      <li class="carousel-item">
+        <div class="card">
+          <img class="product-image" src="https://loremflickr.com/240/240/nature?lock=2" alt="Mountain Lake photo">
+          <div class="about">
+            <h2>Mountain Lake</h2>
+            <p>Still alpine lake</p>
+          </div>
+        </div>
+      </li>
+      <li class="carousel-item">
+        <div class="card">
+          <img class="product-image" src="https://loremflickr.com/240/240/nature?lock=3" alt="Waterfall Mist photo">
+          <div class="about">
+            <h2>Waterfall Mist</h2>
+            <p>Rushing canyon falls</p>
+          </div>
+        </div>
+      </li>
+      <li class="carousel-item">
+        <div class="card">
+          <img class="product-image" src="https://loremflickr.com/240/240/nature?lock=4" alt="Desert Dunes photo">
+          <div class="about">
+            <h2>Desert Dunes</h2>
+            <p>Sunlit desert dunes</p>
+          </div>
+        </div>
+      </li>
+      <li class="carousel-item">
+        <div class="card">
+          <img class="product-image" src="https://loremflickr.com/240/240/nature?lock=5" alt="Wild Meadow photo">
+          <div class="about">
+            <h2>Wild Meadow</h2>
+            <p>Open meadow bloom</p>
+          </div>
+        </div>
+      </li>
+      <li class="carousel-item">
+        <div class="card">
+          <img class="product-image" src="https://loremflickr.com/240/240/nature?lock=6" alt="River Bend photo">
+          <div class="about">
+            <h2>River Bend</h2>
+            <p>Mossy river bend</p>
+          </div>
+        </div>
+      </li>
+      <li class="carousel-item">
+        <div class="card">
+          <img class="product-image" src="https://loremflickr.com/240/240/nature?lock=7" alt="Pine Ridge photo">
+          <div class="about">
+            <h2>Pine Ridge</h2>
+            <p>Deep green ridge</p>
+          </div>
+        </div>
+      </li>
+      <li class="carousel-item">
+        <div class="card">
+          <img class="product-image" src="https://loremflickr.com/240/240/nature?lock=8" alt="Ocean Cliffs photo">
+          <div class="about">
+            <h2>Ocean Cliffs</h2>
+            <p>Steep ocean cliffs</p>
+          </div>
+        </div>
+      </li>
+      <li class="carousel-item">
+        <div class="card">
+          <img class="product-image" src="https://loremflickr.com/240/240/nature?lock=9" alt="Autumn Grove photo">
+          <div class="about">
+            <h2>Autumn Grove</h2>
+            <p>Golden autumn grove</p>
+          </div>
+        </div>
+      </li>
+      <li class="carousel-item">
+        <div class="card">
+          <img class="product-image" src="https://loremflickr.com/240/240/nature?lock=10" alt="Snow Peak photo">
+          <div class="about">
+            <h2>Snow Peak</h2>
+            <p>Bright snowy summit</p>
+          </div>
+        </div>
+      </li>
+      <li class="carousel-item">
+        <div class="card">
+          <img class="product-image" src="https://loremflickr.com/240/240/nature?lock=11" alt="Sunrise Valley photo">
+          <div class="about">
+            <h2>Sunrise Valley</h2>
+            <p>Wide sunrise valley</p>
+          </div>
+        </div>
+      </li>
+      <li class="carousel-item">
+        <div class="card">
+          <img class="product-image" src="https://loremflickr.com/240/240/nature?lock=12" alt="Green Canopy photo">
+          <div class="about">
+            <h2>Green Canopy</h2>
+            <p>Leafy green canopy</p>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </section>
+  <section>
+    <h1>Pets</h1>
+    <ul class="carousel">
+      <li class="carousel-item">
+        <div class="card">
+          <img class="product-image" src="https://loremflickr.com/240/240/dog?lock=1" alt="Golden Retriever photo">
+          <div class="about">
+            <h2>Golden Retriever</h2>
+            <p>Friendly family dog</p>
+          </div>
+        </div>
+      </li>
+      <li class="carousel-item">
+        <div class="card">
+          <img class="product-image" src="https://loremflickr.com/240/240/cat?lock=2" alt="British Shorthair photo">
+          <div class="about">
+            <h2>British Shorthair</h2>
+            <p>Calm plush cat</p>
+          </div>
+        </div>
+      </li>
+      <li class="carousel-item">
+        <div class="card">
+          <img class="product-image" src="https://loremflickr.com/240/240/dog?lock=3" alt="Corgi photo">
+          <div class="about">
+            <h2>Corgi</h2>
+            <p>Playful herding dog</p>
+          </div>
+        </div>
+      </li>
+      <li class="carousel-item">
+        <div class="card">
+          <img class="product-image" src="https://loremflickr.com/240/240/cat?lock=4" alt="Maine Coon photo">
+          <div class="about">
+            <h2>Maine Coon</h2>
+            <p>Gentle long-haired cat</p>
+          </div>
+        </div>
+      </li>
+      <li class="carousel-item">
+        <div class="card">
+          <img class="product-image" src="https://loremflickr.com/240/240/dog?lock=5" alt="Shiba Inu photo">
+          <div class="about">
+            <h2>Shiba Inu</h2>
+            <p>Confident fox-faced dog</p>
+          </div>
+        </div>
+      </li>
+      <li class="carousel-item">
+        <div class="card">
+          <img class="product-image" src="https://loremflickr.com/240/240/cat?lock=6" alt="Ragdoll photo">
+          <div class="about">
+            <h2>Ragdoll</h2>
+            <p>Relaxed blue-eyed cat</p>
+          </div>
+        </div>
+      </li>
+      <li class="carousel-item">
+        <div class="card">
+          <img class="product-image" src="https://loremflickr.com/240/240/dog?lock=7" alt="Dalmatian photo">
+          <div class="about">
+            <h2>Dalmatian</h2>
+            <p>Energetic spotted dog</p>
+          </div>
+        </div>
+      </li>
+      <li class="carousel-item">
+        <div class="card">
+          <img class="product-image" src="https://loremflickr.com/240/240/cat?lock=8" alt="Siamese photo">
+          <div class="about">
+            <h2>Siamese</h2>
+            <p>Vocal sleek cat</p>
+          </div>
+        </div>
+      </li>
+      <li class="carousel-item">
+        <div class="card">
+          <img class="product-image" src="https://loremflickr.com/240/240/dog?lock=9" alt="Border Collie photo">
+          <div class="about">
+            <h2>Border Collie</h2>
+            <p>Focused working dog</p>
+          </div>
+        </div>
+      </li>
+      <li class="carousel-item">
+        <div class="card">
+          <img class="product-image" src="https://loremflickr.com/240/240/cat?lock=10" alt="Persian photo">
+          <div class="about">
+            <h2>Persian</h2>
+            <p>Quiet long-haired cat</p>
+          </div>
+        </div>
+      </li>
+      <li class="carousel-item">
+        <div class="card">
+          <img class="product-image" src="https://loremflickr.com/240/240/dog?lock=11" alt="Beagle photo">
+          <div class="about">
+            <h2>Beagle</h2>
+            <p>Curious scent hound</p>
+          </div>
+        </div>
+      </li>
+      <li class="carousel-item">
+        <div class="card">
+          <img class="product-image" src="https://loremflickr.com/240/240/cat?lock=12" alt="Bengal photo">
+          <div class="about">
+            <h2>Bengal</h2>
+            <p>Active wild cat</p>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </section>
+</main>
+</body>
+</html>

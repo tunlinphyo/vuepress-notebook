@@ -66,7 +66,7 @@
       width: 1.5rem;
       height: 1rem;
       cursor: pointer;
-      scale: 0.4 1;
+      scale: 0.3 1;
       transition: scale 0.3s var(--ease-sine-out);
       transform-origin: left center;
       background-color: transparent;
@@ -292,7 +292,7 @@
           animation-range: 36% 47%;
         }
         &.pos-4 {
-          translate: 0.24rem 1.16rem;
+          translate: 0.24rem 0.5rem;
           animation-range: 38% 49%;
         }
         &.pos-5 {
@@ -373,7 +373,7 @@
     display: grid;
     grid-template-areas: 'project';
 
-    & li {
+    & > li {
       grid-area: project;
       opacity: 0;
       padding-block: 0 1rem;
@@ -387,9 +387,32 @@
         font-size: 1.5rem;
       }
       & p {
-        margin-block-start: 1rem;
         display: block;
         max-width: 16rem;
+      }
+      & ol {
+        display: flex;
+        margin-block: 1rem 0.5rem;
+        align-items: center;
+
+        &::before {
+          content: '';
+          display: block;
+          width: 1.5rem;
+          height: 0;
+          border-top: 1px solid GrayText;
+        }
+
+        & li {
+          font-size: 0.75rem;
+          color: var(--theme);
+          padding-inline: 0.5rem;
+          line-height: 1;
+
+          &:not(:last-child) {
+            border-right: 1px solid GrayText;
+          }
+        }
       }
     }
   }

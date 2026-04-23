@@ -1,0 +1,437 @@
+:root {
+  color-scheme: light dark;
+  interpolate-size: allow-keywords;
+
+  font-family: "Google Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 100%;
+
+  --padding-x: 0.5rem;
+  --surface: light-dark(
+    color-mix(in oklab, Canvas, CanvasText 5%),
+    color-mix(in oklab, Canvas, CanvasText 20%)
+  );
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+:where(html,body) {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--surface);
+  color: CanvasText;
+}
+
+:where(main) {
+  width: 100%;
+}
+
+:where(ul,li,h1,h2,h3,p) {
+  all: unset;
+}
+
+:where(h1) {
+  display: block;
+  font-size: 1.75rem;
+  padding: 1rem 1rem 0;
+}
+
+:where(section) {
+  margin-bottom: 1rem;
+}
+
+:where(.full-carousel) {
+  --carousel-padding: 1rem;
+  --card-width: min(100vw, 24rem);
+
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--carousel-padding);
+  overflow-x: auto;
+  padding: 1rem calc(var(--carousel-padding) * 2);
+
+  display: grid;
+  gap: 1rem;
+  grid-auto-flow: column;
+  scroll-snap-type: x mandatory;
+
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: none;
+  anchor-name: --full-control;
+
+  &::scroll-button(inline-start) {
+    content: "arrow_back_ios_new" / "Scroll Left";
+    left: calc(anchor(left) + (var(--carousel-padding) * 0.5));
+    top: calc(anchor(center) - 2rem);
+  }
+  &::scroll-button(inline-end) {
+    content: "arrow_forward_ios" / "Scroll Right";
+    right: calc(anchor(right) + (var(--carousel-padding) * 0.5));
+    top: calc(anchor(center) - 2rem);
+  }
+
+  &::scroll-button(*) {
+    position: absolute;
+    position-anchor: --full-control;
+    cursor: pointer;
+
+    width: 3rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    padding: 0;
+    border: none;
+    background-color: light-dark(Canvas, var(--surface));
+    box-shadow: rgba(0,0,0,0.2) 0px 7px 29px 0px;
+
+    display: grid;
+    place-content: center;
+
+    font-family: "Material Symbols Outlined";
+    font-weight: 100;
+    font-style: normal;
+    color: oklch(from CanvasText l c h / 0.75);
+    font-size: 1.2rem;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    font-feature-settings: "liga";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    opacity: 0;
+  }
+
+  scroll-marker-group: after;
+
+  &::scroll-marker-group {
+    position: fixed;
+    position-anchor: --full-control;
+    position-area: bottom center;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+.full-carousel::scroll-button(*):disabled {
+  opacity: 0;
+}
+.full-carousel::scroll-button(*):focus-visible {
+  outline: 2px solid ActiveText;
+  outline-offset: 2px;
+}
+
+.full-carousel:hover {
+  &::scroll-button(*) {
+    opacity: 1;
+  }
+  &::scroll-button(*):disabled {
+    opacity: 0.2;
+  }
+}
+
+:where(.full-carousel-item) {
+  container-type: scroll-state;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+
+  &::scroll-marker {
+    content: '';
+    width: 0.75rem;
+    aspect-ratio: 1;
+    background-color: oklch(from CanvasText l c h / 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  &::scroll-marker:target-current {
+    background-color: ActiveText;
+  }
+  &::scroll-marker:is(:hover, :focus-visible) {
+    outline: 2px solid ActiveText;
+    outline-offset: 0;
+  }
+}
+
+:where(.full-card) {
+  width: var(--card-width);
+  height: 16rem;
+  background-color: Canvas;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+
+  border-radius: 15px;
+  @supports(corner-shape: squircle) {
+    border-radius: 30px;
+    corner-shape: squircle;
+  }
+
+  & h1 {
+    display: block;
+    text-align: center;
+    font-size: 2rem;
+    margin-block-end: 1rem;
+    padding: 0;
+  }
+
+  & p {
+    display: block;
+    height: 0;
+    overflow: hidden;
+    text-align: center;
+
+    transition: height 0.3s var(--ease-sine-out);
+  }
+}
+
+@supports (container-type: scroll-state) {
+  @container scroll-state(snapped: x) {
+    .full-card {
+      & p {
+        height: auto;
+      }
+    }
+  }
+}
+@supports not (container-type: scroll-state) {
+  .full-card {
+    & p {
+      height: auto;
+    }
+  }
+}
+
+:where(.carousel) {
+  --carousel-padding: 1rem;
+  --card-width: max(30vw, 10rem);
+
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--carousel-padding);
+  overflow-x: auto;
+  padding: 1rem var(--carousel-padding);
+
+  display: grid;
+  gap: 0.5rem;
+  grid-auto-flow: column;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline-start: 1rem;
+
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: none;
+  anchor-name: --carousel-control;
+  anchor-scope: --carousel-control;
+
+  &[data-type="popular"] {
+    --card-width: min(80vw, 18rem);
+  }
+}
+
+:where(.carousel) {
+  &::scroll-button(inline-start) {
+    content: "arrow_back_ios_new" / "Scroll Left";
+    right: calc(anchor(right) + var(--carousel-padding) + 3rem);
+    top: calc(anchor(top) - 2.25rem);
+  }
+  &::scroll-button(inline-end) {
+    content: "arrow_forward_ios" / "Scroll Right";
+    right: calc(anchor(right) + var(--carousel-padding));
+    top: calc(anchor(top) - 2.25rem);
+  }
+
+  &::scroll-button(*) {
+    position: absolute;
+    position-anchor: --carousel-control;
+    cursor: pointer;
+
+    width: 2.5rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    padding: 0;
+    border: none;
+    background-color: Canvas;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+    display: grid;
+    place-content: center;
+
+    font-family: "Material Symbols Outlined";
+    font-weight: 100;
+    font-style: normal;
+    color: oklch(from CanvasText l c h / 0.75);
+    font-size: 1rem;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    font-feature-settings: "liga";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+.carousel::scroll-button(*):disabled {
+  opacity: 0.2;
+}
+.carousel::scroll-button(*):focus-visible {
+  outline: 2px solid ActiveText;
+  outline-offset: 2px;
+}
+
+:where(.carousel-item) {
+  container-type: scroll-state;
+  scroll-snap-align: start;
+
+  width: var(--card-width);
+  container-type: inline-size;
+}
+
+:where(.card) {
+  width: 100%;
+  height: 15rem;
+  background-color: Canvas;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  overflow: clip;
+  padding: 0.2rem;
+
+  border-radius: 15px;
+  @supports(corner-shape: squircle) {
+    border-radius: 30px;
+    corner-shape: squircle;
+  }
+
+  .product-image {
+    display: block;
+    width: 100%;
+    height: 9.5rem;
+    object-fit: cover;
+
+    border-radius: 12px;
+    @supports(corner-shape: squircle) {
+      border-radius: 26px;
+      corner-shape: squircle;
+    }
+  }
+
+  .about {
+    padding: 0.5rem 0.75rem;
+
+    & h2 {
+      display: block;
+      text-align: left;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-block-end: 0.25rem;
+    }
+
+    & p {
+      font-size: 0.9rem;
+      display: block;
+      text-align: left;
+      color: color-mix(in oklab, CanvasText, Canvas 35%);
+    }
+  }
+
+  @container (width > 12rem) {
+    height: initial;
+    position: relative;
+    overflow: clip;
+
+    .product-image {
+      height: 12rem;
+    }
+
+    .about {
+      position: absolute;
+      inset: auto 0.2rem 0.2rem;
+      padding: 1rem;
+      background-image: linear-gradient(to bottom, transparent, Canvas);
+      backdrop-filter: blur(3px);
+
+      border-radius: 12px;
+      @supports(corner-shape: squircle) {
+        border-radius: 24px;
+        corner-shape: squircle;
+      }
+    }
+  }
+}
+
+:where(fieldset) {
+  all: unset;
+  padding: 1rem;
+  display: flex;
+  gap: 0.2rem;
+
+  & label {
+    display: grid;
+    flex: 1;
+    padding: 0.2rem;
+    background-color: Canvas;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+    transition: all 0.3s var(--ease-sine-out);
+
+    border-radius: 15px;
+    @supports(corner-shape: squircle) {
+      border-radius: 30px;
+      corner-shape: squircle;
+    }
+
+    &:has(input:checked) {
+      flex: 4;
+    }
+
+    input[type=radio] {
+      display: none;
+    }
+
+    .nature-image {
+      width: 100%;
+      height: 10rem;
+      object-fit: cover;
+      display: grid;
+
+      border-radius: 12px;
+      @supports(corner-shape: squircle) {
+        border-radius: 24px;
+        corner-shape: squircle;
+      }
+    }
+  }
+}
+
+:where([data-layer]) {
+  *, *::before, *::after {
+    outline: 1px dotted hotpink;
+  }
+}
+
+:where(html) {
+  --ease-sine-in: cubic-bezier(.47,0,.745,.715);
+  --ease-sine-in-out: cubic-bezier(.445,.05,.55,.95);
+  --ease-sine-out: cubic-bezier(.39,.575,.565,1);
+}
