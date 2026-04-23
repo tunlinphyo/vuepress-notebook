@@ -38,8 +38,8 @@
 }
 
 :where(.card) {
-  width: min(90vw, 20rem);
-  height: min(90vh, 22rem);
+  width: 20rem;
+  height: 22rem;
   background-color: color-mix(in oklab, Highlight, transparent 10%);
   background-image: url(https://tun-online.web.app/tunlinphyo.png);
   background-size: auto 80%;
@@ -104,13 +104,13 @@
     justify-content: cventer;
     align-items: stretch;
 
-    & li:has([toogletarget="github"]) {
+    & li:has([commandfor="github"]) {
       anchor-name: --github;
     }
-    & li:has([toogletarget="linkedin"]) {
+    & li:has([commandfor="linkedin"]) {
       anchor-name: --linkedin;
     }
-    & li:has([toogletarget="email"]) {
+    & li:has([commandfor="email"]) {
       anchor-name: --email;
     }
   }
@@ -196,7 +196,7 @@
   }
 
   & p {
-    width: calc(min(90vw, 20rem) - 4rem);
+    width: calc(20rem - 4rem);
     text-wrap: pretty;
   }
 
@@ -205,7 +205,7 @@
     display: inline-block;
     padding: 0.5rem 1rem;
     background-color: Canvas;
-    color: LinkText;
+    color: CanvasText;
     text-decoration: none;
 
     border-radius: 10px;
@@ -292,26 +292,26 @@
   }
 }
 
-.card:has(#github[data-toggle]) {
+.card:has(#github:not([inert])) {
   anchor-name: --github;
 
-  & li:has([toogletarget="github"]) {
+  & li:has([commandfor="github"]) {
     anchor-name: none;
   }
 }
 
-.card:has(#linkedin[data-toggle]) {
+.card:has(#linkedin:not([inert])) {
   anchor-name: --linkedin;
 
-  & li:has([toogletarget="linkedin"]) {
+  & li:has([commandfor="linkedin"]) {
     anchor-name: none;
   }
 }
 
-.card:has(#email[data-toggle]) {
+.card:has(#email:not([inert])) {
   anchor-name: --email;
 
-  & li:has([toogletarget="email"]) {
+  & li:has([commandfor="email"]) {
     anchor-name: none;
   }
 }
