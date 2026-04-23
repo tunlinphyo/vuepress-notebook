@@ -130,9 +130,14 @@ details {
   }
 
   &::details-content {
-    padding-block: 0.5rem;
     padding-inline: 1.5rem 0.5rem;
     background-color: color-mix(in oklab, Canvas, canvasText 5%);
+  }
+
+  &[open] {
+    &::details-content {
+      padding-block: 0.5rem;
+    }
   }
 }
 
