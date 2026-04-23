@@ -33,17 +33,11 @@ details {
   &::details-content {
     background-color: var(--accent);
     height: 0;
-    transition: height 0.3s var(--ease-sine-out);
+    transition: all 0.3s var(--ease-sine-out);
+    transition-behavior: allow-discrete;
 
     @supports (color: contrast-color(red)) {
       color: contrast-color(var(--accent));
-    }
-
-    @supports (animation-name: test-starting-style) {
-      transition:
-        all 0.3s var(--ease-sine-out),
-        display 0.3s allow-discrete,
-        overlay 0.3s allow-discrete;
     }
   }
 

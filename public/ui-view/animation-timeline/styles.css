@@ -398,13 +398,13 @@
         &::before {
           content: '';
           display: block;
-          width: 1.5rem;
+          width: 1rem;
           height: 0;
-          border-top: 1px solid GrayText;
+          border-top: 2px solid GrayText;
         }
 
         & li {
-          font-size: 0.75rem;
+          font-size: 0.85rem;
           color: var(--theme);
           padding-inline: 0.5rem;
           line-height: 1;
