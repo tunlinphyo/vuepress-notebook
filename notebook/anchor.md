@@ -10,6 +10,8 @@
 
 ## Anchor Demo
 
+This demo combines CSS anchor positioning with the `commandfor` / `command="--toggle"` invoker pattern. Each contact trigger becomes an anchor, and the matching detail panel uses `position-anchor` with `anchor()` so it can open from the selected item without any JavaScript layout calculations.
+
 <ThemedIframe
   src="/ui-view/about-me-card/index.html"
   title="About me card demo"

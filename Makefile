@@ -25,16 +25,25 @@ check-branch:
 	  exit 1; \
 	fi
 
-gitpush: check-branch
+gitpush:
 	@set -e; \
+	target_branch="$(BRANCH)"; \
+	if [ -z "$$target_branch" ]; then \
+	  printf "Branch name: "; \
+	  read -r target_branch; \
+	fi; \
+	if [ -z "$$target_branch" ]; then \
+	  echo "❌ Empty branch name. Aborting."; \
+	  exit 1; \
+	fi; \
 	branch="$$(git rev-parse --abbrev-ref HEAD)"; \
-	if [ "$$branch" != "$(BRANCH)" ]; then \
-	  echo "❌ You are on '$$branch'. Switch to '$(BRANCH)' first."; \
+	if [ "$$branch" != "$$target_branch" ]; then \
+	  echo "❌ You are on '$$branch'. Switch to '$$target_branch' first."; \
 	  exit 1; \
 	fi; \
 	git add .; \
 	if git diff --cached --quiet; then \
-	  echo "ℹ️ Nothing to commit on $(BRANCH)."; \
+	  echo "ℹ️ Nothing to commit on $$target_branch."; \
 	  exit 0; \
 	fi; \
 	printf "Commit message: "; \
@@ -44,5 +53,5 @@ gitpush: check-branch
 	  exit 1; \
 	fi; \
 	git commit -m "$$msg"; \
-	git push origin $(BRANCH); \
-	echo "✅ Committed and pushed to $(BRANCH): $$msg"
+	git push origin "$$target_branch"; \
+	echo "✅ Committed and pushed to $$target_branch: $$msg"

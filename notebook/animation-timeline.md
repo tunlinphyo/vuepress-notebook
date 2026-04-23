@@ -6,6 +6,12 @@
 
 ## Timeline Demo
 
+This demo builds a scroll-driven one-page portfolio with fixed layers that animate as the page moves. It uses `animation-timeline: scroll()` with different `animation-range` values to sync each section to scroll progress, and `scroll-marker-group` to place the marker navigation generated from `::scroll-marker`. Everything is done with CSS only, with no JavaScript.
+
+::: info
+This demo is best viewed on a large screen.
+:::
+
 <ThemedIframe
   src="/ui-view/animation-timeline/index.html"
   title="Animation Timeline"
