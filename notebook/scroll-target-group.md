@@ -24,7 +24,6 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    gap: 0.75rem;
   }
 }
 
@@ -40,7 +39,12 @@
     transition: scale 0.3s var(--ease-sine-out);
     transform-origin: left center;
     background-color: transparent;
-    background-image: linear-gradient(to bottom, transparent, 2px, var(--bg-color) 2px, 4px, transparent 0);
+    background-image: linear-gradient(
+      to bottom,
+      transparent 0 calc(50% - 1px),
+      var(--bg-color) calc(50% - 1px) calc(50% + 1px),
+      transparent calc(50% + 1px) 100%
+    );
   }
 
   &::scroll-marker:target-current {

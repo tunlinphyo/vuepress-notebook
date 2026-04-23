@@ -84,3 +84,14 @@ border-radius: 20px;
   background-attachment: local, local, scroll, scroll;
 }
 ```
+
+## First Letter
+
+```css
+p::first-letter {
+  initial-letter: 2;
+  -webkit-initial-letter: 2;
+  margin-right: 0.25rem;
+  color: ActiveText;
+}
+```

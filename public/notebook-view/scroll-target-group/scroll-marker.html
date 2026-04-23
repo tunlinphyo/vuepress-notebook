@@ -46,18 +46,17 @@
   scroll-behavior: smooth;
   scroll-padding-top: 1.5rem;
   scroll-marker-group: after;
-  
+
   &::scroll-marker-group {
     position: fixed;
     z-index: 5;
     top: 2.5rem;
     left: 1rem;
-  
+
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    gap: 0.25rem;
   }
 }
 
@@ -79,13 +78,18 @@
     content: '';
     display: block;
     width: 2rem;
-    height: 12px;
+    height: 1rem;
     cursor: pointer;
     scale: 0.3 1;
     transition: scale 0.3s var(--ease-sine-out);
     transform-origin: left center;
     background-color: transparent;
-    background-image: linear-gradient(to bottom, transparent, 5px, var(--bg-color) 5px, 7px, transparent 0);
+    background-image: linear-gradient(
+      to bottom,
+      transparent 0 calc(50% - 1px),
+      var(--bg-color) calc(50% - 1px) calc(50% + 1px),
+      transparent calc(50% + 1px) 100%
+    );
   }
 
   &::scroll-marker:target-current {

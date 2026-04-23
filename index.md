@@ -8,11 +8,11 @@ hero:
   tagline: My great project tagline
   actions:
     - theme: brand
-      text: Examples
-      link: /examples/about-me-card
-    - theme: alt
       text: Notebook
       link: /notebook/anchor
+    - theme: alt
+      text: Modules
+      link: /polyfills/anchor-card
 
 # features:
 #   - title: Feature A

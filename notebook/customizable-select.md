@@ -161,3 +161,12 @@ This demo is inspired by this [CodePen](https://codepen.io/dylanbeattie/pen/dPGK
   }
 }
 ```
+
+## Time Select
+
+<ThemedIframe
+  src="/notebook-view/customizable-select/time-select.html"
+  title="Time Select"
+  max-width="28rem"
+  height="20rem"
+/>
