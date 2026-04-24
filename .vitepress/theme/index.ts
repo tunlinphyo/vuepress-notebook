@@ -4,6 +4,7 @@ import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import ThemedIframe from './components/ThemedIframe.vue'
 import AdsenseBlock from './components/AdsenseBlock.vue'
+import InterestInvokerLinkPreview from './components/InterestInvokerLinkPreview.vue'
 import './style.css'
 
 export default {
@@ -23,5 +24,6 @@ export default {
     }
     app.component('ThemedIframe', ThemedIframe)
     app.component('AdsenseBlock', AdsenseBlock)
+    app.component('InterestInvokerLinkPreview', InterestInvokerLinkPreview)
   }
 } satisfies Theme

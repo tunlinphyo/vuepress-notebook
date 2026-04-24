@@ -7,13 +7,7 @@
 Unlike command invokers, which only work on button elements, interest invokers can be set on links `(<a> tags)` as well as buttons.
 :::
 
-
-<ThemedIframe
-  src="/notebook-view/interest-invokers/link-preview.html"
-  title="Interest invoker link preview"
-  max-width="20rem"
-  height="16rem"
-/>
+<!-- <InterestInvokerLinkPreview />
 
 ## Mega Menu Demo
 
@@ -22,7 +16,7 @@ Unlike command invokers, which only work on button elements, interest invokers c
   title="Fan List demo"
   max-width="28rem"
   height="20rem"
-/>
+/> -->
 
 ## interestfor
 
