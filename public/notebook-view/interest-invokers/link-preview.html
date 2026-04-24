@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interest Invoker Link Preview</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap"
+  rel="stylesheet"
+  fetchpriority="high">
+
+<script
+  type="module"
+  async
+  src="/assets/interestfor.min.js"
+></script>
+
+<style>
+:root {
+  color-scheme: light dark;
+
+  font-family: "Google Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 100%;
+
+  --accent: light-dark(deeppink, deepskyblue);
+  --surface: light-dark(
+    color-mix(in oklab, Canvas, CanvasText 5%),
+    color-mix(in oklab, Canvas, CanvasText 10%)
+  );
+  --ease-sine-out: cubic-bezier(.39,.575,.565,1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+:where(html, body) {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background-color: var(--surface);
+  color: CanvasText;
+}
+
+:where(body) {
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+}
+
+:where(a) {
+  display: inline-block;
+  padding-inline: 0.5rem;
+  border-radius: 0.25rem;
+
+  @supports (corner-shape: squircle) {
+    border-radius: 1rem;
+    corner-shape: squircle;
+  }
+}
+
+[interestfor] {
+  interest-delay: 0.2s;
+}
+
+:interest-source {
+  background-color: var(--accent);
+  color: contrast-color(var(--accent));
+}
+
+[popover] {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  inset: auto;
+  position-area: top;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  overflow: visible;
+  max-width: 100%;
+  max-height: 100%;
+
+  .popover {
+    width: min(20rem, calc(100vw - 3rem));
+    height: 15rem;
+    overflow: clip;
+    background-color: Canvas;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+    scale: 0.5;
+    opacity: 0;
+    transform-origin: bottom center;
+    transition: all 0.2s var(--ease-sine-out);
+    border-radius: 20px;
+
+    @supports (corner-shape: squircle) {
+      border-radius: 40px;
+      corner-shape: squircle;
+    }
+
+    & iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  }
+
+  &:popover-open .popover {
+    scale: 1;
+    opacity: 1;
+
+    @starting-style {
+      scale: 0.5;
+      opacity: 0;
+    }
+  }
+
+  @supports (animation-name: test-starting-style) {
+    transition:
+      display 0.2s allow-discrete,
+      overlay 0.2s allow-discrete;
+  }
+}
+</style>
+</head>
+<body>
+<a href="https://tun-online.web.app/" target="_blank" interestfor="interest">Tun's Portfolio</a>
+
+<div id="interest" popover="hint">
+  <div class="popover">
+    <iframe id="profile" src="https://tun-online.web.app/"></iframe>
+  </div>
+</div>
+
+<script>
+const iframe = document.getElementById('profile')
+
+if (iframe) {
+  iframe.addEventListener('load', () => {
+    iframe.style.transform = 'scale(0.5)'
+    iframe.style.transformOrigin = 'top left'
+    iframe.style.width = '200%'
+    iframe.style.height = '200%'
+  })
+}
+</script>
+</body>
+</html>

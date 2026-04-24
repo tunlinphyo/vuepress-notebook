@@ -12,6 +12,16 @@ const customElements = new Set([
 export default defineConfig({
   title: 'Cody Draft',
   description: "Tun's Code Drafts",
+  head: [
+    [
+      'script',
+      {
+        async: '',
+        src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6214917063722363',
+        crossorigin: 'anonymous'
+      }
+    ]
+  ],
   vue: {
     template: {
       compilerOptions: {
@@ -36,11 +46,14 @@ export default defineConfig({
           { text: '@counter-style', link: '/notebook/counter-style' },
           { text: 'customizable-select', link: '/notebook/customizable-select' },
           { text: 'dialog-closedby', link: '/notebook/dialog-closedby' },
+          { text: 'interest-invokers', link: '/notebook/interest-invokers' },
           { text: 'invoker-commands', link: '/notebook/invoker-commands' },
           { text: 'motion-path', link: '/notebook/motion-path' },
           { text: 'popover-hint', link: '/notebook/popover-hint' },
           { text: '@property', link: '/notebook/property' },
-          { text: 'psudo-elements', link: '/notebook/psudo-elements' },
+          { text: 'pseudo-classes', link: '/notebook/pseudo-classes' },
+          { text: 'pseudo-form-classes', link: '/notebook/pseudo-form-classes' },
+          { text: 'pseudo-elements', link: '/notebook/pseudo-elements' },
           { text: 'scroll-button', link: '/notebook/scroll-button' },
           { text: 'scroll-state()', link: '/notebook/scroll-state' },
           { text: 'scroll-target-group', link: '/notebook/scroll-target-group' },

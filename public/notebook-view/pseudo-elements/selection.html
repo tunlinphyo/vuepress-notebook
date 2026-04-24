@@ -50,6 +50,7 @@
   height: 4rem;
   background-color: oklch(from Canvas l c h / 0.5);
   backdrop-filter: blur(5px);
+  border-bottom: 2px solid Canvas;
 
   display: flex;
   justify-content: space-between;
@@ -57,7 +58,6 @@
   padding-inline: 1rem;
 
   position: sticky;
-  z-index: 9;
   top: 0;
 
   :is(h1) {
@@ -105,54 +105,20 @@
 
 :where(main) {
   padding: 1rem;
-}
 
-details {
-  margin-block: 0.25rem;
-  overflow: clip;
-
-  border: 1px solid GrayText;
-  border-radius: 10px;
-  @supports(corner-shape: squircle) {
-    border-radius: 20px;
-    corner-shape: squircle;
-  }
-
-  :is(p) {
+  :is(h2) {
     margin: 0;
-  }
-
-  summary {
-    padding: 0.5rem;
-    &::marker {
-      color: var(--accent);
-    }
-  }
-
-  &::details-content {
-    padding-inline: 1.5rem 0.5rem;
-    background-color: color-mix(in oklab, Canvas, canvasText 5%);
-  }
-
-  &[open] {
-    &::details-content {
-      padding-block: 0.5rem;
-    }
+    font-weight: 400;
   }
 }
 
-ul {
-  margin-block-start: 0;
-  padding-inline-start: 1.5rem;
+::selection {
+  background-color: var(--accent);
+  color: white;
 
-  & li {
-    margin-block-end: 0.5rem;
+  @supports (color: contrast-color(red)) {
+    color: contrast-color(var(--accent));
   }
-}
-li::marker {
-  content: "✝ ";
-  font-size: 1.2em;
-  color: var(--accent);
 }
 
 :where([data-layer]) {
@@ -170,7 +136,7 @@ li::marker {
 </head>
 <body>
 <header>
-  <h1>::marker</h1>
+  <h1>::selection</h1>
   <fieldset>
     <label>
       <input type="radio" name="theme" value="pink" checked>
@@ -184,25 +150,24 @@ li::marker {
   </fieldset>
 </header>
 <main>
-  <ul>
-    <li>Read the summary</li>
-    <li>Open the details</li>
-    <li>Compare each section</li>
-    <li>Pick the best pattern</li>
-    <li>Review the marker style</li>
-  </ul>
-  <details name="psudo" open>
-    <summary>What is details used for?</summary>
-    <p>The details element reveals extra information only when a reader asks for it.</p>
-  </details>
-  <details name="psudo">
-    <summary>Group these sections together?</summary>
-    <p>Using the same name value turns these panels into an accordion.</p>
-  </details>
-  <details name="psudo">
-    <summary>Should you use this pattern?</summary>
-    <p>Choose this pattern when several related topics share the same space.</p>
-  </details>
+  <h2>Select text to preview the selection background color</h2>
+  <p>
+    <span id="default-selection">Select any part of this page</span> to preview how the current accent color changes
+    the text selection highlight.
+    This demo makes it easy to compare each theme option and see which color feels the most readable.
+  </p>
+  <p>
+    A good selection color should stand out clearly without overpowering the text itself. Lighter tones often
+    feel softer, while stronger tones can make interaction states more obvious and energetic.
+  </p>
+  <p>
+    Try dragging across a single sentence, then across multiple paragraphs, to test how the highlight behaves
+    with longer selections. Small differences in contrast become much easier to notice during extended reading.
+  </p>
+  <p>
+    This kind of detail is subtle, but it improves the polish of a reading interface. Thoughtful selection
+    styling helps turn a basic page into something that feels intentionally designed and pleasant to use.
+  </p>
 </main>
 <script>
 function themePicker() {
@@ -220,13 +185,30 @@ function themePicker() {
   fieldset.addEventListener("change", ({ target }) => {
     if (target.name === "theme") {
       setAccent(target.value)
+      putSelection()
     }
   })
 
   setAccent(fieldset.querySelector(":checked").value)
 }
 
+function putSelection() {
+  const defaultSelection = document.querySelector("#default-selection")
+
+  const selectDefaultText = () => {
+    const selection = window.getSelection()
+    const range = document.createRange()
+
+    range.selectNodeContents(defaultSelection)
+    selection.removeAllRanges()
+    selection.addRange(range)
+  }
+
+  selectDefaultText()
+}
+
 themePicker()
+putSelection()
 </script>
 </body>
 </html>

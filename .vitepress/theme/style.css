@@ -143,3 +143,14 @@
   background-color: var(--vp-c-brand-1);
   color: white;
 }
+
+.adsense-mobile-only {
+  display: inline-block;
+  margin: 0 auto 1rem;
+}
+
+@media (min-width: 1280px) {
+  .adsense-mobile-only {
+    display: none;
+  }
+}
