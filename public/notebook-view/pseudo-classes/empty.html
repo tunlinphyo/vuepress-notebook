@@ -13,7 +13,7 @@
   fetchpriority="high">
 <link
   rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&icon_names=arrow_back_ios_new,arrow_forward_ios&display=block">
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&icon_names=progress_activity&display=swap">
 <style>
 :root {
   color-scheme: light dark;
@@ -50,6 +50,7 @@
   height: 4rem;
   background-color: oklch(from Canvas l c h / 0.5);
   backdrop-filter: blur(5px);
+  border-bottom: 2px solid Canvas;
 
   display: flex;
   justify-content: space-between;
@@ -57,6 +58,7 @@
   padding-inline: 1rem;
 
   position: sticky;
+  z-index: 9;
   top: 0;
 
   :is(h1) {
@@ -104,20 +106,51 @@
 
 :where(main) {
   padding: 1rem;
+}
 
-  :is(h2) {
-    margin: 0;
-    font-weight: 400;
+p {
+  margin-block: 1rem;
+
+  border-radius: 15px;
+  @supports(corner-shape: squircle) {
+    border-radius: 30px;
+    corner-shape: squircle;
+  }
+
+  &:empty {
+    padding: 0.5rem 1rem;
+    outline: 2px dotted var(--accent);
+    color: var(--accent);
+
+    &::before {
+      content: 'You can show a loading by using ::before and ::after with empty content.';
+    }
   }
 }
 
-::selection {
-  background-color: var(--accent);
-  color: white;
+.with-loading:empty {
+  padding: 1rem;
+  outline: 2px dotted var(--accent);
+  color: var(--accent);
 
-  @supports (color: contrast-color(red)) {
-    color: contrast-color(var(--accent));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &::before {
+    content: "progress_activity";
+    font-family: "Material Symbols Outlined";
+    font-weight: 100;
+    font-style: normal;
+    font-size: 1.5rem;
+    display: inline-block;
+    color: var(--accent);
+    animation: loading .7s var(--ease-sine-out) infinite;
   }
+}
+
+@keyframes loading {
+  to { rotate: 360deg; }
 }
 
 :where([data-layer]) {
@@ -135,7 +168,7 @@
 </head>
 <body>
 <header>
-  <h1>::selection</h1>
+  <h1>:empty</h1>
   <fieldset>
     <label>
       <input type="radio" name="theme" value="pink" checked>
@@ -149,24 +182,10 @@
   </fieldset>
 </header>
 <main>
-  <h2>Select text to preview the selection background color</h2>
-  <p>
-    <span id="default-selection">Select any part of this page</span> to preview how the current accent color changes
-    the text selection highlight.
-    This demo makes it easy to compare each theme option and see which color feels the most readable.
-  </p>
-  <p>
-    A good selection color should stand out clearly without overpowering the text itself. Lighter tones often
-    feel softer, while stronger tones can make interaction states more obvious and energetic.
-  </p>
-  <p>
-    Try dragging across a single sentence, then across multiple paragraphs, to test how the highlight behaves
-    with longer selections. Small differences in contrast become much easier to notice during extended reading.
-  </p>
-  <p>
-    This kind of detail is subtle, but it improves the polish of a reading interface. Thoughtful selection
-    styling helps turn a basic page into something that feels intentionally designed and pleasant to use.
-  </p>
+  <p>The <code>:empty</code> pseudo-class matches elements with no child nodes, so the paragraph below gets styled while this one does not.</p>
+  <p>This is not empty paragraph</p>
+  <p></p>
+  <p class="with-loading"></p>
 </main>
 <script>
 function themePicker() {
@@ -184,30 +203,13 @@ function themePicker() {
   fieldset.addEventListener("change", ({ target }) => {
     if (target.name === "theme") {
       setAccent(target.value)
-      putSelection()
     }
   })
 
   setAccent(fieldset.querySelector(":checked").value)
 }
 
-function putSelection() {
-  const defaultSelection = document.querySelector("#default-selection")
-
-  const selectDefaultText = () => {
-    const selection = window.getSelection()
-    const range = document.createRange()
-
-    range.selectNodeContents(defaultSelection)
-    selection.removeAllRanges()
-    selection.addRange(range)
-  }
-
-  selectDefaultText()
-}
-
 themePicker()
-putSelection()
 </script>
 </body>
 </html>

@@ -13,7 +13,7 @@
   fetchpriority="high">
 <link
   rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&icon_names=arrow_back_ios_new,arrow_forward_ios&display=block">
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&icon_names=notifications&display=swap">
 <style>
 :root {
   color-scheme: light dark;
@@ -50,6 +50,7 @@
   height: 4rem;
   background-color: oklch(from Canvas l c h / 0.5);
   backdrop-filter: blur(5px);
+  border-bottom: 2px solid Canvas;
 
   display: flex;
   justify-content: space-between;
@@ -105,72 +106,76 @@
 
 :where(main) {
   padding: 1rem;
+  padding-block-start: 0;
 }
 
-details {
-  interpolate-size: allow-keywords;
-  margin-block: 0.25rem;
-  overflow: clip;
+:where(.message) {
+  margin: 0;
+  padding: 0.75rem;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  background-color: oklch(from var(--accent) l c h / 0.1);
 
-  border: 1px solid GrayText;
-  border-radius: 20px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+
+  &::before {
+    content: 'notifications';
+    font-family: "Material Symbols Outlined";
+    font-weight: 100;
+    font-style: normal;
+    font-size: 1.2rem;
+    color: var(--accent);
+  }
+
+  border-radius: 15px;
   @supports(corner-shape: squircle) {
-    border-radius: 40px;
+    border-radius: 30px;
     corner-shape: squircle;
   }
+}
 
-  :is(p) {
-    margin: 0;
+:where(form) {
+  display: grid;
+  gap: 1rem;
+  padding-block: 1rem;
+}
+
+.form-control {
+  display: grid;
+  --bg-color: color-mix(in oklab, var(--accent), Canvas 90%);
+
+  & label {
+    font-size: 0.8rem;
+    color: GrayText;
   }
 
-  summary {
-    padding: 0.5rem 1rem;
+  input {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid GrayText;
+    caret-color: var(--accent);
+    caret-shape: block;
 
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: center;
-    gap: 0.5rem;
-
-    /* &::marker {
-      display: none;
-    } */
-
-    &::after {
-      content: "▸";
-      display: inline-block;
-      color: var(--accent);
-      scale: 1.2;
-      transition: transform 0.3s var(--ease-sine-out);
+    border-radius: 15px;
+    @supports(corner-shape: squircle) {
+      border-radius: 30px;
+      corner-shape: squircle;
     }
 
-  }
-
-  &::details-content {
-    padding: 0 1rem;
-    background-color: var(--accent);
-    height: 0;
-
-    transition: all 0.3s var(--ease-sine-out);
-    transition-behavior: allow-discrete;
-
-    @supports (color: contrast-color(red)) {
-      color: contrast-color(var(--accent));
-    }
-  }
-
-  &[open] {
-    summary::after {
-      transform: rotate(90deg);
+    &::placeholder {
+      color: GrayText;
     }
 
-    &::details-content {
-      padding: 1rem;
-      height: auto;
+    &:focus {
+      outline: 1px solid var(--accent);
+      border-color: var(--accent);
+    }
 
-      @starting-style {
-        height: 0;
-        padding: 0 1rem;
-      }
+    &:autofill {
+      box-shadow: inset 0 0 0 5rem var(--bg-color);
+      border: 2px dotted var(--accent);
     }
   }
 }
@@ -190,7 +195,7 @@ details {
 </head>
 <body>
 <header>
-  <h1>::details-content</h1>
+  <h1>:autofill</h1>
   <fieldset>
     <label>
       <input type="radio" name="theme" value="pink" checked>
@@ -204,30 +209,28 @@ details {
   </fieldset>
 </header>
 <main>
-<details name="psudo" open>
-  <summary>What is the details element used for?</summary>
-  <p>The details element reveals extra information only when a reader asks for it.</p>
-  <!-- <p>
-    It works well for FAQs, notes, and compact explanations that should stay
-    out of the way until needed.
-  </p> -->
-</details>
-<details name="psudo">
-  <summary>Why group these sections together?</summary>
-  <p>Using the same name value turns these panels into an accordion.</p>
-  <!-- <p>
-    Opening one section automatically closes the others, which keeps the layout
-    tidy and easier to scan.
-  </p> -->
-</details>
-<details name="psudo">
-  <summary>When should you use this pattern?</summary>
-  <p>Choose this pattern when several related topics share the same space.</p>
-  <!-- <p>
-    It helps readers compare sections quickly without forcing them to scroll
-    through every answer at once.
-  </p> -->
-</details>
+  <p class="message">
+    Click on the text box and choose any option suggested by your browser.
+  </p>
+  <form>
+    <div class="form-control">
+      <label for="name">Name</label>
+      <input id="name" name="name" type="text" autocomplete="given-name" placeholder="John Doe" />
+    </div>
+    <div class="form-control">
+      <label for="email">Email Address</label>
+      <input id="email" name="email" type="email" autocomplete="email" placeholder="john@mail.com" />
+    </div>
+    <div class="form-control">
+      <label for="country">Country</label>
+      <input
+        id="country"
+        name="country"
+        type="text"
+        autocomplete="country-name"
+        placeholder="Japan" />
+    </div>
+  </form>
 </main>
 <script>
 function themePicker() {

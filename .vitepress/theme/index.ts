@@ -3,6 +3,7 @@ import { h } from 'vue'
 import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import ThemedIframe from './components/ThemedIframe.vue'
+import AdsenseBlock from './components/AdsenseBlock.vue'
 import './style.css'
 
 export default {
@@ -10,6 +11,10 @@ export default {
   Layout: () => {
     return h(DefaultTheme.Layout, null, {
       // https://vitepress.dev/guide/extending-default-theme#layout-slots
+      'aside-outline-after': () =>
+        h(AdsenseBlock),
+      'doc-footer-before': () =>
+        h('div', { class: 'adsense-mobile-only' }, h(AdsenseBlock))
     })
   },
   enhanceApp({ app, router, siteData }) {
@@ -17,5 +22,6 @@ export default {
       void import('baseline-status')
     }
     app.component('ThemedIframe', ThemedIframe)
+    app.component('AdsenseBlock', AdsenseBlock)
   }
 } satisfies Theme

@@ -6,7 +6,7 @@
 <baseline-status featureId="interpolate-size"></baseline-status>
 
 <ThemedIframe
-  src="/notebook-view/psudo-elements/details-content.html"
+  src="/notebook-view/pseudo-elements/details-content.html"
   title="Fan List demo"
   max-width="20rem"
   height="24rem"
@@ -25,7 +25,12 @@ details {
     }
 
     &::after {
-      content: "▸";
+      content: "arrow_forward_ios";
+      font-family: "Material Symbols Outlined";
+      font-weight: 100;
+      font-style: normal;
+      display: inline-block;
+      color: var(--accent);
       transition: transform 0.3s var(--ease-sine-out);
     }
   }
@@ -35,6 +40,7 @@ details {
     height: 0;
     transition: all 0.3s var(--ease-sine-out);
     transition-behavior: allow-discrete;
+    /* content-visibility 0.3s allow-discrete */
 
     @supports (color: contrast-color(red)) {
       color: contrast-color(var(--accent));
@@ -62,7 +68,7 @@ details {
 <baseline-status featureId="marker"></baseline-status>
 
 <ThemedIframe
-  src="/notebook-view/psudo-elements/marker.html"
+  src="/notebook-view/pseudo-elements/marker.html"
   title="Fan List demo"
   max-width="20rem"
   height="24rem"
@@ -70,12 +76,19 @@ details {
 
 ```css:line-numbers
 summary::marker {
+  content: counter(count, decimal) ". ";
   color: var(--accent);
 }
+ul {
+  list-style-type: poker-list;
+}
 li::marker {
-  content: "✝ ";
-  font-size: 1.2em;
   color: var(--accent);
+}
+@counter-style poker-list {
+  system: cyclic;
+  symbols: "\2660" "\2665" "\2666" "\2663";
+  suffix: "  ";
 }
 ```
 
@@ -83,7 +96,7 @@ li::marker {
 <baseline-status featureId="selection"></baseline-status>
 
 <ThemedIframe
-  src="/notebook-view/psudo-elements/selection.html"
+  src="/notebook-view/pseudo-elements/selection.html"
   title="Fan List demo"
   max-width="20rem"
   height="24rem"

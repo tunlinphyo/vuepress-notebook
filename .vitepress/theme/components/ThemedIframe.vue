@@ -9,6 +9,8 @@ import {
   type ThemeMode,
 } from './themedIframeState'
 
+// todo add zoom props and default is 1
+
 const props = withDefaults(
   defineProps<{
     src: string
