@@ -25,6 +25,7 @@ const props = withDefaults(
 )
 
 const iframeRef = ref<HTMLIFrameElement | null>(null)
+const isLoading = ref(true)
 
 function applyFrameSettings() {
   const iframe = iframeRef.value
@@ -39,6 +40,11 @@ function applyFrameSettings() {
   } else {
     doc.documentElement.removeAttribute('data-layer')
   }
+}
+
+function handleLoad() {
+  isLoading.value = false
+  applyFrameSettings()
 }
 
 onMounted(() => {
@@ -64,6 +70,10 @@ watch(() => sharedSettings.layerEnabled, (enabled) => {
   localStorage.setItem(LAYER_STORAGE_KEY, String(enabled))
   applyFrameSettings()
 })
+
+watch(() => props.src, () => {
+  isLoading.value = true
+})
 </script>
 
 <template>
@@ -83,20 +93,41 @@ watch(() => sharedSettings.layerEnabled, (enabled) => {
       <div class="blob"></div>
     </div>
 
-    <iframe
-      ref="iframeRef"
-      :src="props.src"
-      :title="props.title"
+    <div
+      class="themed-iframe__frame"
       :style="{
         width: '100%',
         maxWidth: props.maxWidth,
         height: props.height,
-        display: 'block',
-        margin: '0 auto',
-        overflow: 'hidden',
       }"
-      @load="applyFrameSettings"
-    />
+    >
+      <div
+        v-if="isLoading"
+        class="themed-iframe__loading"
+        role="status"
+        aria-live="polite"
+        aria-busy="true"
+      >
+        <span class="themed-iframe__loading-spinner" aria-hidden="true"></span>
+        <span class="themed-iframe__loading-text">Loading preview...</span>
+      </div>
+
+      <iframe
+        ref="iframeRef"
+        class="themed-iframe__element"
+        :class="{ 'is-loading': isLoading }"
+        :src="props.src"
+        :title="props.title"
+        :style="{
+          width: '100%',
+          height: '100%',
+          display: 'block',
+          margin: '0 auto',
+          overflow: 'hidden',
+        }"
+        @load="handleLoad"
+      />
+    </div>
 
     <footer class="themed-iframe__footer">
       <label class="themed-iframe__switch">
@@ -128,16 +159,59 @@ watch(() => sharedSettings.layerEnabled, (enabled) => {
   );
 }
 
-iframe {
+.themed-iframe__frame {
+  position: relative;
+  width: 100%;
+}
+
+.themed-iframe__element,
+.themed-iframe__loading {
   border: 0;
   border: 1px solid var(--vp-c-brand-2);
   box-shadow: 0 20px 50px rgba(15,23,42,.12);
-
   border-radius: 24px;
+
   @supports(corner-shape: squircle) {
     border-radius: 48px;
     corner-shape: squircle;
   }
+}
+
+.themed-iframe__element {
+  background: var(--vp-c-bg-soft);
+  transition: opacity 0.2s ease;
+}
+
+.themed-iframe__element.is-loading {
+  opacity: 0;
+}
+
+.themed-iframe__loading {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-content: center;
+  gap: 0.75rem;
+  background:
+    radial-gradient(circle at top, color-mix(in srgb, var(--vp-c-brand-1) 14%, transparent), transparent 55%),
+    linear-gradient(180deg, var(--vp-c-bg-soft), var(--vp-c-bg-elv));
+  color: var(--vp-c-text-2);
+  pointer-events: none;
+}
+
+.themed-iframe__loading-spinner {
+  width: 2rem;
+  height: 2rem;
+  justify-self: center;
+  border: 3px solid color-mix(in srgb, var(--vp-c-text-3) 40%, transparent);
+  border-top-color: var(--vp-c-brand-1);
+  border-radius: 999px;
+  animation: themed-iframe-spin 0.8s linear infinite;
+}
+
+.themed-iframe__loading-text {
+  font-size: 0.95rem;
 }
 
 .themed-iframe__toolbar {
@@ -257,5 +331,11 @@ iframe {
 
 .source-code-link {
   text-align: center;
+}
+
+@keyframes themed-iframe-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 </style>
