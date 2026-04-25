@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
+import { nextTick, onMounted, ref, watch } from 'vue'
 import {
   hasInitializedSharedState,
   LAYER_STORAGE_KEY,
@@ -47,6 +47,14 @@ function handleLoad() {
   applyFrameSettings()
 }
 
+function syncIframeState() {
+  const doc = iframeRef.value?.contentDocument
+  if (doc?.readyState !== 'complete') return
+
+  isLoading.value = false
+  applyFrameSettings()
+}
+
 onMounted(() => {
   if (!hasInitializedSharedState) {
     const savedTheme = localStorage.getItem(STORAGE_KEY)
@@ -58,7 +66,7 @@ onMounted(() => {
     markSharedStateInitialized()
   }
 
-  applyFrameSettings()
+  syncIframeState()
 })
 
 watch(() => sharedSettings.theme, (mode) => {
@@ -71,8 +79,10 @@ watch(() => sharedSettings.layerEnabled, (enabled) => {
   applyFrameSettings()
 })
 
-watch(() => props.src, () => {
+watch(() => props.src, async () => {
   isLoading.value = true
+  await nextTick()
+  syncIframeState()
 })
 </script>
 
