@@ -49,7 +49,6 @@ export default defineConfig({
           { text: 'interest-invokers', link: '/notebook/interest-invokers' },
           { text: 'invoker-commands', link: '/notebook/invoker-commands' },
           { text: 'motion-path', link: '/notebook/motion-path' },
-          { text: 'popover-hint', link: '/notebook/popover-hint' },
           { text: '@property', link: '/notebook/property' },
           { text: 'pseudo-classes', link: '/notebook/pseudo-classes' },
           { text: 'pseudo-form-classes', link: '/notebook/pseudo-form-classes' },

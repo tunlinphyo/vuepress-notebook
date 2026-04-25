@@ -79,13 +79,14 @@
   outline: none;
   cursor: pointer;
   background-color: oklch(from var(--accent) l c h / 0.2);
+  padding: 0;
 
   position: absolute;
   opacity: 0;
 
   &[interestfor=mic] {
-    width: 3vh;
-    height: 2vh;
+    width: 4vh;
+    height: 3vh;
     border-radius: 100vh;
     translate: 0 -40.25vh;
   }
@@ -131,8 +132,21 @@
     border-radius: 100vw;
     translate: 4.95vh 3.7vh;
   }
+  &[interestfor=siri] {
+    width: 3vh;
+    aspect-ratio: 1/3.8;
+    border-radius: 100vw;
+    translate: 12vh -26vh;
+  }
 }
 
+:where(.remote:has(button:hover)) {
+  button:not(:hover) {
+    background-color: transparent;
+    border-color: oklch(from var(--accent) l c h / 0.2);
+    opacity: 1;
+  }
+}
 
 [interestfor] {
   interest-delay: 0.2s;
@@ -167,7 +181,7 @@
     background-color: oklch(from Canvas l c h / 0.9);
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     padding: 1.5rem;
-    scale: 0.5;
+    scale: 0.25;
     opacity: 0;
     translate: 0 0;
     transform-origin: 40% 0%;
@@ -212,7 +226,7 @@
       opacity: 1;
 
       @starting-style {
-        scale: 0.5;
+        scale: 0.25;
         opacity: 0;
       }
     }
@@ -308,6 +322,7 @@
     <button interestfor="play"></button>
     <button interestfor="mute"></button>
     <button interestfor="volume"></button>
+    <button interestfor="siri"></button>
   </div>
 </main>
 <div id="mic" popover="hint">
@@ -356,6 +371,12 @@
   <div class="popover">
     <h3>Volume</h3>
     <p>Raises or lowers the sound level on your TV, receiver, or soundbar.</p>
+  </div>
+</div>
+<div id="siri" popover="hint">
+  <div class="popover">
+    <h3>Siri</h3>
+    <p>Press and hold the side button to talk to Siri for voice search, playback control, and quick commands.</p>
   </div>
 </div>
 </body>
