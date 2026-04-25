@@ -1,10 +1,23 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 
 const SCRIPT_SRC = '/assets/interestfor.min.js'
-const SOURCE_URL = 'https://github.com/tunlinphyo/vuepress-notebook/blob/main/.vitepress/theme/components/InterestInvokerLinkPreview.vue'
+
+const website = ref<string>("https://tun-online.web.app/")
 
 let interestInvokerScriptPromise: Promise<void> | null = null
+
+const iframeRef = ref<HTMLIFrameElement | null>(null)
+
+function styleIframePreview() {
+  const iframe = iframeRef.value
+  if (!iframe) return
+
+  iframe.style.transform = 'scale(0.5)'
+  iframe.style.transformOrigin = 'top left'
+  iframe.style.width = '200%'
+  iframe.style.height = '200%'
+}
 
 function ensureInterestInvokerScript() {
   if (typeof document === 'undefined') return Promise.resolve()
@@ -28,81 +41,73 @@ function ensureInterestInvokerScript() {
 }
 
 onMounted(() => {
+  iframeRef.value?.addEventListener('load', styleIframePreview, { once: true })
+  styleIframePreview()
   void ensureInterestInvokerScript().catch(() => {})
 })
 </script>
 
 <template>
-  <div class="interest-link-preview">
-    <div class="interest-link-preview__surface">
-      <a
-        href="https://tun-online.web.app/"
-        target="_blank"
-        rel="noreferrer"
-        class="interest-link-preview__link"
-        interestfor="interest-link-preview-popover"
-      >
-        Tun's Portfolio
-      </a>
-    </div>
+  <div>
+    Hover over the link to preview it, interact with the preview, <br>
+    then click to visit <a
+      :href="website"
+      target="_blank"
+      rel="noreferrer"
+      class="interest-link-preview__link"
+      interestfor="interest-link-preview-popover"
+    >Tun's Portfolio
+    </a>
+  </div>
 
-    <div id="interest-link-preview-popover" popover="hint" class="interest-link-preview__popover">
-      <div class="interest-link-preview__card">
-        <iframe
-          class="interest-link-preview__frame"
-          src="https://tun-online.web.app/"
-          title="Tun's Portfolio preview"
-        ></iframe>
-      </div>
+  <div id="interest-link-preview-popover" class="popover-ui" popover="hint">
+    <div class="popover">
+      <iframe
+        ref="iframeRef"
+        class="interest-link-preview__frame"
+        :src="website"
+        title="Tun's Portfolio preview"
+      ></iframe>
     </div>
   </div>
 </template>
 
 <style scoped>
-.interest-link-preview {
-  --interest-accent: var(--vp-c-brand-1);
-  --interest-surface: color-mix(in srgb, var(--vp-c-bg-soft) 88%, var(--vp-c-text-1) 12%);
-  --interest-ease-sine-out: cubic-bezier(.39, .575, .565, 1);
-}
-
-.interest-link-preview *,
-.interest-link-preview *::before,
-.interest-link-preview *::after {
-  box-sizing: border-box;
-}
-
-.interest-link-preview__link {
+a {
   display: inline-block;
   padding-inline: 0.5rem;
   border-radius: 0.25rem;
-  color: var(--vp-c-text-1);
   text-decoration: none;
-  transition: background-color 0.2s ease, color 0.2s ease;
-  interest-delay: 0.2s;
 }
 
 @supports (corner-shape: squircle) {
-  .interest-link-preview__link {
+  a {
     border-radius: 1rem;
     corner-shape: squircle;
   }
 }
 
-.interest-link-preview__link:hover {
-  color: var(--vp-c-brand-1);
+a[interestfor] {
+  interest-delay: 0.2s;
 }
 
-.interest-link-preview__link:interest-source {
-  background-color: var(--interest-accent);
-  color: var(--vp-c-bg);
+a:interest-source {
+  background-color: var(--vp-c-brand-1);
+  color: contrast-color(var(--vp-c-brand-1));
 }
 
-.interest-link-preview__popover {
+.popover-ui {
+  container-type: anchored;
+
   position: absolute;
-  inset: auto;
-  position-area: top;
   margin: 0;
   padding: 0;
+  inset: auto;
+  /* position-area: top; */
+  top: auto;
+  bottom: anchor(top);
+  justify-self: anchor-center;
+  position-try-fallbacks: --try-bottom;
   border: none;
   outline: none;
   background-color: transparent;
@@ -111,40 +116,61 @@ onMounted(() => {
   max-height: 100%;
 }
 
-.interest-link-preview__card {
-  width: min(20rem, calc(100vw - 3rem));
+.popover-ui .popover {
+  width: min(22rem, calc(100vw - 3rem));
   height: 15rem;
   overflow: clip;
-  border-radius: 20px;
-  background-color: #fff;
+  background-color: Canvas;
   box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
-  transform-origin: bottom center;
+  border: 2px solid var(--vp-c-brand-1);
+  scale: 0.25;
   opacity: 0;
-  scale: 0.5;
-  transition: all 0.2s var(--interest-ease-sine-out);
+  transform-origin: bottom center;
+  transition: all 0.2s cubic-bezier(.39,.575,.565,1);
+  border-radius: 20px;
 }
 
 @supports (corner-shape: squircle) {
-  .interest-link-preview__card {
+  .popover-ui .popover {
     border-radius: 40px;
     corner-shape: squircle;
   }
 }
 
-.interest-link-preview__popover:popover-open .interest-link-preview__card {
-  opacity: 1;
-  scale: 1;
-}
-
-.interest-link-preview__frame {
-  width: 200%;
-  height: 200%;
+.popover-ui .popover iframe {
+  width: 100%;
+  height: 100%;
   border: 0;
-  transform: scale(0.5);
-  transform-origin: top left;
 }
 
-.interest-link-preview__source {
-  text-align: center;
+.popover-ui:popover-open .popover {
+  scale: 1;
+  opacity: 1;
+}
+
+@starting-style {
+  .popover-ui:popover-open .popover {
+    scale: 0.25;
+    opacity: 0;
+  }
+}
+
+@supports (animation-name: test-starting-style) {
+  .popover-ui {
+    transition:
+      display 0.2s allow-discrete,
+      overlay 0.2s allow-discrete;
+  }
+}
+
+@position-try --try-bottom {
+  top: anchor(bottom);
+  bottom: auto;
+}
+
+@container anchored(fallback: --try-bottom) {
+  .popover-ui .popover {
+    transform-origin: top center;
+  }
 }
 </style>
