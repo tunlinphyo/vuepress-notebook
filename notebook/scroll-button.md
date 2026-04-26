@@ -8,7 +8,7 @@
 
 <baseline-status featureId="scroll-markers"></baseline-status>
 
-## Fancy Slider Demo
+## Fancy Slide Demo
 
 This slider combines native scroll controls, linked targets, and scroll-state driven layout changes using only CSS. The carousel uses `::scroll-button()` to render built-in previous and next controls, the side links use `scroll-target-group` so the active target stays in sync with the scroller, and each slide participates in a `scroll-state()` container query so the snapped item can expand into the featured card.
 

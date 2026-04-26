@@ -56,6 +56,16 @@ gitpush:
 	git push origin "$$target_branch"; \
 	echo "✅ Committed and pushed to $$target_branch: $$msg"
 
+gitpull: check-branch
+	@set -e; \
+	branch="$$(git rev-parse --abbrev-ref HEAD)"; \
+	if [ "$$branch" != "$(BRANCH)" ]; then \
+	  echo "❌ You are on '$$branch'. Switch to '$(BRANCH)' first."; \
+	  exit 1; \
+	fi; \
+	git pull origin $(BRANCH); \
+	echo "✅ Pulled from $(BRANCH)"
+
 gitmerge:
 	@set -e; \
 	git checkout $(DEV_BRANCH); \

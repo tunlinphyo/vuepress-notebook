@@ -21,7 +21,7 @@ features:
   - title: Remote Interest
     details: Shows how hovered remote controls can trigger a matching popover through interest invokers.
     link: /notebook/interest-invokers.html#interestfor-demo
-  - title: Fancy Slider
+  - title: Fancy Slide
     details: Combines native scroll buttons, linked targets, and scroll-state layout changes so the active slide expands into focus.
     link: /notebook/scroll-button.html#fancy-slider-demo
   - title: Mini Calendar
