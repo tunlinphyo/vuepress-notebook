@@ -68,15 +68,15 @@ gitpull: check-branch
 
 gitmerge:
 	@set -e; \
-	git checkout $(DEV_BRANCH); \
-	$(MAKE) gitpull BRANCH=$(DEV_BRANCH); \
+	git checkout $(STAGING_BRANCH); \
+	$(MAKE) gitpull BRANCH=$(STAGING_BRANCH); \
 	git checkout $(PROD_BRANCH); \
 	git pull origin $(PROD_BRANCH); \
-	if git diff --quiet $(PROD_BRANCH)..$(DEV_BRANCH); then \
-	  git checkout $(DEV_BRANCH); \
-	  echo "⭕️ No differences to merge. Now you're in $(DEV_BRANCH) branch"; \
+	if git diff --quiet $(PROD_BRANCH)..$(STAGING_BRANCH); then \
+	  git checkout $(STAGING_BRANCH); \
+	  echo "⭕️ No differences to merge. Now you're in $(STAGING_BRANCH) branch"; \
 	  exit 0; \
 	fi; \
-	git merge --no-ff --no-edit $(DEV_BRANCH); \
+	git merge --no-ff --no-edit $(STAGING_BRANCH); \
 	git push origin $(PROD_BRANCH); \
 	echo "❇️ Merged and pushed to $(PROD_BRANCH). Now ready to deploy👌👌👌."
