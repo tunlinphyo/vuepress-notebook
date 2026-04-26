@@ -154,7 +154,6 @@ watch(() => props.src, async () => {
 </template>
 
 <style scoped>
-
 .themed-iframe {
   display: grid;
   gap: 0.75rem;

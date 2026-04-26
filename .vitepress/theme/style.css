@@ -134,10 +134,10 @@
   --vp-custom-block-tip-code-bg: var(--vp-c-brand-soft);
 }
 
-:root {
+/* :root {
   scroll-padding-top: 10rem;
-  /* scroll-behavior: smooth; */
-}
+  scroll-behavior: smooth;
+} */
 
 *::selection {
   background-color: var(--vp-c-brand-1);

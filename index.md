@@ -15,16 +15,16 @@ hero:
       link: /polyfills/anchor-card
 
 features:
-  - title: Timeline Demo
+  - title: Timeline Animation
     details: Scroll-driven portfolio layers synced with CSS timelines and marker navigation, with no JavaScript.
     link: /notebook/animation-timeline.html#timeline-demo
   - title: Remote Interest
     details: Shows how hovered remote controls can trigger a matching popover through interest invokers.
     link: /notebook/interest-invokers.html#interestfor-demo
-  - title: user-pseudos
-    details: Uses :user-valid and :user-invalid so form feedback appears after interaction instead of on first paint.
-    link: /notebook/pseudo-form-classes.html#user-pseudos
-  - title: Scroll Target Demo
+  - title: Fancy Slider
+    details: Combines native scroll buttons, linked targets, and scroll-state layout changes so the active slide expands into focus.
+    link: /notebook/scroll-button.html#fancy-slider-demo
+  - title: Mini Calendar
     details: Keeps in-page navigation synced to the active section while layout positions events from data attributes.
     link: /notebook/scroll-target-group.html#scroll-target-demo
 ---
