@@ -334,7 +334,7 @@
 
     animation: workTitle auto linear forwards;
     animation-timeline: scroll();
-    animation-range: 56% 66%;
+    animation-range: 50% 70%;
   }
 
   .work-list {

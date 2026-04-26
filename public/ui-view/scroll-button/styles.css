@@ -10,8 +10,8 @@
 
   --padding-x: 0.5rem;
   --surface: light-dark(
-    color-mix(in oklab, Canvas, CanvasText 5%),
-    color-mix(in oklab, Canvas, CanvasText 20%)
+    color-mix(in oklab, Canvas, CanvasText 10%),
+    color-mix(in oklab, Canvas, CanvasText 15%)
   );
 }
 
@@ -24,259 +24,69 @@
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: var(--surface);
+  background-color: Canvas;
   color: CanvasText;
+  interpolate-size: allow-keywords;
 }
 
 :where(main) {
   width: 100%;
+  height: 100%;
 }
 
 :where(ul,li,h1,h2,h3,p) {
   all: unset;
 }
 
-:where(h1) {
-  display: block;
-  font-size: 1.75rem;
-  padding: 1rem 1rem 0;
-}
-
-:where(section) {
-  margin-bottom: 1rem;
-}
-
-:where(.full-carousel) {
-  --carousel-padding: 1rem;
-  --card-width: min(100vw, 24rem);
-
-  box-sizing: border-box;
-  width: 100%;
-  padding: var(--carousel-padding);
-  overflow-x: auto;
-  padding: 1rem calc(var(--carousel-padding) * 2);
-
-  display: grid;
-  gap: 1rem;
-  grid-auto-flow: column;
-  scroll-snap-type: x mandatory;
-
-  scrollbar-width: none;
-  scroll-behavior: smooth;
-  overscroll-behavior-x: none;
-  anchor-name: --full-control;
-
-  &::scroll-button(inline-start) {
-    content: "arrow_back_ios_new" / "Scroll Left";
-    left: calc(anchor(left) + (var(--carousel-padding) * 0.5));
-    top: calc(anchor(center) - 2rem);
-  }
-  &::scroll-button(inline-end) {
-    content: "arrow_forward_ios" / "Scroll Right";
-    right: calc(anchor(right) + (var(--carousel-padding) * 0.5));
-    top: calc(anchor(center) - 2rem);
-  }
-
-  &::scroll-button(*) {
-    position: absolute;
-    position-anchor: --full-control;
-    cursor: pointer;
-
-    width: 3rem;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    padding: 0;
-    border: none;
-    background-color: light-dark(Canvas, var(--surface));
-    box-shadow: rgba(0,0,0,0.2) 0px 7px 29px 0px;
-
-    display: grid;
-    place-content: center;
-
-    font-family: "Material Symbols Outlined";
-    font-weight: 100;
-    font-style: normal;
-    color: oklch(from CanvasText l c h / 0.75);
-    font-size: 1.2rem;
-    line-height: 1;
-    text-transform: none;
-    letter-spacing: normal;
-    word-wrap: normal;
-    white-space: nowrap;
-    direction: ltr;
-    font-feature-settings: "liga";
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-
-    opacity: 0;
-  }
-
-  scroll-marker-group: after;
-
-  &::scroll-marker-group {
-    position: fixed;
-    position-anchor: --full-control;
-    position-area: bottom center;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-}
-
-.full-carousel::scroll-button(*):disabled {
-  opacity: 0;
-}
-.full-carousel::scroll-button(*):focus-visible {
-  outline: 2px solid ActiveText;
-  outline-offset: 2px;
-}
-
-.full-carousel:hover {
-  &::scroll-button(*) {
-    opacity: 1;
-  }
-  &::scroll-button(*):disabled {
-    opacity: 0.2;
-  }
-}
-
-:where(.full-carousel-item) {
-  container-type: scroll-state;
-  scroll-snap-align: center;
-  scroll-snap-stop: always;
-
-  &::scroll-marker {
-    content: '';
-    width: 0.75rem;
-    aspect-ratio: 1;
-    background-color: oklch(from CanvasText l c h / 0.5);
-    border-radius: 50%;
-    cursor: pointer;
-  }
-
-  &::scroll-marker:target-current {
-    background-color: ActiveText;
-  }
-  &::scroll-marker:is(:hover, :focus-visible) {
-    outline: 2px solid ActiveText;
-    outline-offset: 0;
-  }
-}
-
-:where(.full-card) {
-  width: var(--card-width);
-  height: 16rem;
-  background-color: Canvas;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
-
-  border-radius: 15px;
-  @supports(corner-shape: squircle) {
-    border-radius: 30px;
-    corner-shape: squircle;
-  }
-
-  & h1 {
-    display: block;
-    text-align: center;
-    font-size: 2rem;
-    margin-block-end: 1rem;
-    padding: 0;
-  }
-
-  & p {
-    display: block;
-    height: 0;
-    overflow: hidden;
-    text-align: center;
-
-    transition: height 0.3s var(--ease-sine-out);
-  }
-}
-
-@supports (container-type: scroll-state) {
-  @container scroll-state(snapped: x) {
-    .full-card {
-      & p {
-        height: auto;
-      }
-    }
-  }
-}
-@supports not (container-type: scroll-state) {
-  .full-card {
-    & p {
-      height: auto;
-    }
-  }
-}
-
 :where(.carousel) {
-  --carousel-padding: 1rem;
-  --card-width: max(30vw, 10rem);
-
-  box-sizing: border-box;
   width: 100%;
-  padding: var(--carousel-padding);
-  overflow-x: auto;
-  padding: 1rem var(--carousel-padding);
-
+  height: 100%;
   display: grid;
-  gap: 0.5rem;
   grid-auto-flow: column;
   scroll-snap-type: x mandatory;
-  scroll-padding-inline-start: 1rem;
+  position: relative;
+  background-color: light-dark(Canvas, CanvasText);
 
+  overflow-x: auto;
   scrollbar-width: none;
   scroll-behavior: smooth;
   overscroll-behavior-x: none;
   anchor-name: --carousel-control;
-  anchor-scope: --carousel-control;
 
-  &[data-type="popular"] {
-    --card-width: min(80vw, 18rem);
-  }
-}
-
-:where(.carousel) {
   &::scroll-button(inline-start) {
-    content: "arrow_back_ios_new" / "Scroll Left";
-    right: calc(anchor(right) + var(--carousel-padding) + 3rem);
-    top: calc(anchor(top) - 2.25rem);
+    content: "keyboard_arrow_up" / "Scroll Left";
+    top: calc(50% - 2.25rem);
   }
   &::scroll-button(inline-end) {
-    content: "arrow_forward_ios" / "Scroll Right";
-    right: calc(anchor(right) + var(--carousel-padding));
-    top: calc(anchor(top) - 2.25rem);
+    content: "keyboard_arrow_down" / "Scroll Right";
+    bottom: calc(50% - 2.25rem);
   }
 
   &::scroll-button(*) {
     position: absolute;
+    z-index: 3;
     position-anchor: --carousel-control;
     cursor: pointer;
 
-    width: 2.5rem;
+    width: 2rem;
     aspect-ratio: 1;
     border-radius: 50%;
     padding: 0;
     border: none;
-    background-color: Canvas;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
     display: grid;
     place-content: center;
+    left: calc(anchor(left) + 0.5rem);
 
     font-family: "Material Symbols Outlined";
-    font-weight: 100;
+    font-weight: 600;
     font-style: normal;
+    background-color: light-dark(
+      oklch(from Canvas l c h / 0.8),
+      oklch(from Canvas l c h / 0.4)
+    );
     color: oklch(from CanvasText l c h / 0.75);
-    font-size: 1rem;
-    line-height: 1;
+    font-size: 1.2rem;
     text-transform: none;
     letter-spacing: normal;
     word-wrap: normal;
@@ -289,7 +99,7 @@
 }
 
 .carousel::scroll-button(*):disabled {
-  opacity: 0.2;
+  color: oklch(from CanvasText l c h / 0.2);
 }
 .carousel::scroll-button(*):focus-visible {
   outline: 2px solid ActiveText;
@@ -298,129 +108,173 @@
 
 :where(.carousel-item) {
   container-type: scroll-state;
-  scroll-snap-align: start;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
 
-  width: var(--card-width);
-  container-type: inline-size;
+  width: 100vw;
 }
 
 :where(.card) {
-  width: 100%;
-  height: 15rem;
-  background-color: Canvas;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  position: fixed;
+  z-index: 0;
+  position-anchor: --carousel-control;
+  overflow: clip;
+
+  top: anchor(top);
+  bottom: anchor(bottom);
+  left: anchor(left);
+  right: anchor(right);
 
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: stretch;
-  overflow: clip;
-  padding: 0.2rem;
+  justify-content: center;
+  align-items: center;
+  background-color: light-dark(Canvas, CanvasText);
 
-  border-radius: 15px;
+  display: none;
+  opacity: 0;
+  scale: 0.9;
+  translate: -20vw 0;
+
+  transition: all 0.5s var(--ease-sine-in-out);
+  transition-behavior: allow-discrete;
+
+  border-radius: 20px;
   @supports(corner-shape: squircle) {
-    border-radius: 30px;
+    border-radius: 40px;
     corner-shape: squircle;
   }
 
-  .product-image {
-    display: block;
+  & img {
+    display: grid;
     width: 100%;
-    height: 9.5rem;
+    height: 100%;
     object-fit: cover;
-
-    border-radius: 12px;
-    @supports(corner-shape: squircle) {
-      border-radius: 26px;
-      corner-shape: squircle;
-    }
   }
+}
 
-  .about {
-    padding: 0.5rem 0.75rem;
+@supports (container-type: scroll-state) {
+  @container scroll-state(snapped: x) {
+    .card {
+      z-index: 1;
+      display: flex;
+      opacity: 1;
+      scale: 1.1;
+      translate: 0 0;
 
-    & h2 {
-      display: block;
-      text-align: left;
-      font-size: 1rem;
-      font-weight: 600;
-      margin-block-end: 0.25rem;
-    }
-
-    & p {
-      font-size: 0.9rem;
-      display: block;
-      text-align: left;
-      color: color-mix(in oklab, CanvasText, Canvas 35%);
-    }
-  }
-
-  @container (width > 12rem) {
-    height: initial;
-    position: relative;
-    overflow: clip;
-
-    .product-image {
-      height: 12rem;
-    }
-
-    .about {
-      position: absolute;
-      inset: auto 0.2rem 0.2rem;
-      padding: 1rem;
-      background-image: linear-gradient(to bottom, transparent, Canvas);
-      backdrop-filter: blur(3px);
-
-      border-radius: 12px;
-      @supports(corner-shape: squircle) {
-        border-radius: 24px;
-        corner-shape: squircle;
+      @starting-style {
+        z-index: 1;
+        opacity: 0;
+        scale: 0.9;
+        translate: 30vw 0;
       }
     }
   }
 }
 
-:where(fieldset) {
-  all: unset;
-  padding: 1rem;
+:where(.target) {
+  --duration: 0.5s;
+  scroll-target-group: auto;
+
+  position: absolute;
+  z-index: 5;
+  left: 3rem;
+  top: 50%;
+  translate: 0 -50%;
+
   display: flex;
-  gap: 0.2rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
 
-  & label {
-    display: grid;
-    flex: 1;
-    padding: 0.2rem;
-    background-color: Canvas;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+:where(.target li a) {
+  position: relative;
+  z-index: 1;
+  width: var(--w, 10rem);
+  height: 2.4rem;
+  padding: 0;
+  font-size: 0.85rem;
+  text-decoration: none;
+  color: CanvasText;
+  overflow: clip;
 
-    transition: all 0.3s var(--ease-sine-out);
+  transition: width var(--duration) var(--ease-spring-1), height var(--duration) var(--ease-spring-1);
 
-    border-radius: 15px;
-    @supports(corner-shape: squircle) {
-      border-radius: 30px;
-      corner-shape: squircle;
-    }
+  interpolate-size: allow-keywords;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 
-    &:has(input:checked) {
-      flex: 4;
-    }
+  border-radius: 20px;
+  background-color: light-dark(
+    oklch(from Canvas l c h / 0.8),
+    oklch(from Canvas l c h / 0.4)
+  );
 
-    input[type=radio] {
-      display: none;
-    }
+  .mini {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    white-space: nowrap;
 
-    .nature-image {
-      width: 100%;
-      height: 10rem;
-      object-fit: cover;
+    &::before {
+      content: "add";
+      flex-shrink: 0;
+      width: 1.3rem;
+      aspect-ratio: 1;
+      border: 1px solid currentColor;
+      border-radius: 50%;
+  
       display: grid;
+      place-content: center;
+  
+      font-family: "Material Symbols Outlined";
+      font-weight: 600;
+      font-style: normal;
+      font-size: 1rem;
+    }
+  }
 
-      border-radius: 12px;
-      @supports(corner-shape: squircle) {
-        border-radius: 24px;
-        corner-shape: squircle;
+  .opened {
+    display: none;
+    padding: 1rem;
+    max-width: 15rem;
+  }
+
+  &:target-current {
+    width: 15rem;
+    height: var(--h);
+
+    .mini {
+      display: none;
+      transition: none;
+    }
+    .opened {
+      display: block;
+      transition: all 0.1s ease calc(var(--duration) - 0.1s);
+
+      @starting-style {
+        opacity: 0;
       }
     }
+  }
+  &:not(:target-current) {
+    .mini {
+      display: flex;
+      transition: all 0.1s ease calc(var(--duration) - 0.1s);
+
+      @starting-style {
+        opacity: 0;
+      }
+    }
+  }
+
+  &:is(:focus-visible) {
+    outline: 2px solid ActiveText;
+    outline-offset: 2px;
   }
 }
 
@@ -434,4 +288,9 @@
   --ease-sine-in: cubic-bezier(.47,0,.745,.715);
   --ease-sine-in-out: cubic-bezier(.445,.05,.55,.95);
   --ease-sine-out: cubic-bezier(.39,.575,.565,1);
+  --ease-spring-1: linear(
+    0, 0.006, 0.025 2.8%, 0.101 6.1%, 0.539 18.9%, 0.721 25.3%, 0.849 31.5%,
+    0.937 38.1%, 0.968 41.8%, 0.991 45.7%, 1.006 50.1%, 1.015 55%, 1.017 63.9%,
+    1.001
+  );
 }

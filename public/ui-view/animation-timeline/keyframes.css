@@ -251,9 +251,9 @@
 
 @keyframes workTitle {
   0% {
-    opacity: 0;
+    opacity: 1;
     scale: 5;
-    translate: -50% 25vh;
+    translate: -50% 75vh;
   }
   50% {
     opacity: 1;
@@ -261,8 +261,9 @@
     translate: -50% 0;
   }
   100% {
+    opacity: 1;
     scale: 1;
-    translate: -50% -50vh;
+    translate: -50% -75vh;
   }
 }
 

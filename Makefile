@@ -55,3 +55,28 @@ gitpush:
 	git commit -m "$$msg"; \
 	git push origin "$$target_branch"; \
 	echo "✅ Committed and pushed to $$target_branch: $$msg"
+
+gitpull: check-branch
+	@set -e; \
+	branch="$$(git rev-parse --abbrev-ref HEAD)"; \
+	if [ "$$branch" != "$(BRANCH)" ]; then \
+	  echo "❌ You are on '$$branch'. Switch to '$(BRANCH)' first."; \
+	  exit 1; \
+	fi; \
+	git pull origin $(BRANCH); \
+	echo "✅ Pulled from $(BRANCH)"
+
+gitmerge:
+	@set -e; \
+	git checkout $(STAGING_BRANCH); \
+	$(MAKE) gitpull BRANCH=$(STAGING_BRANCH); \
+	git checkout $(PROD_BRANCH); \
+	git pull origin $(PROD_BRANCH); \
+	if git diff --quiet $(PROD_BRANCH)..$(STAGING_BRANCH); then \
+	  git checkout $(STAGING_BRANCH); \
+	  echo "⭕️ No differences to merge. Now you're in $(STAGING_BRANCH) branch"; \
+	  exit 0; \
+	fi; \
+	git merge --no-ff --no-edit $(STAGING_BRANCH); \
+	git push origin $(PROD_BRANCH); \
+	echo "❇️ Merged and pushed to $(PROD_BRANCH). Now ready to deploy👌👌👌."
