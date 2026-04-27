@@ -70,12 +70,12 @@
   justify-content: center;
   align-items: center;
 
-  height: 2rem;
+  height: 3rem;
   /* background-color: #eee; */
 
   position: sticky;
   z-index: 2;
-  top: -2.5rem;
+  top: -3.5rem;
   container-type: scroll-state;
 
   & ul {
@@ -89,13 +89,13 @@
     color: CanvasText;
 
     scroll-target-group: auto;
-    transition: all 0.3s var(--ease-sine-out), background-color 0.1s linear;
+    transition: all 0.5s var(--ease-sine-out), background-color 0.1s linear;
 
     a {
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 2rem;
+      height: 3rem;
       padding-inline: 0.5rem;
 
       text-decoration: none;
@@ -132,7 +132,7 @@
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     outline: 2px solid GrayText;
     backdrop-filter: blur(5px);
-    translate: 0 3rem;
+    translate: 0 4rem;
 
     .line {
       display: block;

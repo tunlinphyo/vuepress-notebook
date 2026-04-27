@@ -12,6 +12,9 @@
   rel="stylesheet"
   fetchpriority="high">
 <link href="https://fonts.googleapis.com/css2?family=Flow+Block&display=swap" rel="stylesheet">
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0&display=block">
 <style>
 :root {
   color-scheme: light dark;
@@ -22,10 +25,10 @@
   font-style: normal;
   font-size: 100%;
 
-  --padding-x: 0.5rem;
+  --accent: light-dark(deeppink, deepskyblue);
   --surface: light-dark(
-    color-mix(in oklab, Canvas, CanvasText 10%),
-    color-mix(in oklab, Canvas, CanvasText 25%)
+    color-mix(in oklab, Canvas, CanvasText 5%),
+    color-mix(in oklab, Canvas, CanvasText 10%)
   );
 }
 
@@ -36,12 +39,12 @@
 :where(html,body) {
   margin: 0;
   padding: 0;
-  background-color: light-dark(var(--surface), Canvas);
+  background-color: var(--surface);
   color: CanvasText;
 }
 
 :where(html) {
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth; */
   container-type: scroll-state size;
 }
 
@@ -54,37 +57,54 @@
   translate: -50% 0;
 
   display: flex;
-  gap: 2rem;
+  gap: 3rem;
   align-items: center;
+  white-space: nowrap;
 
-  padding: 0.75rem 2.5rem;
+  padding: 0.75rem 1.5rem;
   border-radius: 100vh;
 
   background: Canvas;
-  border: 1px solid oklch(from CanvasText l c h / 0.5);
+  border: 1px solid oklch(from CanvasText l c h / 0.2);
 
   transition: all 0.5s var(--ease-sine-out);
   transition-behavior: allow-discrete;
 
   & span {
     font-size: 0.9rem;
+    color: var(--accent);
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+
+    &::after {
+      content: 'arrows_outward';
+      font-family: "Material Symbols Outlined";
+      font-weight: 200;
+      font-style: normal;
+      font-size: 1.25rem;
+      rotate: 90deg;
+      color: GrayText;
+    }
   }
 }
 
 @container scroll-state(scrolled: top) {
   .header {
-    animation: show-header 0.3s ease-out forwards;
+    animation: show-header 0.5s var(--ease-sine-out) forwards;
   }
 }
 
 @container scroll-state(scrolled: bottom) {
   .header {
-    animation: hide-header 0.3s ease-out forwards;
+    animation: hide-header 0.5s var(--ease-sine-in) forwards;
   }
 }
 
 @keyframes hide-header {
-  from {
+  from,10% {
     translate: -50% 0;
   }
   to {
@@ -93,7 +113,7 @@
 }
 
 @keyframes show-header {
-  from {
+  from,10% {
     translate: -50% -150%;
   }
   to {
@@ -113,29 +133,33 @@
   .hero {
     background:
       radial-gradient(circle at top, oklch(from CanvasText l c h / 0.2), transparent 50%),
-      Canvas;
+      var(--surface);
     text-align: center;
     padding-block-start: 4rem;
 
     & h1 {
-      max-width: 800px;
-      font-weight: 400;
+      font-weight: 200;
       margin: 0;
       font-size: clamp(2.5rem, 8vw, 6rem);
       line-height: 0.95;
     }
 
     & p {
-      max-width: 600px;
+      max-width: 20rem;
       margin: 1rem auto 0;
       color: CanvasText;
-      font-size: 1.1rem;
     }
   }
 
   section {
-    max-width: 18rem;
+    max-width: 20rem;
     margin: 1rem auto;
+
+    & h2 {
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-block: 1.5rem 0;
+    }
 
     & p {
       font-family: "Flow Block", system-ui;
@@ -179,6 +203,7 @@
   </div>
 
   <section>
+    <h2>Opening Notes</h2>
     <p>
       Lorem ipsum, dolor sit amet consectetur adipisicing elit. Perspiciatis consectetur, enim doloremque numquam accusamus libero aperiam reprehenderit nobis officiis deserunt! Iure blanditiis ratione facere nobis! Voluptatibus, tempore inventore. Accusamus, facilis.
     </p>
@@ -190,6 +215,7 @@
     </p>
   </section>
   <section>
+    <h2>Momentum Shift</h2>
     <p>
       Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio, nisi tempore repudiandae placeat similique obcaecati deleniti totam alias ab impedit neque ea fugit repellat! Iure necessitatibus natus sapiente veniam minima?
     </p>
@@ -201,6 +227,7 @@
     </p>
   </section>
   <section>
+    <h2>Reverse Course</h2>
     <p>
       Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio, nisi tempore repudiandae placeat similique obcaecati deleniti totam alias ab impedit neque ea fugit repellat! Iure necessitatibus natus sapiente veniam minima?
     </p>
@@ -212,6 +239,7 @@
     </p>
   </section>
   <section>
+    <h2>Final Pass</h2>
     <p>
       Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odio, nisi tempore repudiandae placeat similique obcaecati deleniti totam alias ab impedit neque ea fugit repellat! Iure necessitatibus natus sapiente veniam minima?
     </p>
