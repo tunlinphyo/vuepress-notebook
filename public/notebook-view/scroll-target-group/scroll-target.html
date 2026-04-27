@@ -186,6 +186,29 @@
 </style>
 </head>
 <body>
+<script>
+  // helper to stop parent iframe element jumping
+  if (window.self !== window.top) {
+    document.addEventListener('click', (event) => {
+      const link = event.target.closest('a[href^="#"]');
+      if (!link) return;
+
+      const target = document.querySelector(link.getAttribute('href'));
+      if (!target) return;
+
+      event.preventDefault()
+      event.stopImmediatePropagation();
+      event.stopPropagation()
+      const targetTop = target.getBoundingClientRect().top + window.scrollY;
+      const scrollPadding = Math.max(
+        parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0,
+        parseFloat(getComputedStyle(document.body).scrollPaddingTop) || 0
+      );
+      const scrollMargin = parseFloat(getComputedStyle(target).scrollMarginBlockStart) || 0;
+      window.scrollTo({ top: targetTop - scrollPadding - scrollMargin, behavior: 'smooth' });
+    });
+  }
+</script>
 <nav>
   <ul>
     <li><a href="#section-1">

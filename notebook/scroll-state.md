@@ -4,6 +4,24 @@
 
 <baseline-status featureId="container-scroll-state-queries"></baseline-status>
 
+## Stuck Menu Demo
+
+<ThemedIframe
+  src="/ui-view/scroll-stuck/index.html"
+  title="Fan List demo"
+  max-width="32rem"
+  height="20rem"
+/>
+
+## Show/hide Nav Demo
+
+<ThemedIframe
+  src="/notebook-view/scroll-state/auto-nav.html"
+  title="Animation Timeline"
+  max-width="32rem"
+  height="20rem"
+/>
+
 ## scroll-state(stuck: top)
 
 <ThemedIframe
