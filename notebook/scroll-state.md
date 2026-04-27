@@ -4,6 +4,48 @@
 
 <baseline-status featureId="container-scroll-state-queries"></baseline-status>
 
+## Stuck Menu Demo
+
+<ThemedIframe
+  src="/ui-view/scroll-stuck/index.html"
+  title="Fan List demo"
+  max-width="32rem"
+  height="20rem"
+/>
+
+## Show/hide Nav Demo
+
+<ThemedIframe
+  src="/notebook-view/scroll-state/auto-nav.html"
+  title="Animation Timeline"
+  max-width="32rem"
+  height="20rem"
+/>
+
+```css:line-numbers
+:where(html) {
+  container-type: scroll-state size;
+}
+@container scroll-state(scrolled: top) {
+  .header {
+    animation: show-header 0.5s var(--ease-sine-out) forwards;
+  }
+}
+@container scroll-state(scrolled: bottom) {
+  .header {
+    animation: hide-header 0.5s var(--ease-sine-in) forwards;
+  }
+}
+@keyframes hide-header {
+  from,10% { translate: -50% 0; }
+  to { translate: -50% -150%; }
+}
+@keyframes show-header {
+  from,10% { translate: -50% -150%; }
+  to { translate: -50% 0; }
+}
+```
+
 ## scroll-state(stuck: top)
 
 <ThemedIframe
