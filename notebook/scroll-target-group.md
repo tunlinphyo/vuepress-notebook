@@ -8,7 +8,7 @@
 
 <baseline-status featureId="attr"></baseline-status>
 
-## Scroll Target Demo
+## Mini Calendar
 
 This demo show how `scroll-target-group` can keep a compact in-page navigation in sync with the active section. Each day acts as a scroll target, and the generated markers let you jump between sections while the current target updates automatically as you scroll.
 Each event is positioned with `attr()`, so the layout can read `data-hour-start` and `data-hour-end` directly from the markup and map them into the day grid without extra JavaScript.

@@ -4,7 +4,7 @@
 
 <baseline-status featureId="container-scroll-state-queries"></baseline-status>
 
-## Stuck Nav Demo
+## Scroll Stuck
 
 <ThemedIframe
   src="/ui-view/scroll-stuck/index.html"
@@ -13,7 +13,7 @@
   height="20rem"
 />
 
-## Show/hide Nav Demo
+## Scroll Direction
 
 <ThemedIframe
   src="/notebook-view/scroll-state/auto-nav.html"
