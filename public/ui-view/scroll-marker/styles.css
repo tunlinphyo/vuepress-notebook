@@ -140,7 +140,7 @@
 
     & p {
       display: block;
-      color: oklch(from CanvasText l c h / 0.6);
+      color: oklch(from CanvasText l c h / 0.75);
     }
   }
 }
@@ -167,7 +167,7 @@
     }
 
     &.download {
-      width: 3.75rem;
+      width: 3.5rem;
       translate: -3.75rem 0;
       background-color: mediumslateblue;
       color: white;
@@ -178,7 +178,7 @@
       }
     }
     &.send {
-      width: 3.75rem;
+      width: 3.5rem;
       translate: 3.75rem 0;
       background-color: dodgerblue;
       color: white;
@@ -192,6 +192,8 @@
 }
 
 :where(.media--login) {
+  translate: 0.25rem 0;
+
   .wallet-small {
     width: 2.5rem;
     aspect-ratio: 1;
@@ -212,30 +214,42 @@
     }
   }
 
+  .code {
+    font-size: 1.1rem;
+  }
+
   .key {
-    color: oklch(from CanvasText l c h / 0.75);
+    color: light-dark(silver, darkgray);
+    --border: light-dark(darkgray, gray);
   }
 }
 
 :where(.media--web) {
   .globe {
-    width: 7rem;
+    width: calc(7rem + 10px);
     aspect-ratio: 1;
     border-radius: 50%;
-    border: 0.5rem solid var(--surface);
+    background-color: light-dark(#0B689E, #074A71);
+    border: 5px solid var(--surface);
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+    background-image: url("/assets/images/world-map.png");
+    background-size: auto 100%;
+    background-repeat: repeat-x;
+    background-position: 0 center;
 
     & img {
       width: 100%;
       display: grid;
+      display: none;
     }
   }
 
   .explore {
     position: absolute;
 
-    width: 2.2rem;
-    height: 2.2rem;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 100%;
     background-color: var(--surface);
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
@@ -284,7 +298,7 @@
         animation: key-enter 0.6s var(--ease-spring-1);
       }
       .globe {
-        animation: globe-enter 0.6s var(--ease-spring-1), rotating 50s linear infinite;
+        animation: globe-enter 0.6s var(--ease-spring-1), globe-spin 30s linear infinite;;
       }
       .explore {
         animation: explore-enter 0.6s var(--ease-spring-1);
