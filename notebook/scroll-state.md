@@ -4,7 +4,7 @@
 
 <baseline-status featureId="container-scroll-state-queries"></baseline-status>
 
-## Stuck Menu Demo
+## Stuck Nav Demo
 
 <ThemedIframe
   src="/ui-view/scroll-stuck/index.html"

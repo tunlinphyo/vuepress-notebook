@@ -122,7 +122,9 @@
 }
 
 :where(main) {
-  padding-block-end: 1rem;
+  padding: 1rem;
+  padding-block-start: 0;
+
   .hero {
     min-height: 100vh;
     display: grid;
@@ -138,7 +140,7 @@
     padding-block-start: 4rem;
 
     & h1 {
-      font-weight: 200;
+      font-weight: 100;
       margin: 0;
       font-size: clamp(2.5rem, 8vw, 6rem);
       line-height: 0.95;
