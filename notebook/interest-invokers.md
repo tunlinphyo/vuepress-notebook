@@ -11,7 +11,7 @@ Unlike command invokers, which only work on button elements, interest invokers c
 
 ----
 
-## Interestfor Demo
+## Remote Interestfor
 
 Hover the remote buttons below and verify that a popover appears for the hovered button.
 

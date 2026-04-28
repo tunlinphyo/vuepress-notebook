@@ -8,7 +8,7 @@
 
 <baseline-status featureId="scroll-markers"></baseline-status>
 
-## Fancy Slide Demo
+## Fancy Slide
 
 This slider combines native scroll controls, linked targets, and scroll-state driven layout changes using only CSS. The carousel uses `::scroll-button()` to render built-in previous and next controls, the side links use `scroll-target-group` so the active target stays in sync with the scroller, and each slide participates in a `scroll-state()` container query so the snapped item can expand into the featured card.
 
@@ -18,6 +18,33 @@ This slider combines native scroll controls, linked targets, and scroll-state dr
   max-width="32rem"
   height="20rem"
 />
+
+## Fancy Slide with Marker
+
+This marker variation turns the carousel into a compact mood-board stack. `scroll-marker-group` builds the pagination rail, while `::scroll-marker:target-current` highlights the active slide.
+
+Reference: [Pinterest pin](https://www.pinterest.com/pin/608619337175374277/)
+
+<ThemedIframe
+  src="/ui-view/scroll-marker/index.html"
+  title="Fan List demo"
+  max-width="20rem"
+  height="24rem"
+/>
+
+It uses a small script to remember the previous snapped slide index, which lets the incoming card choose a direction-aware animation.
+
+```js
+const carousel = document.querySelector('.carousel')
+
+carousel?.addEventListener('scrollsnapchanging', event => {
+  event.snapTargetInline.querySelector('.card').dataset.previndex = carousel.dataset.previndex
+})
+
+carousel?.addEventListener('scrollsnapchange', event => {
+  carousel.dataset.previndex = event.snapTargetInline.dataset.index
+})
+```
 
 ## Scroll Button
 

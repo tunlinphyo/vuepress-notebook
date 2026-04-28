@@ -227,10 +227,10 @@
       aspect-ratio: 1;
       border: 1px solid currentColor;
       border-radius: 50%;
-  
+
       display: grid;
       place-content: center;
-  
+
       font-family: "Material Symbols Outlined";
       font-weight: 600;
       font-style: normal;
