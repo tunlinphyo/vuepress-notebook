@@ -105,9 +105,11 @@
 @keyframes wallet-small-enter-bottom {
   from {
     translate: 4rem 0.5rem;
+    scale: 0.9;
   }
   to {
     translate: 0 0;
+    scale: 1;
   }
 }
 @keyframes code-enter {
