@@ -28,12 +28,12 @@
 }
 @container scroll-state(scrolled: top) {
   .header {
-    animation: show-header 0.5s var(--ease-sine-out) forwards;
+    animation: show-header 0.5s var(--ease-sine-in) forwards;
   }
 }
 @container scroll-state(scrolled: bottom) {
   .header {
-    animation: hide-header 0.5s var(--ease-sine-in) forwards;
+    animation: hide-header 0.5s var(--ease-sine-out) forwards;
   }
 }
 @keyframes hide-header {
