@@ -155,7 +155,7 @@
   :is(section) {
     max-width: 22rem;
     margin: 0 auto;
-    scroll-margin-block-start: 3rem;
+    scroll-margin-block-start: 4.5rem;
 
     & h2 {
       font-size: 1.5rem;
