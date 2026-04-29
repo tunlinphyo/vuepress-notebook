@@ -7,7 +7,7 @@
 
 <ThemedIframe
   src="/notebook-view/pseudo-elements/details-content.html"
-  title="Fan List demo"
+  title="::details-content"
   max-width="20rem"
   height="24rem"
 />
@@ -69,7 +69,7 @@ details {
 
 <ThemedIframe
   src="/notebook-view/pseudo-elements/marker.html"
-  title="Fan List demo"
+  title="::marker"
   max-width="20rem"
   height="24rem"
 />
@@ -97,7 +97,7 @@ li::marker {
 
 <ThemedIframe
   src="/notebook-view/pseudo-elements/selection.html"
-  title="Fan List demo"
+  title="::selection"
   max-width="20rem"
   height="24rem"
 />

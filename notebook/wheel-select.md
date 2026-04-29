@@ -4,7 +4,7 @@
 
 <ThemedIframe
   src="/notebook/wheel-select/index.html"
-  title="Fan List demo"
+  title="UI View"
   max-width="40rem"
   height="24rem"
 />

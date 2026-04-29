@@ -8,7 +8,7 @@
 
 <ThemedIframe
   src="/notebook-view/dialog-closedby/dialog.html"
-  title="Fan List demo"
+  title="Closedby"
   max-width="24rem"
   height="20rem"
 />

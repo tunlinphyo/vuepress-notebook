@@ -8,7 +8,7 @@
 
 <ThemedIframe
   src="/notebook-view/clip-path/title.html"
-  title="Fan List demo"
+  title="Cut Titles"
   max-width="24rem"
   height="20rem"
 />
@@ -27,7 +27,7 @@ This version cuts the title with a simple polygon so only the top portion stays 
 
 <ThemedIframe
   src="/notebook-view/clip-path/light-dark.html"
-  title="Fan List demo"
+  title="Theme Changer"
   max-width="32rem"
   height="20rem"
 />
@@ -101,7 +101,7 @@ new MutationObserver(syncSunMoonTheme).observe(root, {
 
 <ThemedIframe
   src="/notebook-view/clip-path/browser.html"
-  title="Fan List demo"
+  title="Browser"
   max-width="32rem"
   height="20rem"
 />

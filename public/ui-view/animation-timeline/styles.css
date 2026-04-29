@@ -9,7 +9,7 @@
 }
 
 :root {
-  --theme: light-dark(deeppink, deepskyblue);
+  --theme: light-dark(orangered, chartreuse);
   --ease-sine-out: cubic-bezier(.39,.575,.565,1);
 }
 

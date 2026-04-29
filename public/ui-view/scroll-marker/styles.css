@@ -221,6 +221,7 @@
   .key {
     color: light-dark(silver, darkgray);
     --border: light-dark(darkgray, gray);
+    filter: drop-shadow(0 0 1px #0009);
   }
 }
 
@@ -229,7 +230,7 @@
     width: calc(7rem + 10px);
     aspect-ratio: 1;
     border-radius: 50%;
-    background-color: light-dark(#0B689E, #074A71);
+    background-color: light-dark(#368DC5, #074A71);
     border: 5px solid var(--surface);
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 

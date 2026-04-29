@@ -20,7 +20,7 @@
 
 <ThemedIframe
   src="/notebook-view/invoker-commands/dialog.html"
-  title="Fan List demo"
+  title="Dialog"
   max-width="24rem"
   height="20rem"
 />
@@ -103,7 +103,7 @@ dialog.addEventListener('command', (e) => {
 
 <ThemedIframe
   src="/notebook-view/invoker-commands/fan-menu.html"
-  title="Fan List demo"
+  title="Fan Menu"
   max-width="20rem"
   height="24rem"
 />
@@ -186,7 +186,7 @@ dialog.addEventListener('command', (e) => {
 
 <ThemedIframe
   src="/notebook-view/invoker-commands/mini-app.html"
-  title="Fan List demo"
+  title="Mini App"
   max-width="20rem"
   height="24rem"
 />

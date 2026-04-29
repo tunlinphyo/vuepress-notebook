@@ -6,7 +6,7 @@
 
 <ThemedIframe
   src="/notebook-view/counter-style.html"
-  title="Fan List demo"
+  title="@counter-style"
   max-width="20rem"
   height="24rem"
 />
