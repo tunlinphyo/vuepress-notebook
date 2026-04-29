@@ -8,7 +8,7 @@
 
 <ThemedIframe
   src="/ui-view/scroll-stuck/index.html"
-  title="Fan List demo"
+  title="Scroll Stuck"
   max-width="32rem"
   height="20rem"
 />
@@ -17,7 +17,7 @@
 
 <ThemedIframe
   src="/notebook-view/scroll-state/auto-nav.html"
-  title="Animation Timeline"
+  title="Scroll Direction"
   max-width="32rem"
   height="20rem"
 />
@@ -50,7 +50,7 @@
 
 <ThemedIframe
   src="/notebook-view/scroll-state/stuck.html"
-  title="Fan List demo"
+  title="scroll-state(stuck: top)"
   max-width="20rem"
   height="24rem"
 />
@@ -92,7 +92,7 @@ stuck: none | top | right | bottom | left | block-start | inline-start | block-e
 
 <ThemedIframe
   src="/notebook-view/scroll-state/snapped.html"
-  title="Fan List demo"
+  title="scroll-state(snapped: x)"
   max-width="24rem"
   height="18rem"
 />
@@ -145,7 +145,7 @@ snappe: none | x | y | block | inline | both
 
 <ThemedIframe
   src="/notebook-view/scroll-state/scrollable.html"
-  title="Fan List demo"
+  title="scroll-state(scrollable: top)"
   max-width="20rem"
   height="20rem"
 />

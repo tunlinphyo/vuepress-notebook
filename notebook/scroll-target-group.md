@@ -22,7 +22,7 @@ Each event is positioned with `attr()`, so the layout can read `data-hour-start`
 
 <ThemedIframe
   src="/ui-view/mini-calendar/index.html"
-  title="Fan List demo"
+  title="Mini Calendar"
   max-width="20rem"
   height="24rem"
 />
@@ -31,7 +31,7 @@ Each event is positioned with `attr()`, so the layout can read `data-hour-start`
 
 <ThemedIframe
   src="/notebook-view/scroll-target-group/scroll-marker.html"
-  title="Fan List demo"
+  title="Scroll Marker Group"
   max-width="25rem"
   height="20rem"
 />
@@ -81,7 +81,7 @@ Each event is positioned with `attr()`, so the layout can read `data-hour-start`
 
 <ThemedIframe
   src="/notebook-view/scroll-target-group/scroll-target.html"
-  title="Fan List demo"
+  title="Scroll Target Group"
   max-width="25rem"
   height="20rem"
 />

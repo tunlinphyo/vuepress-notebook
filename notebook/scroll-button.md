@@ -14,7 +14,7 @@ This slider combines native scroll controls, linked targets, and scroll-state dr
 
 <ThemedIframe
   src="/ui-view/scroll-button/index.html"
-  title="Fan List demo"
+  title="Fancy Slide"
   max-width="32rem"
   height="20rem"
 />
@@ -27,7 +27,7 @@ Reference: [Pinterest pin](https://www.pinterest.com/pin/608619337175374277/)
 
 <ThemedIframe
   src="/ui-view/scroll-marker/index.html"
-  title="Fan List demo"
+  title="Fancy Slide with Marker"
   max-width="20rem"
   height="24rem"
 />
@@ -50,7 +50,7 @@ carousel?.addEventListener('scrollsnapchange', event => {
 
 <ThemedIframe
   src="/notebook-view/scroll-markers/scroll-button.html"
-  title="Fan List demo"
+  title="Scroll Button"
   max-width="28rem"
   height="20rem"
 />
@@ -109,7 +109,7 @@ carousel?.addEventListener('scrollsnapchange', event => {
 
 <ThemedIframe
   src="/notebook-view/scroll-markers/scroll-marker.html"
-  title="Fan List demo"
+  title="Scroll Marker Group"
   max-width="28rem"
   height="20rem"
 />
@@ -156,7 +156,7 @@ carousel?.addEventListener('scrollsnapchange', event => {
 
 <ThemedIframe
   src="/notebook-view/scroll-markers/products.html"
-  title="Fan List demo"
+  title="Scroll Button (Multiple)"
   max-width="28rem"
   height="22rem"
 />

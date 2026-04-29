@@ -12,7 +12,7 @@
 
 <ThemedIframe
   src="/notebook-view/motion-path/select.html"
-  title="Fan List demo"
+  title="offset-path"
   max-width="24rem"
   height="24rem"
 />
@@ -79,7 +79,7 @@ I also built a related version at [Custom Select](./customizable-select.md#selec
 
 <ThemedIframe
   src="/notebook-view/motion-path/people.html"
-  title="Fan List demo"
+  title="People"
   max-width="20rem"
   height="24rem"
 />

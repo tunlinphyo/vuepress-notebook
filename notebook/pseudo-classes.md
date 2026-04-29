@@ -1,11 +1,41 @@
 # Pseudo Classes
 
+## :has()
+<baseline-status featureId="has"></baseline-status>
+
+<ThemedIframe
+  src="/notebook-view/pseudo-classes/has-card.html"
+  title=":has()"
+  max-width="28rem"
+  height="18rem"
+/>
+
+Reference: [Pinterest pin](https://www.pinterest.com/pin/858709853986555628/)
+
+```css:line-numbers
+
+:where(main:has(a:hover)) {
+  .email-container {
+    color: var(--muted);
+  }
+}
+:where(main:has(.name:hover)) {
+  .name-container {
+    color: var(--accent);
+    &::after {
+      opacity: 1;
+      translate: 0 0;
+    }
+  }
+}
+```
+
 ## :any-link
 <baseline-status featureId="link-selectors"></baseline-status>
 
 <ThemedIframe
   src="/notebook-view/pseudo-classes/any-link.html"
-  title="Fan List demo"
+  title=":any-link"
   max-width="20rem"
   height="24rem"
 />
@@ -22,7 +52,7 @@ a:any-link {
 
 <ThemedIframe
   src="/notebook-view/pseudo-classes/empty.html"
-  title="Fan List demo"
+  title=":empty"
   max-width="20rem"
   height="24rem"
 />
@@ -42,12 +72,12 @@ a:any-link {
 }
 ```
 
-## :has()
+<!-- ## :has()
 <baseline-status featureId="has"></baseline-status>
 
 <ThemedIframe
   src="/notebook-view/pseudo-classes/has.html"
-  title="Fan List demo"
+  title=":has()"
   max-width="28rem"
   height="20rem"
 />
@@ -62,5 +92,4 @@ a:any-link {
     grid-template-rows: 1fr 1fr;
   }
 }
-```
-
+``` -->

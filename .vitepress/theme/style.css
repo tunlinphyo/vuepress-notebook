@@ -54,10 +54,10 @@
   --vp-c-default-3: var(--vp-c-gray-3);
   --vp-c-default-soft: var(--vp-c-gray-soft);
 
-  --vp-c-brand-1: light-dark(deeppink, deepskyblue);
-  --vp-c-brand-2: light-dark(#ff4fb3, #33cfff);
-  --vp-c-brand-3: light-dark(#ff80c7, #66dcff);
-  --vp-c-brand-soft: light-dark(rgba(255, 20, 147, 0.14), rgba(0, 191, 255, 0.14));
+  --vp-c-brand-1: light-dark(orangered, chartreuse);
+  --vp-c-brand-2: light-dark(#ff6a33, #8fff33);
+  --vp-c-brand-3: light-dark(#ff8c66, #b1ff66);
+  --vp-c-brand-soft: light-dark(rgba(255, 69, 0, 0.14), rgba(127, 255, 0, 0.14));
 
   --vp-c-tip-1: var(--vp-c-brand-1);
   --vp-c-tip-2: var(--vp-c-brand-2);

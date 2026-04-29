@@ -40,13 +40,16 @@
 :where(.card) {
   width: 20rem;
   height: 22rem;
-  background-color: color-mix(in oklab, Highlight, transparent 10%);
+  background-color: light-dark(
+    oklch(from Highlight 0.8 c h / 1),
+    oklch(from Highlight 0.2 c h / 1)
+  );
   background-image: url(https://tun-online.web.app/tunlinphyo.png);
   background-size: auto 80%;
   background-repeat: no-repeat;
   background-position: bottom -20% center;
   border: 2px solid color-mix(in oklab, Highlight, transparent 50%);
-  color: HighlightText;
+  color: CanvasText;
 
   overflow: clip;
   anchor-name: --about;
@@ -180,7 +183,10 @@
   overflow: clip;
   padding: 2rem;
 
-  background-color: oklch(from Highlight l c h / 1);
+  background-color: light-dark(
+    oklch(from Highlight 0.8 c h / 1),
+    oklch(from Highlight 0.2 c h / 1)
+  );
   border: 2px solid color-mix(in oklab, Highlight, transparent 50%);
   transition: all .3s var(--ease-sine-out);
   /* backdrop-filter: blur(15px); */

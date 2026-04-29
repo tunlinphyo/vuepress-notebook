@@ -7,7 +7,7 @@
 
 <ThemedIframe
   src="/notebook-view/pseudo-form-classes/autofill.html"
-  title="Fan List demo"
+  title=":autofill"
   max-width="20rem"
   height="24rem"
 />
@@ -30,7 +30,7 @@
 
 <ThemedIframe
   src="/notebook-view/pseudo-form-classes/form-validity.html"
-  title="Fan List demo"
+  title="form-validity-pseudos"
   max-width="20rem"
   height="24rem"
 />
@@ -59,7 +59,7 @@
 
 <ThemedIframe
   src="/notebook-view/pseudo-form-classes/user-pseudos.html"
-  title="Fan List demo"
+  title="user-pseudos"
   max-width="20rem"
   height="24rem"
 />

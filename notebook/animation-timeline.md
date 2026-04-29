@@ -14,7 +14,7 @@ This demo is best viewed on a large screen.
 
 <ThemedIframe
   src="/ui-view/animation-timeline/index.html"
-  title="Animation Timeline"
+  title="Timeline"
   max-width="32rem"
   height="20rem"
 />
@@ -23,7 +23,7 @@ This demo is best viewed on a large screen.
 
 <ThemedIframe
   src="/notebook-view/animation-timeline/scroll.html"
-  title="Fan List demo"
+  title="scroll()"
   max-width="24rem"
   height="20rem"
 />
@@ -71,7 +71,7 @@ Always declare `animation-timeline` after `animation`; otherwise, it will be ove
 
 <ThemedIframe
   src="/notebook-view/animation-timeline/view.html"
-  title="Fan List demo"
+  title="view()"
   max-width="20rem"
   height="28rem"
 />
@@ -118,7 +118,7 @@ ENTRY-CROSSING 0% = ENTRY 0% = COVER 0%
 
 <ThemedIframe
   src="/notebook-view/animation-timeline/timeline-name.html"
-  title="Fan List demo"
+  title="scroll-timeline-name"
   max-width="28rem"
   height="20rem"
 />

@@ -8,7 +8,7 @@
 
 <ThemedIframe
   src="/notebook-view/customizable-select/circle-select.html"
-  title="Fan List demo"
+  title="Circle Select"
   max-width="24rem"
   height="20rem"
 />
@@ -130,7 +130,7 @@ This demo is inspired by this [CodePen](https://codepen.io/dylanbeattie/pen/dPGK
 
 <ThemedIframe
   src="/notebook-view/customizable-select/custom-select.html"
-  title="Fan List demo"
+  title="Custom Select"
   max-width="24rem"
   height="24rem"
 />

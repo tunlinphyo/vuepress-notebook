@@ -14,7 +14,7 @@ This demo combines CSS anchor positioning with the `commandfor` / `command="--to
 
 <ThemedIframe
   src="/ui-view/about-me-card/index.html"
-  title="About me card demo"
+  title="Anchor Demo"
   max-width="21rem"
   height="23rem"
 />
@@ -25,7 +25,7 @@ This demo combines CSS anchor positioning with the `commandfor` / `command="--to
 
 <ThemedIframe
   src="/notebook-view/anchor/position-anchor.html"
-  title="Fan List demo"
+  title="position-try-fallbacks"
   max-width="20rem"
   height="24rem"
 />
@@ -91,7 +91,7 @@ This demo combines CSS anchor positioning with the `commandfor` / `command="--to
 
 <ThemedIframe
   src="/notebook-view/motion-path/people.html"
-  title="Fan List demo"
+  title="anchor-scope"
   max-width="20rem"
   height="24rem"
 />
@@ -210,7 +210,7 @@ Tested in Chrome 146.0.7680.178.
 
 <ThemedIframe
   src="/notebook-view/anchor/anchor-hover.html"
-  title="Fan List demo"
+  title="transition between anchor-name"
   max-width="24rem"
   height="20rem"
 />
@@ -243,7 +243,7 @@ Tested in Chrome 146.0.7680.178.
 
 <ThemedIframe
   src="/notebook-view/anchor/anchor-card.html"
-  title="Fan List demo"
+  title="anchor-card"
   max-width="32rem"
   height="20rem"
 />

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scroll State</title>
+<title>Fancy Slide with Marker</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,21 +18,6 @@
 <link rel="stylesheet" href="./keyframes.css" />
 </head>
 <body>
-<script>
-  // helper to stop parent iframe element jumping
-  if (window.self !== window.top) {
-    document.addEventListener('click', (event) => {
-      const link = event.target.closest('a[href^="#"]');
-      if (!link) return;
-
-      const target = document.querySelector(link.getAttribute('href'));
-      if (!target) return;
-
-      event.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-    });
-  }
-</script>
 <main>
   <ul class="carousel">
     <li class="carousel-item" data-index="1">

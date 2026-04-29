@@ -17,7 +17,7 @@ Hover the remote buttons below and verify that a popover appears for the hovered
 
 <ThemedIframe
   src="/notebook-view/interest-invokers/remote.html"
-  title="Fan List demo"
+  title="Remote Interestfor"
   max-width="20rem"
   height="24rem"
 />
@@ -26,7 +26,7 @@ Hover the remote buttons below and verify that a popover appears for the hovered
 
 <ThemedIframe
   src="/notebook-view/interest-invokers/interestfor.html"
-  title="Fan List demo"
+  title="interestfor"
   max-width="24rem"
   height="20rem"
 />
@@ -66,7 +66,7 @@ iframe.addEventListener('load', () => {
 
 <ThemedIframe
   src="/notebook-view/interest-invokers/mega-menu.html"
-  title="Fan List demo"
+  title="Mega Menu"
   max-width="28rem"
   height="20rem"
 /> -->
