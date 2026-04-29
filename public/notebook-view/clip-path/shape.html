@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>shape()</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap"
+  rel="stylesheet"
+  fetchpriority="high">
+<style>
+:root {
+  color-scheme: light dark;
+
+  font-family: "Google Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 100%;
+
+  --accent: light-dark(orangered, chartreuse);
+  --surface: light-dark(
+    color-mix(in oklab, Canvas, CanvasText 10%),
+    color-mix(in oklab, Canvas, CanvasText 25%)
+  );
+}
+
+* {
+  box-sizing: border-box;
+}
+
+:where(html,body) {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: Canvas;
+  color: CanvasText;
+}
+
+:where(h1,p,button) {
+  all: unset;
+}
+
+:where(main) {
+  width: 100%;
+  padding: 2rem;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+:where(.box) {
+  width: 10rem;
+  aspect-ratio: 1;
+
+  background-color: var(--accent);
+
+  display: grid;
+  place-content: center;
+}
+
+:where(.box--one) {
+  --corner: 2rem;
+  --curve: 0rem;
+  clip-path: shape(
+    from var(--corner) 0%,
+    line to calc(100% - var(--corner)) 0%,
+    arc to 100% var(--corner) of var(--curve),
+    line to 100% calc(100% - var(--corner)),
+    arc to calc(100% - var(--corner)) 100% of var(--curve),
+    line to var(--corner) 100%,
+    arc to 0% calc(100% - var(--corner)) of var(--curve),
+    line to 0% var(--corner),
+    arc to var(--corner) 0% of var(--curve),
+    close
+  );
+}
+
+:where(.box--two) {
+  --corner: 3rem;
+  --curve: 0.5rem;
+  clip-path: shape(
+    from var(--corner) 0%,
+    line to calc(100% - var(--corner)) 0%,
+    curve to 100% var(--corner) with calc(100% - var(--curve)) 0% / 100% var(--curve),
+    line to 100% calc(100% - var(--corner)),
+    curve to calc(100% - var(--corner)) 100% with 100% calc(100% - var(--curve)) / calc(100% - var(--curve)) 100%,
+    line to var(--corner) 100%,
+    curve to 0% calc(100% - var(--corner)) with var(--curve) 100% / 0% calc(100% - var(--curve)),
+    line to 0% var(--corner),
+    curve to var(--corner) 0% with 0% var(--curve) / var(--curve) 0%,
+    close
+  );
+}
+
+
+:where([data-layer]) {
+  *, *::before, *::after {
+    outline: 1px dotted hotpink;
+  }
+}
+</style>
+</head>
+<body>
+<main>
+  <div class="box box--one"></div>
+  <div class="box box--two"></div>
+  <div class="box">
+    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 32 32" style="--stroke-color: #000">
+      <style>
+        .draw {
+          stroke-dasharray: 105;
+          stroke-dashoffset: 105;
+          animation: draw var(--duration) linear forwards;
+          animation-delay: var(--delay);
+        }
+
+        @keyframes draw {
+          to {
+            stroke-dashoffset: 0;
+          }
+        }
+      </style>
+      <g stroke="#000" stroke-width="1" fill="none">
+        <path class="draw" style="--duration: 300ms; --delay: 200ms" pathLength="100" d="M15 9v9Q15 28 10 24L5 19Q2 16 6 15L19 12"/>
+        <path class="draw" style="--duration: 200ms; --delay: calc(200ms + 300ms)" pathLength="100" d="M23 17C19 15 18 13 23 12Q27 11 24 9C20 7 21 6 28 1"/>
+        <path class="draw" style="--duration: 150ms; --delay: calc(200ms + 300ms + 200ms + 100ms)" pathLength="100" d="M4 10L5 13"/>
+        <path class="draw" style="--duration: 150ms; --delay: calc(200ms + 300ms + 200ms + 150ms + 100ms)" pathLength="100" d="M11 8L12 11"/>
+        <path class="draw" style="--duration: 100ms; --delay: calc(200ms + 300ms + 200ms + 150ms + 150ms + 100ms)" pathLength="100" d="M27 10L28 9"/>
+        <path class="draw" style="--duration: 100ms; --delay: calc(200ms + 300ms + 200ms + 150ms + 150ms + 100ms + 100ms)" pathLength="100" d="M27 15L28 14"/>
+      </g>
+    </svg>
+  </div>
+</main>
+</body>
+</html>

@@ -55,8 +55,8 @@
   --vp-c-default-soft: var(--vp-c-gray-soft);
 
   --vp-c-brand-1: light-dark(orangered, chartreuse);
-  --vp-c-brand-2: light-dark(#ff6a33, #8fff33);
-  --vp-c-brand-3: light-dark(#ff8c66, #b1ff66);
+  --vp-c-brand-2: light-dark(orangered, chartreuse);
+  --vp-c-brand-3: light-dark(orangered, chartreuse);
   --vp-c-brand-soft: light-dark(rgba(255, 69, 0, 0.14), rgba(127, 255, 0, 0.14));
 
   --vp-c-tip-1: var(--vp-c-brand-1);
@@ -152,4 +152,8 @@
   .adsense-mobile-only {
     display: none;
   }
+}
+
+.VPButton.brand {
+  color: #000 !important;
 }

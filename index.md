@@ -11,8 +11,11 @@ hero:
       text: Notebook
       link: /notebook/anchor
     - theme: alt
-      text: Modules
-      link: /polyfills/anchor-card
+      text: Reading and Tools
+      link: /notes
+    # - theme: alt
+    #   text: Modules
+    #   link: /polyfills/anchor-card
 
 features:
   - title: Timeline Animation

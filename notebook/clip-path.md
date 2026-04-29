@@ -97,6 +97,50 @@ new MutationObserver(syncSunMoonTheme).observe(root, {
 })
 ```
 
+## shape()
+
+<ThemedIframe
+  src="/notebook-view/clip-path/shape.html"
+  title="shape()"
+  max-width="32rem"
+  height="20rem"
+/>
+
+```css
+:where(.box--one) {
+  --corner: 2rem;
+  --curve: 0rem;
+  clip-path: shape(
+    from var(--corner) 0%,
+    line to calc(100% - var(--corner)) 0%,
+    arc to 100% var(--corner) of var(--curve),
+    line to 100% calc(100% - var(--corner)),
+    arc to calc(100% - var(--corner)) 100% of var(--curve),
+    line to var(--corner) 100%,
+    arc to 0% calc(100% - var(--corner)) of var(--curve),
+    line to 0% var(--corner),
+    arc to var(--corner) 0% of var(--curve),
+    close
+  );
+}
+:where(.box--two) {
+  --corner: 3rem;
+  --curve: 0.5rem;
+  clip-path: shape(
+    from var(--corner) 0%,
+    line to calc(100% - var(--corner)) 0%,
+    curve to 100% var(--corner) with calc(100% - var(--curve)) 0% / 100% var(--curve),
+    line to 100% calc(100% - var(--corner)),
+    curve to calc(100% - var(--corner)) 100% with 100% calc(100% - var(--curve)) / calc(100% - var(--curve)) 100%,
+    line to var(--corner) 100%,
+    curve to 0% calc(100% - var(--corner)) with var(--curve) 100% / 0% calc(100% - var(--curve)),
+    line to 0% var(--corner),
+    curve to var(--corner) 0% with 0% var(--curve) / var(--curve) 0%,
+    close
+  );
+}
+```
+
 ## Browser
 
 <ThemedIframe
