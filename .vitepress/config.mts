@@ -13,6 +13,7 @@ export default defineConfig({
   title: 'Cody Draft',
   description: "Tun's Code Drafts",
   head: [
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
     [
       'script',
       {
@@ -30,6 +31,12 @@ export default defineConfig({
     },
   },
   themeConfig: {
+    logo: {
+      light: '/assets/tun-light.svg',
+      dark: '/assets/tun-dark.svg',
+      alt: 'Cody Draft',
+    },
+
     // https://vitepress.dev/reference/default-theme-config
     // nav: [
     //   { text: 'Home', link: '/' },
