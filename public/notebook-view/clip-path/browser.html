@@ -21,7 +21,7 @@
   font-style: normal;
   font-size: 100%;
 
-  --padding-x: 0.5rem;
+  --accent: light-dark(orangered, chartreuse);
   --surface: light-dark(
     color-mix(in oklab, Canvas, CanvasText 10%),
     color-mix(in oklab, Canvas, CanvasText 25%)
@@ -134,7 +134,7 @@
     width: 100%;
     overflow: hidden;
     position: relative;
-    background-color: Highlight;
+    background-color: var(--accent);
 
     border-radius: 0 0 15px 15px;
     @supports(corner-shape: squircle) {
@@ -167,7 +167,7 @@
   left: 50%;
   top: 50%;
   translate: -50% -50%;
-  color: HighlightText;
+  color: Canvas;
 
   & h1 {
     width: max-content;

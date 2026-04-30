@@ -278,6 +278,24 @@
   }
 }
 
+@keyframes logoDraw {
+  0% {
+    stroke-dashoffset: 100;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes hideLogo {
+  0% {
+    scale: 1;
+  }
+  100% {
+    scale: 0.4;
+  }
+}
+
 @keyframes nameShow {
   0%,100%,
   40%,60% {
