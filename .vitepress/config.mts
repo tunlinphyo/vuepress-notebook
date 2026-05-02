@@ -70,7 +70,7 @@ export default defineConfig({
         items: [
           { text: 'anchor-card', link: '/polyfills/anchor-card' },
           { text: 'circle-select', link: '/polyfills/circle-select' },
-          // { text: 'dialog-polyfill', link: '/polyfills/dialog-polyfill' },
+          { text: 'cool-css', link: '/polyfills/cool-css' },
           { text: 'sun-moon', link: '/polyfills/sun-moon' },
           { text: 'toggle-polyfill', link: '/polyfills/toggle-polyfill' },
         ]
