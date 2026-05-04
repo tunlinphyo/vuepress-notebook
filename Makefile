@@ -11,7 +11,7 @@ dev:
 
 deploy:
 	@set -e; \
-	$(MAKE) gitpush BRANCH="$(DEV_BRANCH)"; \
+	$(MAKE) gitpush BRANCH="$(STAGING_BRANCH)"; \
 	$(MAKE) gitmerge; \
 	branch="$$(git rev-parse --abbrev-ref HEAD)"; \
 	if [ "$$branch" != "$(PROD_BRANCH)" ]; then \
