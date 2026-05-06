@@ -17,6 +17,7 @@ This demo is best viewed on a large screen.
   title="Timeline"
   max-width="32rem"
   height="20rem"
+  scrollToggle
 />
 
 ## scroll()
