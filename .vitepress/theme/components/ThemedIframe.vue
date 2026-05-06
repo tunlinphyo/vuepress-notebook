@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { nextTick, onMounted, ref, watch } from 'vue'
+import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import {
   hasInitializedSharedState,
   LAYER_STORAGE_KEY,
@@ -17,15 +17,21 @@ const props = withDefaults(
     title: string
     height?: string
     maxWidth?: string
+    scrollToggle?: boolean
   }>(),
   {
     height: '34rem',
-    maxWidth: '32rem'
+    maxWidth: '32rem',
+    scrollToggle: false,
   }
 )
 
 const iframeRef = ref<HTMLIFrameElement | null>(null)
 const isLoading = ref(true)
+const scrollToBottomEnabled = ref(false)
+let scrollAnimationFrame = 0
+
+const IFRAME_SCROLL_SPEED = 0.55
 
 function applyFrameSettings() {
   const iframe = iframeRef.value
@@ -42,9 +48,53 @@ function applyFrameSettings() {
   }
 }
 
+function stopIframeScroll() {
+  if (!scrollAnimationFrame) return
+
+  cancelAnimationFrame(scrollAnimationFrame)
+  scrollAnimationFrame = 0
+}
+
+function scrollIframeToBottom() {
+  stopIframeScroll()
+
+  if (!scrollToBottomEnabled.value) return
+
+  const doc = iframeRef.value?.contentDocument
+  const scrollTarget = doc?.scrollingElement ?? doc?.documentElement
+  if (!scrollTarget) return
+
+  let previousTime = 0
+  const step = (currentTime: number) => {
+    if (!scrollToBottomEnabled.value) {
+      stopIframeScroll()
+      return
+    }
+
+    const maxScrollTop = scrollTarget.scrollHeight - scrollTarget.clientHeight
+    if (scrollTarget.scrollTop >= maxScrollTop) {
+      scrollAnimationFrame = 0
+      scrollToBottomEnabled.value = false
+      return
+    }
+
+    const delta = previousTime ? currentTime - previousTime : 16
+    previousTime = currentTime
+    scrollTarget.scrollTop = Math.min(
+      scrollTarget.scrollTop + delta * IFRAME_SCROLL_SPEED,
+      maxScrollTop
+    )
+
+    scrollAnimationFrame = requestAnimationFrame(step)
+  }
+
+  scrollAnimationFrame = requestAnimationFrame(step)
+}
+
 function handleLoad() {
   isLoading.value = false
   applyFrameSettings()
+  scrollIframeToBottom()
 }
 
 function syncIframeState() {
@@ -53,6 +103,7 @@ function syncIframeState() {
 
   isLoading.value = false
   applyFrameSettings()
+  scrollIframeToBottom()
 }
 
 onMounted(() => {
@@ -79,11 +130,22 @@ watch(() => sharedSettings.layerEnabled, (enabled) => {
   applyFrameSettings()
 })
 
+watch(scrollToBottomEnabled, (enabled) => {
+  if (enabled) {
+    scrollIframeToBottom()
+  } else {
+    stopIframeScroll()
+  }
+})
+
 watch(() => props.src, async () => {
   isLoading.value = true
+  stopIframeScroll()
   await nextTick()
   syncIframeState()
 })
+
+onBeforeUnmount(stopIframeScroll)
 </script>
 
 <template>
@@ -143,6 +205,12 @@ watch(() => props.src, async () => {
       <label class="themed-iframe__switch">
         <span class="themed-iframe__switch-label">Layout Borders</span>
         <input v-model="sharedSettings.layerEnabled" type="checkbox" class="themed-iframe__switch-input">
+        <span class="themed-iframe__action-toggle" aria-hidden="true"></span>
+      </label>
+
+      <label class="themed-iframe__switch" v-if="scrollToggle">
+        <span class="themed-iframe__switch-label">Scroll Preview</span>
+        <input v-model="scrollToBottomEnabled" type="checkbox" class="themed-iframe__switch-input">
         <span class="themed-iframe__action-toggle" aria-hidden="true"></span>
       </label>
     </footer>
@@ -273,6 +341,8 @@ watch(() => props.src, async () => {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .themed-iframe__switch {
